@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 
 const Spline = dynamic(
   () => import('@splinetool/react-spline').then((mod) => mod.default),
-  { 
+  {
     ssr: false,
   }
 );
@@ -44,13 +44,13 @@ export default function PersistentSpline({ scene, containerId, style }: Persiste
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
       id={containerId}
-      style={{ 
-        width: '100%', 
+      style={{
+        width: '100%',
         height: '100%',
-        ...style 
+        ...style
       }}
     >
       <Spline

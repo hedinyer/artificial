@@ -1,14 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-
-const Spline = dynamic(
-  () => import('@splinetool/react-spline').then((mod) => mod.default),
-  { 
-    ssr: false,
-  }
-);
+import Spline from '@splinetool/react-spline';
 
 interface SplineBackgroundProps {
   scene: string;
@@ -41,10 +34,10 @@ export default function SplineBackground({ scene, className, style, isVisible = 
   }, [isVisible]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      style={{ 
-        width: '100%', 
+      style={{
+        width: '100%',
         height: '100%',
       }}
     >

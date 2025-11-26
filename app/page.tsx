@@ -243,10 +243,10 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile(); // Check initial size
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -261,8 +261,8 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
   const otherServices = enhancedServices.slice(1);
 
   return (
-    <section 
-      id="servicios" 
+    <section
+      id="servicios"
       className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20"
     >
       {/* Header Section */}
@@ -283,8 +283,8 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         {/* Featured Service - Large Card */}
         <div className="group relative overflow-hidden rounded-md border border-white/10 bg-white/5 md:col-span-2 hover:border-white/20 transition-all duration-300">
           <div className="relative">
-            <img 
-              src={featuredService.image} 
+            <img
+              src={featuredService.image}
               alt={featuredService.title}
               className="aspect-[5/2] w-full object-cover"
             />
@@ -304,7 +304,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
               {featuredService.description}
             </p>
             <div className="mt-1.5 flex flex-wrap items-center gap-1">
-              <a 
+              <a
                 href="#contacto"
                 className="inline-flex items-center gap-0.5 rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur hover:bg-white/10 transition-all duration-200"
               >
@@ -319,12 +319,12 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 </svg>
                 Solicitar cotización
               </a>
-              <a 
+              <a
                 href="#contacto"
                 className="inline-flex items-center gap-0.5 text-[10px] font-medium text-black bg-emerald-500 rounded px-2 py-0.5 hover:bg-emerald-400 transition-all duration-200"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                   className="h-2.5 w-2.5">
                   <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
                   <path d="m21.854 2.147-10.94 10.939"></path>
@@ -337,7 +337,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
 
         {/* Other Services - Smaller Cards */}
         {otherServices.map((service, index) => (
-          <div 
+          <div
             key={index}
             className="relative overflow-hidden rounded-lg border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-300 group"
           >
@@ -354,13 +354,13 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 {service.description}
               </p>
               <div className={`${index === otherServices.length - 1 ? 'mt-1.5' : 'mt-2.5'} rounded-md overflow-hidden border border-white/10 group-hover:border-white/20 transition-all duration-300`}>
-                <img 
-                  src={service.image} 
+                <img
+                  src={service.image}
                   alt={service.title}
                   className="aspect-[4/3] w-full object-cover"
                 />
               </div>
-              <a 
+              <a
                 href="#contacto"
                 className="mt-2.5 inline-flex items-center justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/90 backdrop-blur hover:bg-white/10 hover:text-white transition-all duration-200"
               >
@@ -382,22 +382,22 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6">
           Trabajamos con una amplia gama de industrias
         </h3>
-        <div 
+        <div
           className="relative h-32 sm:h-40 md:h-48 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-full flex flex-col gap-y-3 sm:gap-y-4 md:gap-y-6">
-              <ScrollVelocity 
-                texts={firstHalf} 
+              <ScrollVelocity
+                texts={firstHalf}
                 velocity={-20}
-                singleLine={true} 
-                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
+                singleLine={true}
+                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80"
               />
-              <ScrollVelocity 
-                texts={secondHalf} 
+              <ScrollVelocity
+                texts={secondHalf}
                 velocity={20}
-                singleLine={true} 
-                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
+                singleLine={true}
+                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80"
               />
             </div>
           </div>
@@ -428,8 +428,8 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center">
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="hero-button"
               style={{
                 background: 'radial-gradient(65.28% 65.28% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0) 100%), linear-gradient(0deg, #2563eb, #2563eb)',
@@ -441,8 +441,8 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
             >
               <div className="points_wrapper">
                 {[...Array(10)].map((_, i) => (
-                  <i 
-                    key={i} 
+                  <i
+                    key={i}
                     className="point"
                     style={{
                       left: `${[10, 30, 25, 44, 50, 75, 88, 58, 98, 65][i]}%`,
@@ -462,9 +462,9 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
               </span>
             </button>
 
-            <button className="group relative inline-flex items-center justify-center min-w-[120px] cursor-pointer rounded-xl px-[17px] py-3 text-white/70 tracking-tight font-semibold transition-all duration-[1000ms] ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:-translate-y-[3px] hover:scale-[1.1] hover:text-white" style={{boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)', background: 'radial-gradient(ellipse at bottom, rgba(71,81,92,1) 0%, rgba(0,0,0,1) 100%)'}}>
+            <button className="group relative inline-flex items-center justify-center min-w-[120px] cursor-pointer rounded-xl px-[17px] py-3 text-white/70 tracking-tight font-semibold transition-all duration-1000 ease-in-out hover:-translate-y-[3px] hover:scale-[1.1] hover:text-white" style={{ boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)', background: 'radial-gradient(ellipse at bottom, rgba(71,81,92,1) 0%, rgba(0,0,0,1) 100%)' }}>
               <span className="relative z-10 font-normal">Ver demo</span>
-              <span aria-hidden="true" className="absolute bottom-0 left-1/2 h-[1px] w-[70%] -translate-x-1/2 opacity-20 transition-all duration-[1000ms] ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:opacity-80" style={{background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)'}}></span>
+              <span aria-hidden="true" className="absolute bottom-0 left-1/2 h-[1px] w-[70%] -translate-x-1/2 opacity-20 transition-all duration-1000 ease-in-out group-hover:opacity-80" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)' }}></span>
             </button>
           </div>
         </div>
@@ -555,7 +555,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                     <div className="absolute inset-0 overflow-hidden">
                       <pre className="p-4 text-[10px] text-slate-300 font-mono leading-relaxed code-scroll">
                         <code className="block">
-{`<HeroSection isInicioActive={true}>
+                          {`<HeroSection isInicioActive={true}>
   <div className="hero-content">
     <h1 className="text-4xl font-bold">
       Multiplica tu productividad
@@ -700,7 +700,7 @@ const VentajasSection = memo(() => {
     const rect = card.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
+
     card.style.setProperty('--mouse-x', `${x}%`);
     card.style.setProperty('--mouse-y', `${y}%`);
   }, []);
@@ -710,18 +710,18 @@ const VentajasSection = memo(() => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          
+
           // Animate cards sequentially
           ventajas.forEach((_, index) => {
             setTimeout(() => {
               setAnimatedCards(prev => [...prev, index]);
             }, index * 150);
           });
-          
+
           observer.disconnect();
         }
       },
-      { 
+      {
         threshold: 0.1,
         rootMargin: '50px'
       }
@@ -738,16 +738,16 @@ const VentajasSection = memo(() => {
   }, []);
 
   return (
-    <section 
-      id="ventajas" 
+    <section
+      id="ventajas"
       className="min-h-screen py-16 sm:py-24 md:py-32 px-4 sm:px-5 relative overflow-hidden"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-black"></div>
-      
+
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
-        
+
         {/* Header - Mobile Optimized */}
         <div className="text-center mb-12 sm:mb-16 px-4">
           <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white max-w-4xl mx-auto leading-relaxed">
@@ -760,15 +760,14 @@ const VentajasSection = memo(() => {
           {ventajas.map((ventaja, index) => {
             const IconComponent = ventaja.icon;
             const isAnimated = animatedCards.includes(index);
-            
+
             return (
               <div
                 key={index}
-                className={`chroma-ventaja-card group relative overflow-hidden rounded-[20px] transition-all duration-700 transform sm:h-[320px] ${
-                  isAnimated 
-                    ? 'opacity-100 translate-y-0 scale-100' 
+                className={`chroma-ventaja-card group relative overflow-hidden rounded-[20px] transition-all duration-700 transform sm:h-[320px] ${isAnimated
+                    ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-20 scale-95'
-                }`}
+                  }`}
                 onMouseMove={handleMouseMove}
                 style={{
                   transitionDelay: `${index * 150}ms`,
@@ -784,32 +783,32 @@ const VentajasSection = memo(() => {
                 } as React.CSSProperties}
               >
                 {/* ChromaGrid-style spotlight effect */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
                   style={{
                     background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
                   }}
                 ></div>
-                
+
                 {/* Content Container - Mobile Optimized */}
                 <div className="relative z-20 p-4 sm:p-6 h-full flex flex-col justify-between">
-                  
+
                   {/* Header Section with Title - Mobile Layout */}
                   <div className="flex items-start justify-between mb-3 sm:mb-4">
                     {/* GIF Icon with ChromaGrid style - Mobile Size */}
                     <div className="relative">
                       <div className={`gif-container inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10 overflow-hidden transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3`}
-                           style={{
-                             boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)`
-                           }}>
+                        style={{
+                          boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)`
+                        }}>
                         {/* GIF with fallback */}
                         <div className="relative w-full h-full">
-                          <img 
+                          <img
                             src={`/card_benefits/${index + 1}.gif`}
                             alt={ventaja.title}
                             className="w-full h-full object-cover absolute inset-0 loaded"
-                            style={{ 
-                              minHeight: '48px', 
+                            style={{
+                              minHeight: '48px',
                               minWidth: '48px'
                             }}
                             onLoad={(e) => {
@@ -826,12 +825,12 @@ const VentajasSection = memo(() => {
                           </div>
                         </div>
                       </div>
-                      
+
                       {/* ChromaGrid-style particles */}
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-white/30 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-all duration-700"></div>
                       <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-all duration-700 delay-300"></div>
                     </div>
-                    
+
                     {/* Title - Mobile Optimized */}
                     <div className="flex-1 ml-3 sm:ml-4 text-center">
                       <h3 className="text-sm sm:text-base font-bold text-white leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-200 group-hover:bg-clip-text transition-all duration-500">
@@ -839,7 +838,7 @@ const VentajasSection = memo(() => {
                       </h3>
                     </div>
                   </div>
-                  
+
                   {/* Main Content - Mobile Optimized */}
                   <div className="flex-grow">
                     {/* Description with ChromaGrid style - Mobile Text Size */}
@@ -847,7 +846,7 @@ const VentajasSection = memo(() => {
                       {ventaja.description}
                     </p>
                   </div>
-                  
+
                   {/* Footer Section - Mobile Responsive */}
                   <div className="space-y-2 sm:space-y-3">
                     {/* Benefit with ChromaGrid card style - Mobile Optimized */}
@@ -866,7 +865,7 @@ const VentajasSection = memo(() => {
                         )}
                       </div>
                     )}
-                    
+
                     {/* Metric with ChromaGrid style - Mobile Optimized */}
                     {ventaja.metric && (
                       <div className="pt-2 sm:pt-3 border-t border-white/10 group-hover:border-white/20 transition-colors duration-500">
@@ -885,7 +884,7 @@ const VentajasSection = memo(() => {
                     )}
                   </div>
                 </div>
-                
+
                 {/* ChromaGrid-style border effect */}
                 <div className="absolute inset-0 rounded-[20px] border border-gray-600/30 group-hover:border-gray-500/50 transition-all duration-700"></div>
               </div>
@@ -911,7 +910,7 @@ const HistoriaSection = memo(() => {
     const rect = card.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
+
     card.style.setProperty('--mouse-x', `${x}%`);
     card.style.setProperty('--mouse-y', `${y}%`);
   }, []);
@@ -921,18 +920,18 @@ const HistoriaSection = memo(() => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          
+
           // Animate elements sequentially
           [0, 1].forEach((index) => {
             setTimeout(() => {
               setAnimatedElements(prev => [...prev, index]);
             }, index * 200);
           });
-          
+
           observer.disconnect();
         }
       },
-      { 
+      {
         threshold: 0.1,
         rootMargin: '50px'
       }
@@ -955,8 +954,8 @@ const HistoriaSection = memo(() => {
   };
 
   return (
-    <section 
-      id="historia" 
+    <section
+      id="historia"
       className="min-h-screen py-8 sm:py-24 md:py-32 px-4 sm:px-5 relative overflow-hidden flex flex-col justify-center items-center sm:block"
       style={{ willChange: 'auto' }}
     >
@@ -965,27 +964,26 @@ const HistoriaSection = memo(() => {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         {/* Team Section */}
-        <div className={`mb-12 sm:mb-20 transition-all duration-1000 delay-300 ${
-          animatedElements.includes(0) 
-            ? 'opacity-100 translate-y-0' 
+        <div className={`mb-12 sm:mb-20 transition-all duration-1000 delay-300 ${animatedElements.includes(0)
+            ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-20'
-        }`}>
+          }`}>
           <div className="relative">
             {/* Desktop Fade-in text for Mauricio (left) */}
             <div
               className={`hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-0 -translate-x-[14.5rem] text-left transition-opacity duration-500 ${getFlipped(1) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              style={{minWidth: 'max-content'}}>
+              style={{ minWidth: 'max-content' }}>
               <span className="font-bold text-white text-lg">Andrea Rodriguez Jerez</span><br />
               <span className="text-gray-300 text-sm">Industrial designer, UI/UX and branding.</span>
             </div>
             {/* Desktop Fade-in text for Andrea (right) */}
             <div
               className={`hidden lg:block absolute right-full top-1/2 -translate-y-1/2 mr-0 translate-x-[14.5rem] text-right transition-opacity duration-500 ${getFlipped(0) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              style={{minWidth: 'max-content'}}>
+              style={{ minWidth: 'max-content' }}>
               <span className="font-bold text-white text-lg">Mauricio Perucho Sequeda</span><br />
               <span className="text-gray-300 text-sm">Generative AI, data science and engineering.</span>
             </div>
-            
+
             {/* Cards Container - Optimized for Small Mobile Screens */}
             <div
               className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-8 max-w-[340px] sm:max-w-md lg:max-w-3xl mx-auto px-2 sm:px-4 lg:px-0"
@@ -1010,24 +1008,24 @@ const HistoriaSection = memo(() => {
                 >
                   {/* Front Side */}
                   <div className="absolute inset-0"
-                       style={{
-                         willChange: 'transform, opacity',
-                         '--mouse-x': '50%',
-                         '--mouse-y': '50%',
-                         '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
-                         border: '1px solid rgba(75, 85, 99, 0.3)',
-                         background: 'white',
-                         borderRadius: '0px',
-                         backfaceVisibility: 'hidden'
-                       } as React.CSSProperties}>
-                    <div 
+                    style={{
+                      willChange: 'transform, opacity',
+                      '--mouse-x': '50%',
+                      '--mouse-y': '50%',
+                      '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                      background: 'white',
+                      borderRadius: '0px',
+                      backfaceVisibility: 'hidden'
+                    } as React.CSSProperties}>
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
                       style={{
                         background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
                       }}
                     ></div>
                     <div className="relative z-20 w-full h-full flex items-center justify-center">
-                      <div 
+                      <div
                         className="w-full h-full"
                         style={{
                           background: `url('/m.png') center/cover, url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E")`,
@@ -1038,16 +1036,16 @@ const HistoriaSection = memo(() => {
                   </div>
                   {/* Back Side */}
                   <div className="absolute inset-0 bg-white border border-gray-300 flex items-center justify-center"
-                       style={{
-                         borderRadius: '0px',
-                         backfaceVisibility: 'hidden',
-                         transform: 'rotateY(180deg)'
-                       }}>
+                    style={{
+                      borderRadius: '0px',
+                      backfaceVisibility: 'hidden',
+                      transform: 'rotateY(180deg)'
+                    }}>
                     <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-gray-800">1</div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Andrea Card - Optimized for iPhone 13 mini dimensions */}
               <div
                 className="group relative h-[240px] sm:h-[280px] lg:h-[600px] cursor-pointer"
@@ -1066,24 +1064,24 @@ const HistoriaSection = memo(() => {
                 >
                   {/* Front Side */}
                   <div className="absolute inset-0"
-                       style={{
-                         willChange: 'transform, opacity',
-                         '--mouse-x': '50%',
-                         '--mouse-y': '50%',
-                         '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
-                         border: '1px solid rgba(75, 85, 99, 0.3)',
-                         background: 'white',
-                         borderRadius: '0px',
-                         backfaceVisibility: 'hidden'
-                       } as React.CSSProperties}>
-                    <div 
+                    style={{
+                      willChange: 'transform, opacity',
+                      '--mouse-x': '50%',
+                      '--mouse-y': '50%',
+                      '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                      background: 'white',
+                      borderRadius: '0px',
+                      backfaceVisibility: 'hidden'
+                    } as React.CSSProperties}>
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
                       style={{
                         background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
                       }}
                     ></div>
                     <div className="relative z-20 w-full h-full flex items-center justify-center">
-                      <div 
+                      <div
                         className="w-full h-full"
                         style={{
                           background: `url('/a.png') center/cover, url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E")`,
@@ -1094,17 +1092,17 @@ const HistoriaSection = memo(() => {
                   </div>
                   {/* Back Side */}
                   <div className="absolute inset-0 bg-white border border-gray-300 flex items-center justify-center"
-                       style={{
-                         borderRadius: '0px',
-                         backfaceVisibility: 'hidden',
-                         transform: 'rotateY(180deg)'
-                       }}>
+                    style={{
+                      borderRadius: '0px',
+                      backfaceVisibility: 'hidden',
+                      transform: 'rotateY(180deg)'
+                    }}>
                     <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-gray-800">2</div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             {/* Mobile Text Labels - Compact Design for Small Screens */}
             <div className="lg:hidden mt-4 sm:mt-6 px-2 sm:px-4 text-center">
               <div className="grid grid-cols-2 gap-3 max-w-[340px] sm:max-w-md mx-auto">
@@ -1121,11 +1119,10 @@ const HistoriaSection = memo(() => {
           </div>
         </div>
         {/* CTA Section - Mobile Optimized */}
-        <div className={`text-center px-4 transition-all duration-1000 delay-500 ${
-          animatedElements.includes(1) 
-            ? 'opacity-100 translate-y-0' 
+        <div className={`text-center px-4 transition-all duration-1000 delay-500 ${animatedElements.includes(1)
+            ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-20'
-        }`}>
+          }`}>
           <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             Somos el equipo que tu competencia teme que contrates.
           </h3>
@@ -1147,10 +1144,10 @@ function LandingPage() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile(); // Check initial size
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -1170,11 +1167,11 @@ function LandingPage() {
     const handleScroll = () => {
       const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean) as Element[];
       const scrollPosition = window.scrollY + 200; // Offset for header
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        
+
         if (scrollPosition >= sectionTop) {
           if (i !== activeIndex) {
             setActiveIndex(i);
@@ -1186,7 +1183,7 @@ function LandingPage() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check initial position
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeIndex]);
 
@@ -1249,11 +1246,10 @@ function LandingPage() {
                     <button
                       key={index}
                       onClick={() => scrollToSection(item.href, index)}
-                      className={`apple-tab-item px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                        activeIndex === index 
-                          ? 'active text-white' 
+                      className={`apple-tab-item px-4 py-2 text-sm font-medium transition-all duration-300 ${activeIndex === index
+                          ? 'active text-white'
                           : 'text-gray-300 hover:text-white'
-                      }`}
+                        }`}
                     >
                       <span className="relative z-10">{item.label}</span>
                     </button>
@@ -1280,32 +1276,27 @@ function LandingPage() {
               className="relative w-8 h-8 flex flex-col items-center justify-center space-y-1.5 transition-all duration-300"
               aria-label="Toggle menu"
             >
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}></span>
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0' : ''
-              }`}></span>
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}></span>
             </button>
           </div>
 
           {/* Mobile Menu Overlay */}
-          <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${
-            isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}>
+          <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            }`}>
             {/* Backdrop */}
-            <div 
+            <div
               className="absolute inset-0 bg-black/90 backdrop-blur-lg"
               onClick={() => setIsMobileMenuOpen(false)}
             ></div>
-            
+
             {/* Menu Content */}
-            <div className={`relative flex flex-col items-center justify-center h-full transition-all duration-500 ${
-              isMobileMenuOpen ? 'translate-y-0' : '-translate-y-10'
-            }`}>
+            <div className={`relative flex flex-col items-center justify-center h-full transition-all duration-500 ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-10'
+              }`}>
               <nav className="flex flex-col items-center space-y-8">
                 {navItems.map((item, index) => (
                   <button
@@ -1314,17 +1305,16 @@ function LandingPage() {
                       scrollToSection(item.href, index);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`text-2xl font-semibold transition-all duration-300 hover:scale-110 ${
-                      activeIndex === index 
-                        ? 'text-white' 
+                    className={`text-2xl font-semibold transition-all duration-300 hover:scale-110 ${activeIndex === index
+                        ? 'text-white'
                         : 'text-gray-300 hover:text-white'
-                    }`}
+                      }`}
                   >
                     {item.label}
                   </button>
                 ))}
               </nav>
-              
+
               {/* Mobile menu decoration */}
               <div className="absolute bottom-20 text-center">
                 <p className="text-sm text-gray-400">
