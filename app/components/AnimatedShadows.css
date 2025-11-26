@@ -244,4 +244,146 @@
   .credibility-card:hover {
     transform: none;
   }
+}
+
+/* Hero Button Styles */
+.hero-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  border-radius: 0.75rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.hero-button::before,
+.hero-button::after {
+  content: "";
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.hero-button::before {
+  inset: 1px;
+  background: linear-gradient(177.95deg,
+      rgba(255, 255, 255, 0.19) 0%,
+      rgba(255, 255, 255, 0) 100%);
+  border-radius: calc(0.75rem - 1px);
+}
+
+.hero-button::after {
+  inset: 2px;
+  background: transparent;
+  border-radius: calc(0.75rem - 2px);
+}
+
+.hero-button:active {
+  transform: scale(0.95);
+}
+
+.points_wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.points_wrapper .point {
+  bottom: -10px;
+  position: absolute;
+  animation: floating-points infinite ease-in-out;
+  pointer-events: none;
+  width: 2px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 9999px;
+}
+
+@keyframes floating-points {
+  0% {
+    transform: translateY(0);
+  }
+
+  85% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(-55px);
+    opacity: 0;
+  }
+}
+
+.hero-button:hover .icon {
+  transform: translateX(2px);
+}
+
+.hero-button .inner {
+  z-index: 2;
+  gap: 6px;
+  position: relative;
+  width: 100%;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color 0.2s ease-in-out;
+}
+
+.hero-button .icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  stroke: white;
+  fill: none;
+}
+
+.hero-button:hover .icon path {
+  animation: dash 0.8s linear forwards;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 0, 20;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 10, 10;
+    stroke-dashoffset: -5;
+  }
+
+  100% {
+    stroke-dasharray: 20, 0;
+    stroke-dashoffset: -10;
+  }
+}
+
+/* Code Scroll Animation */
+.code-scroll {
+  animation: scroll-code 40s linear infinite;
+  will-change: transform;
+}
+
+.code-scroll code {
+  display: block;
+}
+
+@keyframes scroll-code {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
 } 

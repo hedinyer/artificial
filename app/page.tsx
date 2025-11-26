@@ -12,16 +12,17 @@ const SplitText = dynamic(() => import('./components/SplitText'), {
   loading: () => null
 });
 
-const SplineScene = dynamic(() => import("./components/SplineScene"), {
-  ssr: false,
-  loading: () => null
-});
 import ScrollVelocity from "./components/ScrollVelocity";
 import { Sparkles, Zap, DollarSign, TrendingUp, Palette, Bot, Shield } from "lucide-react";
 import Beams from "./components/Beams";
 import OptimizedFonts from "./components/OptimizedFonts";
 import "@/components/ui/chroma-grid/ChromaGrid.css";
 import "./components/AnimatedShadows.css";
+
+const SplineBackground = dynamic(() => import('./components/SplineBackground'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-black/20" />
+});
 
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
@@ -188,6 +189,41 @@ const credibilityData = [
   "60% de empresas ya implementaron soluciones de automatización (Duke University 2024)"
 ];
 
+// Enhanced services data with conversion-focused content
+const enhancedServices = [
+  {
+    ...chromaItems[2], // Software a Medida
+    description: "Desarrollamos soluciones tecnológicas personalizadas que automatizan procesos y multiplican la productividad de tu equipo.",
+    benefits: ["Automatización de procesos", "Ahorro de tiempo y costos", "Escalabilidad garantizada"],
+    ctaText: "Solicitar consulta",
+    featured: true
+  },
+  {
+    ...chromaItems[1], // UX/UI Diseño
+    description: "Diseñamos experiencias digitales intuitivas que convierten visitantes en clientes. Interfaces que tus usuarios amarán usar.",
+    benefits: ["Mayor tasa de conversión", "Reducción de fricción", "Mejor retención"],
+    ctaText: "Ver portfolio"
+  },
+  {
+    ...chromaItems[0], // Branding Estratégico
+    description: "Creamos identidades de marca que conectan emocionalmente con tu audiencia. Desde el naming hasta la estrategia visual completa.",
+    benefits: ["Aumento de reconocimiento de marca", "Consistencia visual en todos los canales", "Posicionamiento competitivo"],
+    ctaText: "Ver casos de éxito"
+  },
+  {
+    ...chromaItems[3], // Inteligencia de Datos
+    description: "Transformamos tus datos en decisiones estratégicas. Analytics avanzado y dashboards en tiempo real para crecer con confianza.",
+    benefits: ["Decisiones basadas en datos", "Insights accionables", "ROI medible"],
+    ctaText: "Ver demos"
+  },
+  {
+    ...chromaItems[5], // Consultoría Digital
+    description: "Te acompañamos en tu transformación digital con estrategias personalizadas y roadmap claro hacia el éxito. Optimizamos y maximizamos resultados.",
+    benefits: ["Roadmap claro", "Implementación guiada", "Resultados garantizados"],
+    ctaText: "Agendar llamada"
+  }
+];
+
 // Create a memoized services section component
 const ServicesSection = memo(({ services1, services2, services3, services4, isServiciosActive, showChroma }: any) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -201,17 +237,6 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
   // Combine services for the marquee effect with stable references
   const firstHalf = useMemo(() => [...services1, ...services2], [services1, services2]);
   const secondHalf = useMemo(() => [...services3, ...services4], [services3, services4]);
-
-  // Simple ChromaGrid props
-  const chromaProps = useMemo(() => ({
-    items: chromaItems,
-    radius: 180,
-    damping: 0.6,
-    fadeOut: 0.8,
-    ease: "power2.out",
-    columns: isMobile ? 2 : 3,
-    rows: isMobile ? 3 : 2
-  }), [isMobile]);
 
   // Detect mobile screen size
   useEffect(() => {
@@ -230,75 +255,152 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
     setIsVisible(true);
   }, []);
 
-
+  // Featured service (first one)
+  const featuredService = enhancedServices[0];
+  // Other services
+  const otherServices = enhancedServices.slice(1);
 
   return (
     <section 
       id="servicios" 
-      className="h-auto min-h-screen pt-20 sm:pt-24 md:pt-32 pb-16 sm:pb-20 md:pb-24 flex flex-col justify-center items-center text-white overflow-hidden relative"
+      className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20"
     >
-      
-      {/* Content */}
-      <div className={`relative z-10 w-full flex flex-col items-center px-5 space-y-3 md:space-y-4 transition-all duration-1000 ${
-        isMobile && isVisible ? 'opacity-100 translate-y-0' : isMobile ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'
-      }`}>
-        
-        {/* Header - Mobile Optimized */}
-        <div className="text-center max-w-4xl mx-auto px-4">
-          <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-2xl font-bold mb-4 font-['Helvetica_Neue'] font-sans">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div>
+          <p className="text-sm font-medium text-white/50 mb-2">Lo que ofrecemos</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-white">
             Tu negocio, potenciado por IA
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
-            Del branding al software, convertimos problemas en ventajas.
-            <br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>
-            Hacemos que tu competencia se pregunte cómo lo lograste.
+          <p className="mt-3 text-base text-white/70 max-w-2xl">
+            Del branding al software, convertimos problemas en ventajas. Hacemos que tu competencia se pregunte cómo lo lograste.
           </p>
         </div>
+      </div>
 
-        {/* Services Cards - Mobile Responsive */}
-        <div 
-          className={`flex justify-center w-full max-w-full ${isMobile ? 'px-2' : 'px-4 sm:px-0'}`}
-        >
-          <div
-            className={`w-full relative rounded-[20px] overflow-hidden ${
-              isMobile 
-                ? 'w-[344px] h-[640px]'      // Width for 2x160px cards + 0.75rem gap, height for 3x200px + gaps
-                : 'max-w-[700px] h-[548px]'   // Original size for desktop
-            }`}
-            style={{ 
-              display: showChroma ? undefined : 'none',
-            }}
-          >
-            <ChromaGrid {...chromaProps} />
+      {/* Services Grid */}
+      <div className="grid gap-3 md:grid-cols-3">
+        {/* Featured Service - Large Card */}
+        <div className="group relative overflow-hidden rounded-md border border-white/10 bg-white/5 md:col-span-2 hover:border-white/20 transition-all duration-300">
+          <div className="relative">
+            <img 
+              src={featuredService.image} 
+              alt={featuredService.title}
+              className="aspect-[5/2] w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          </div>
+          <div className="p-2 sm:p-2.5">
+            <div className="flex items-center gap-1 mb-0.5">
+              <span className="inline-flex items-center gap-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-1 py-0.5 text-[8px] font-medium text-emerald-300">
+                MÁS POPULAR
+              </span>
+              <span className="text-[8px] text-white/60">Transformación completa</span>
+            </div>
+            <h3 className="mt-0.5 text-base sm:text-lg font-medium tracking-tight text-white">
+              {featuredService.title}
+            </h3>
+            <p className="mt-0.5 text-[10px] sm:text-[11px] text-white/70 leading-snug line-clamp-2">
+              {featuredService.description}
+            </p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-1">
+              <a 
+                href="#contacto"
+                className="inline-flex items-center gap-0.5 rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur hover:bg-white/10 transition-all duration-200"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="h-2.5 w-2.5">
+                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                  <path d="M10 9H8"></path>
+                  <path d="M16 13H8"></path>
+                  <path d="M16 17H8"></path>
+                </svg>
+                Solicitar cotización
+              </a>
+              <a 
+                href="#contacto"
+                className="inline-flex items-center gap-0.5 text-[10px] font-medium text-black bg-emerald-500 rounded px-2 py-0.5 hover:bg-emerald-400 transition-all duration-200"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
+                  className="h-2.5 w-2.5">
+                  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                  <path d="m21.854 2.147-10.94 10.939"></path>
+                </svg>
+                Solicitar cotización
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Industries Marquee - Mobile Optimized */}
-        <div className="w-full max-w-full text-center -mt-12 sm:-mt-20 px-4">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-0">
-              Trabajamos con una amplia gama de industrias
-            </h3>
-            <div 
-              className="relative h-32 sm:h-40 md:h-48 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
-            >
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-full flex flex-col gap-y-3 sm:gap-y-4 md:gap-y-6">
-                        <ScrollVelocity 
-                          texts={firstHalf} 
-                          velocity={-20}
-                          singleLine={true} 
-                          className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
-                        />
-                        <ScrollVelocity 
-                          texts={secondHalf} 
-                          velocity={20}
-                          singleLine={true} 
-                          className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
-                        />
-                    </div>
-                </div>
+        {/* Other Services - Smaller Cards */}
+        {otherServices.map((service, index) => (
+          <div 
+            key={index}
+            className="relative overflow-hidden rounded-lg border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-300 group"
+          >
+            <div className="p-3 sm:p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <h3 className="text-sm sm:text-base font-medium tracking-tight text-white flex items-center gap-1.5">
+                  {service.title}
+                </h3>
+                <span className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/15 px-1 py-0.5 text-[9px] font-medium text-emerald-300">
+                  IA
+                </span>
+              </div>
+              <p className="mt-1 text-[11px] sm:text-xs text-white/70 leading-relaxed">
+                {service.description}
+              </p>
+              <div className={`${index === otherServices.length - 1 ? 'mt-1.5' : 'mt-2.5'} rounded-md overflow-hidden border border-white/10 group-hover:border-white/20 transition-all duration-300`}>
+                <img 
+                  src={service.image} 
+                  alt={service.title}
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              </div>
+              <a 
+                href="#contacto"
+                className="mt-2.5 inline-flex items-center justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/90 backdrop-blur hover:bg-white/10 hover:text-white transition-all duration-200"
+              >
+                Solicitar cotización
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="h-3 w-3">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
             </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Industries Marquee - Mobile Optimized */}
+      <div className="w-full max-w-full text-center mt-16 sm:mt-20 px-4">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6">
+          Trabajamos con una amplia gama de industrias
+        </h3>
+        <div 
+          className="relative h-32 sm:h-40 md:h-48 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full flex flex-col gap-y-3 sm:gap-y-4 md:gap-y-6">
+              <ScrollVelocity 
+                texts={firstHalf} 
+                velocity={-20}
+                singleLine={true} 
+                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
+              />
+              <ScrollVelocity 
+                texts={secondHalf} 
+                velocity={20}
+                singleLine={true} 
+                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80" 
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -308,88 +410,280 @@ ServicesSection.displayName = 'ServicesSection';
 
 // Create a simple hero section component
 const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <section id="inicio" className="min-h-[100vh] h-[100vh] relative overflow-hidden flex flex-col">
-      {/* Spline Scene - Simple */}
-      <div className="absolute inset-0 z-0 w-full h-full">
-        {mounted && <SplineScene />}
-      </div>
+    <section id="inicio" className="relative z-10 min-h-screen">
+      <div className="mx-auto max-w-7xl px-4 pt-24 pb-8 md:px-6 md:pt-32">
+        <div className="max-w-3xl text-center mr-auto ml-auto">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+            <Sparkles className="h-4 w-4 text-sky-400" />
+            150+ empresas transformadas
+          </p>
 
-      {/* Mobile Layout - Compact and Centered */}
-      <div className="sm:hidden relative z-10 h-full flex flex-col justify-center items-center px-4 space-y-8 -translate-y-48">
-        {/* Social Proof Badge - Mobile */}
-        <div className="flex-shrink-0 -translate-y-16">
-          <div className="inline-flex items-center px-3 py-2 rounded-full bg-white/10 backdrop-blur-sm animated-border">
-            <Sparkles className="w-3 h-3 mr-2 text-yellow-400" />
-            <span className="text-xs font-medium text-white">
-              150+ empresas transformadas
-            </span>
+          <h1 className="sm:text-5xl md:text-7xl text-4xl font-semibold tracking-tight text-white">
+            Multiplica tu productividad con IA y automatización
+          </h1>
+
+          <p className="mt-5 text-base md:text-lg text-slate-300">
+            Del branding al software, convertimos problemas en ventajas. Hacemos que tu competencia se pregunte cómo lo lograste.
+          </p>
+
+          <div className="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center">
+            <button 
+              type="button" 
+              className="hero-button"
+              style={{
+                background: 'radial-gradient(65.28% 65.28% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0) 100%), linear-gradient(0deg, #2563eb, #2563eb)',
+                padding: '12px 18px',
+                minHeight: '48px',
+                minWidth: '102px',
+                cursor: 'pointer'
+              }}
+            >
+              <div className="points_wrapper">
+                {[...Array(10)].map((_, i) => (
+                  <i 
+                    key={i} 
+                    className="point"
+                    style={{
+                      left: `${[10, 30, 25, 44, 50, 75, 88, 58, 98, 65][i]}%`,
+                      opacity: [1, 0.7, 0.8, 0.6, 1, 0.5, 0.9, 0.8, 0.6, 1][i],
+                      animation: `floating-points ${[2.35, 2.5, 2.2, 2.05, 1.9, 1.5, 2.2, 2.25, 2.6, 2.5][i]}s infinite ease-in-out`,
+                      animationDelay: `${[0.2, 0.5, 0.1, 0, 0, 1.5, 0.2, 0.2, 0.1, 0.2][i]}s`
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="inner">
+                Prueba gratis
+                <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </span>
+            </button>
+
+            <button className="group relative inline-flex items-center justify-center min-w-[120px] cursor-pointer rounded-xl px-[17px] py-3 text-white/70 tracking-tight font-semibold transition-all duration-[1000ms] ease-[cubic-bezier(0.15,0.83,0.66,1)] hover:-translate-y-[3px] hover:scale-[1.1] hover:text-white" style={{boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)', background: 'radial-gradient(ellipse at bottom, rgba(71,81,92,1) 0%, rgba(0,0,0,1) 100%)'}}>
+              <span className="relative z-10 font-normal">Ver demo</span>
+              <span aria-hidden="true" className="absolute bottom-0 left-1/2 h-[1px] w-[70%] -translate-x-1/2 opacity-20 transition-all duration-[1000ms] ease-[cubic-bezier(0.15,0.83,0.66,1)] group-hover:opacity-80" style={{background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)'}}></span>
+            </button>
           </div>
         </div>
-        
-        {/* Hero Text - Mobile */}
-        <div className="flex-shrink-0 text-center max-w-xs -translate-y-[60px]">
-          <h1 className="font-extrabold text-xl leading-tight text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
-            Multiplica tu productividad
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
-              con IA y automatización.
-            </span>
-          </h1>
-        </div>
       </div>
 
-      {/* Desktop Layout - Unchanged */}
-      <main className="hidden sm:flex flex-grow flex-col items-center justify-center text-center px-5 relative z-10">
-        {/* Social Proof Badge - Desktop */}
-        <div className="mb-6 -mt-[35rem]">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm animated-border">
-            <Sparkles className="w-4 h-4 mr-2 text-yellow-400" />
-            <span className="text-sm font-medium text-white">
-              150+ empresas transformadas
-            </span>
+      {/* Editor preview */}
+      <div className="-mb-8 max-w-7xl md:px-6 mr-auto ml-auto pr-4 pl-4">
+        <div className="relative w-full overflow-hidden shadow-black/50 bg-gradient-to-b from-white/[0.04] to-white/[0.02] border-white/10 border rounded-2xl mr-auto ml-auto shadow-2xl backdrop-blur-lg">
+          {/* Topbar */}
+          <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+            <div className="flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
+              <span className="h-3 w-3 rounded-full bg-yellow-400/80"></span>
+              <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
+              <div className="ml-3 hidden items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-xs text-slate-300 sm:flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-slate-200"><rect width="7" height="18" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect></svg>
+                art_ificial Studio — Proyecto: Aurora
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+              </button>
+              <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </button>
+              <button className="rounded-md bg-sky-500/90 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-500">Publicar</button>
+            </div>
+          </div>
+
+          {/* Editor body */}
+          <div className="grid grid-cols-1 md:grid-cols-12">
+            {/* Canvas */}
+            <main className="relative md:col-span-6 bg-black/20">
+              <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2 text-xs text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-sky-400"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg>
+                <span>Breakpoint</span>
+                <span className="rounded-md bg-white/5 px-1.5 py-0.5">Desktop</span>
+                <span className="text-slate-500">|</span>
+                <span>1200</span>
+              </div>
+
+              <div className="sm:p-6 p-4">
+                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 ring-1 ring-white/10 h-[360px] sm:h-[460px]">
+                  <div className="absolute inset-0 w-full h-full">
+                    <SplineBackground
+                      scene="/robot/scene.splinecode"
+                      isVisible={true}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="max-w-xl rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur">
+                      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">Software a la Medida</h3>
+                      <p className="mt-1 text-sm text-slate-300">Soluciones personalizadas que se adaptan a tu negocio.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+
+            {/* Right panel */}
+            <aside className="hidden md:block md:col-span-6 border-l border-white/10 bg-black/30 p-3">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-slate-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
+                  Propiedades
+                </div>
+                <button className="rounded-md border border-white/10 bg-white/5 p-1 text-slate-300 hover:bg-white/10">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {/* Code Block */}
+                <div className="bg-white/5 rounded-lg p-4 space-y-2 h-[600px] flex flex-col">
+                  <div className="mb-2 flex items-center justify-between text-xs">
+                    <span className="text-slate-300 font-medium">Code</span>
+                    <button className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-slate-400 hover:bg-white/10">
+                      Copy
+                    </button>
+                  </div>
+                  <div className="bg-black/40 rounded-md overflow-hidden flex-1 relative">
+                    <div className="absolute inset-0 overflow-hidden">
+                      <pre className="p-4 text-[10px] text-slate-300 font-mono leading-relaxed code-scroll">
+                        <code className="block">
+{`<HeroSection isInicioActive={true}>
+  <div className="hero-content">
+    <h1 className="text-4xl font-bold">
+      Multiplica tu productividad
+    </h1>
+    <p className="text-lg text-gray-300">
+      Con IA y automatización
+    </p>
+    <button className="mt-4 px-6 py-2 
+        bg-blue-500 rounded-lg">
+      Prueba gratis
+    </button>
+  </div>
+</HeroSection>
+
+<ServicesSection>
+  <div className="services-grid">
+    <ServiceCard 
+      title="Branding"
+      description="Impulsa tu marca"
+    />
+    <ServiceCard 
+      title="UX/UI"
+      description="Experiencias únicas"
+    />
+    <ServiceCard 
+      title="Software"
+      description="Automatización"
+    />
+  </div>
+</ServicesSection>
+
+<VentajasSection>
+  <div className="ventajas-list">
+    <VentajaCard 
+      icon={Zap}
+      title="Multiplica productividad"
+      benefit="Hasta 3x más rápido"
+    />
+    <VentajaCard 
+      icon={DollarSign}
+      title="Ahorra costos"
+      benefit="Hasta 32% menos"
+    />
+  </div>
+</VentajasSection>
+
+<HistoriaSection>
+  <div className="team-grid">
+    <TeamMember 
+      name="Mauricio"
+      role="AI & Engineering"
+    />
+    <TeamMember 
+      name="Andrea"
+      role="Design & Branding"
+    />
+  </div>
+</HistoriaSection>
+
+<HeroSection isInicioActive={true}>
+  <div className="hero-content">
+    <h1 className="text-4xl font-bold">
+      Multiplica tu productividad
+    </h1>
+    <p className="text-lg text-gray-300">
+      Con IA y automatización
+    </p>
+    <button className="mt-4 px-6 py-2 
+        bg-blue-500 rounded-lg">
+      Prueba gratis
+    </button>
+  </div>
+</HeroSection>
+
+<ServicesSection>
+  <div className="services-grid">
+    <ServiceCard 
+      title="Branding"
+      description="Impulsa tu marca"
+    />
+    <ServiceCard 
+      title="UX/UI"
+      description="Experiencias únicas"
+    />
+    <ServiceCard 
+      title="Software"
+      description="Automatización"
+    />
+  </div>
+</ServicesSection>
+
+<VentajasSection>
+  <div className="ventajas-list">
+    <VentajaCard 
+      icon={Zap}
+      title="Multiplica productividad"
+      benefit="Hasta 3x más rápido"
+    />
+    <VentajaCard 
+      icon={DollarSign}
+      title="Ahorra costos"
+      benefit="Hasta 32% menos"
+    />
+  </div>
+</VentajasSection>
+
+<HistoriaSection>
+  <div className="team-grid">
+    <TeamMember 
+      name="Mauricio"
+      role="AI & Engineering"
+    />
+    <TeamMember 
+      name="Andrea"
+      role="Design & Branding"
+    />
+  </div>
+</HistoriaSection>`}
+                        </code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
-        
-        {/* Hero Text - Desktop */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center px-4 w-full max-w-6xl">
-          <h1 className="font-extrabold mb-4 text-3xl leading-tight max-w-full break-words">
-            <SplitText
-              text="Multiplica tu productividad"
-              className="font-extrabold text-3xl text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
-              delay={50}
-              duration={0.8}
-              ease="power3.out"
-              splitType="chars"
-              from={{ opacity: 0, y: 60, rotationX: -90 }}
-              to={{ opacity: 1, y: 0, rotationX: 0 }}
-              threshold={0.1}
-              rootMargin="-50px"
-            />
-            <br />
-            <span className="animated-fill">
-              <SplitText
-                text="con IA y automatización."
-                className="font-extrabold text-3xl"
-                delay={50}
-                duration={0.8}
-                ease="power3.out"
-                splitType="chars"
-                from={{ opacity: 0, y: 60, rotationX: -90 }}
-                to={{ opacity: 1, y: 0, rotationX: 0 }}
-                threshold={0.1}
-                rootMargin="-50px"
-              />
-            </span>
-          </h1>
-        </div>
-      </main>
+      </div>
     </section>
   );
 });
@@ -934,7 +1228,7 @@ function LandingPage() {
   return (
     <div className="bg-black text-white font-sans">
       <OptimizedFonts />
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-black py-3 md:py-6">
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 md:py-6">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           {/* Desktop Navigation */}
           <div className="hidden md:flex justify-center">
@@ -944,12 +1238,9 @@ function LandingPage() {
                 {/* Brand Logo - Left Side of Tab Bar */}
                 <div className="flex items-center group cursor-pointer">
                   <div className="text-center">
-                    <h1 className="brand-logo text-sm font-bold tracking-tight">
+                    <h1 className="brand-logo text-xl font-bold tracking-tight">
                       art_ificial
                     </h1>
-                    <p className="text-xs text-gray-400 font-medium tracking-wide glow-text">
-                      Experiences made by human
-                    </p>
                   </div>
                 </div>
                 {/* Navigation Items */}
@@ -977,12 +1268,9 @@ function LandingPage() {
             {/* Mobile Brand Logo */}
             <div className="flex items-center group cursor-pointer">
               <div className="text-left">
-                <h1 className="brand-logo text-sm font-bold tracking-tight">
+                <h1 className="brand-logo text-xl font-bold tracking-tight">
                   art_ificial
                 </h1>
-                <p className="text-xs text-gray-400 font-medium tracking-wide glow-text">
-                  Experiences made by human
-                </p>
               </div>
             </div>
 
@@ -1047,7 +1335,7 @@ function LandingPage() {
           </div>
         </div>
       </header>
-      <HeroSection isInicioActive={activeIndex === 0} />
+      <HeroSection key="hero-section-persistent" isInicioActive={activeIndex === 0} />
       <ServicesSection {...servicesChunks} isServiciosActive={activeIndex === 1} showChroma={showChroma} />
       <VentajasSection />
       <HistoriaSection />
