@@ -458,17 +458,12 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                 ))}
               </div>
               <span className="inner">
-                Prueba gratis
+                Cuentanos tu problema
                 <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
                   <path d="M5 12h14"></path>
                   <path d="m12 5 7 7-7 7"></path>
                 </svg>
               </span>
-            </button>
-
-            <button className="group relative inline-flex items-center justify-center min-w-[120px] cursor-pointer rounded-xl px-[17px] py-3 text-white/70 tracking-tight font-semibold transition-all duration-1000 ease-in-out hover:-translate-y-[3px] hover:scale-[1.1] hover:text-white" style={{ boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)', background: 'radial-gradient(ellipse at bottom, rgba(71,81,92,1) 0%, rgba(0,0,0,1) 100%)' }}>
-              <span className="relative z-10 font-normal">Ver demo</span>
-              <span aria-hidden="true" className="absolute bottom-0 left-1/2 h-[1px] w-[70%] -translate-x-1/2 opacity-20 transition-all duration-1000 ease-in-out group-hover:opacity-80" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)' }}></span>
             </button>
           </div>
         </div>
@@ -535,7 +530,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
             </main>
 
             {/* Right panel */}
-            <aside className="hidden md:block md:col-span-6 border-l border-white/10 bg-black/30 p-3">
+            <aside className="block md:col-span-6 border-t md:border-t-0 md:border-l border-white/10 bg-black/30 p-3 mt-3 md:mt-0">
               <div className="mb-3 flex items-center justify-between">
                 <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-slate-300">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
@@ -880,7 +875,7 @@ const HistoriaSection = memo(() => {
         </div>
 
         <div className="relative">
-          <h2 className="text-[14vw] sm:text-[10vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tight">
+          <h2 className="text-[11vw] sm:text-[9vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tight">
             Construyamos juntos. <span className="text-white/70">:)</span>
           </h2>
 
