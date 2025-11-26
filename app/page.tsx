@@ -107,7 +107,7 @@ const navItems = [
   { label: "Inicio", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
   { label: "Ventajas", href: "#ventajas" },
-  { label: "Nosotros", href: "#historia" },
+  { label: "Hablemos", href: "#historia" },
 ];
 
 // Ventajas data with stable reference
@@ -193,8 +193,12 @@ const credibilityData = [
 const enhancedServices = [
   {
     ...chromaItems[2], // Software a Medida
-    description: "Desarrollamos soluciones tecnológicas personalizadas que automatizan procesos y multiplican la productividad de tu equipo.",
-    benefits: ["Automatización de procesos", "Ahorro de tiempo y costos", "Escalabilidad garantizada"],
+    description: "Desarrollamos sistemas que asumen el trabajo operativo de tu equipo: automatizan tareas repetitivas, reducen horas hombre y hacen que cada persona aporte mucho más valor estratégico.",
+    benefits: [
+      "Menos tareas manuales, más foco en el negocio",
+      "Automatización 24/7 de procesos repetitivos",
+      "Aumenta márgenes sin contratar más personal"
+    ],
     ctaText: "Solicitar consulta",
     featured: true
   },
@@ -270,10 +274,10 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         <div>
           <p className="text-sm font-medium text-white/50 mb-2">Lo que ofrecemos</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-white">
-            Tu negocio, potenciado por IA
+            Más ganancias con menos equipo
           </h2>
           <p className="mt-3 text-base text-white/70 max-w-2xl">
-            Del branding al software, convertimos problemas en ventajas. Hacemos que tu competencia se pregunte cómo lo lograste.
+            Diseñamos sistemas que automatizan el trabajo repetitivo, reducen la necesidad de más personal y te dejan libre para enfocarte en hacer crecer el negocio.
           </p>
         </div>
       </div>
@@ -293,9 +297,9 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
           <div className="p-2 sm:p-2.5">
             <div className="flex items-center gap-1 mb-0.5">
               <span className="inline-flex items-center gap-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-1 py-0.5 text-[8px] font-medium text-emerald-300">
-                MÁS POPULAR
+                MENOS CARGA OPERATIVA
               </span>
-              <span className="text-[8px] text-white/60">Transformación completa</span>
+              <span className="text-[8px] text-white/60">Más ingresos sin contratar más</span>
             </div>
             <h3 className="mt-0.5 text-base sm:text-lg font-medium tracking-tight text-white">
               {featuredService.title}
@@ -377,8 +381,8 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         ))}
       </div>
 
-      {/* Industries Marquee - Mobile Optimized */}
-      <div className="w-full max-w-full text-center mt-16 sm:mt-20 px-4">
+      {/* Industries Marquee */}
+      <div className="w-full text-center mt-16 sm:mt-20">
         <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6">
           Trabajamos con una amplia gama de industrias
         </h3>
@@ -522,8 +526,8 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10"></div>
                   <div className="absolute bottom-6 left-6 right-6">
                     <div className="max-w-xl rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur">
-                      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">Software a la Medida</h3>
-                      <p className="mt-1 text-sm text-slate-300">Soluciones personalizadas que se adaptan a tu negocio.</p>
+                      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">Software que hace el trabajo por tu equipo</h3>
+                      <p className="mt-1 text-sm text-slate-300">Automatiza tareas repetitivas, reduce la carga operativa y libera a tu equipo para enfocarse en decisiones y crecimiento.</p>
                     </div>
                   </div>
                 </div>
@@ -762,9 +766,9 @@ const VentajasSection = memo(() => {
             const isAnimated = animatedCards.includes(index);
 
             return (
-              <div
+              <article
                 key={index}
-                className={`chroma-ventaja-card group relative overflow-hidden rounded-[20px] transition-all duration-700 transform sm:h-[320px] ${isAnimated
+                className={`chroma-ventaja-card group relative overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl bg-cover backdrop-blur-lg transition-all duration-700 transform sm:h-[320px] ${isAnimated
                     ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-20 scale-95'
                   }`}
@@ -778,7 +782,9 @@ const VentajasSection = memo(() => {
                   '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
                   minHeight: '280px',
                   border: '1px solid rgba(75, 85, 99, 0.3)',
-                  background: ventaja.gradient,
+                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9)), url(/card_benefits/${index + 1}.gif)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                   cursor: 'pointer'
                 } as React.CSSProperties}
               >
@@ -790,96 +796,58 @@ const VentajasSection = memo(() => {
                   }}
                 ></div>
 
-                {/* Content Container - Mobile Optimized */}
-                <div className="relative z-20 p-4 sm:p-6 h-full flex flex-col justify-between">
-
-                  {/* Header Section with Title - Mobile Layout */}
-                  <div className="flex items-start justify-between mb-3 sm:mb-4">
-                    {/* GIF Icon with ChromaGrid style - Mobile Size */}
-                    <div className="relative">
-                      <div className={`gif-container inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10 overflow-hidden transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-3`}
-                        style={{
-                          boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)`
-                        }}>
-                        {/* GIF with fallback */}
-                        <div className="relative w-full h-full">
-                          <img
-                            src={`/card_benefits/${index + 1}.gif`}
-                            alt={ventaja.title}
-                            className="w-full h-full object-cover absolute inset-0 loaded"
-                            style={{
-                              minHeight: '48px',
-                              minWidth: '48px'
-                            }}
-                            onLoad={(e) => {
-                              console.log(`GIF ${index + 1} loaded successfully from:`, e.currentTarget.src);
-                            }}
-                            onError={(e) => {
-                              console.error(`Failed to load GIF ${index + 1} from:`, e.currentTarget.src);
-                              e.currentTarget.style.display = 'none';
-                            }}
-                          />
-                          {/* Icon overlay - visible on card hover */}
-                          <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl">
-                            <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* ChromaGrid-style particles */}
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-white/30 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-all duration-700"></div>
-                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-all duration-700 delay-300"></div>
+                {/* Content Container inspired by motion campaign card */}
+                <div className="relative z-20 flex flex-col h-full p-4 sm:p-6 lg:p-8 justify-between">
+                  {/* Top badges + icon button */}
+                  <div className="flex items-start justify-between mb-3 sm:mb-5">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-white/90 ring-1 ring-white/30 bg-white/15 backdrop-blur-sm">
+                        Automatización IA
+                      </span>
+                      {ventaja.benefit && (
+                        <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-white/90 ring-1 ring-white/30 bg-white/15 backdrop-blur-sm">
+                          {ventaja.benefit}
+                        </span>
+                      )}
                     </div>
-
-                    {/* Title - Mobile Optimized */}
-                    <div className="flex-1 ml-3 sm:ml-4 text-center">
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-200 group-hover:bg-clip-text transition-all duration-500">
-                        {ventaja.title}
-                      </h3>
-                    </div>
+                    <button className="p-2 rounded-full bg-black/20 hover:bg-black/30 transition-colors backdrop-blur-sm border border-white/10">
+                      <IconComponent className="w-4 h-4 text-white" />
+                    </button>
                   </div>
 
-                  {/* Main Content - Mobile Optimized */}
-                  <div className="flex-grow">
-                    {/* Description with ChromaGrid style - Mobile Text Size */}
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 group-hover:text-gray-200 transition-colors duration-300">
+                  {/* Main copy */}
+                  <div className="mt-auto">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight mb-1.5">
+                      {ventaja.title}
+                    </h3>
+                    <p className="text-[11px] sm:text-xs leading-relaxed text-white/85 mb-2.5 sm:mb-3">
                       {ventaja.description}
                     </p>
-                  </div>
 
-                  {/* Footer Section - Mobile Responsive */}
-                  <div className="space-y-2 sm:space-y-3">
-                    {/* Benefit with ChromaGrid card style - Mobile Optimized */}
-                    {ventaja.benefit && (
-                      <div className="p-2 sm:p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 group-hover:border-white/20 transition-all duration-500">
-                        <div className="flex items-center">
-                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full mr-2 sm:mr-3 animate-pulse"></div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-green-400 group-hover:text-green-300 transition-colors duration-300">
-                            {ventaja.benefit}
-                          </p>
+                    {(ventaja.metric || ventaja.source) && (
+                      <div className="mt-1.5 flex items-start gap-2.5">
+                        <div className="w-7 h-7 rounded-full bg-black/30 border border-white/10 flex items-center justify-center overflow-hidden">
+                          <span className="text-[10px] text-white/80 font-medium">
+                            {index + 1}
+                          </span>
                         </div>
-                        {ventaja.source && (
-                          <p className="text-[9px] sm:text-xs text-gray-400 ml-4 sm:ml-5 mt-1 group-hover:text-gray-300 transition-colors duration-300">
-                            — {ventaja.source}
-                          </p>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Metric with ChromaGrid style - Mobile Optimized */}
-                    {ventaja.metric && (
-                      <div className="pt-2 sm:pt-3 border-t border-white/10 group-hover:border-white/20 transition-colors duration-500">
-                        <div className="flex items-center">
-                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full mr-2 sm:mr-3 animate-pulse delay-1000"></div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-blue-300 group-hover:text-blue-200 transition-colors duration-300">
-                            {ventaja.metric}
-                          </p>
+                        <div className="text-[9px] sm:text-[10px]">
+                          {ventaja.metric && (
+                            <div className="text-white/90 font-medium">
+                              {ventaja.metric}
+                            </div>
+                          )}
+                          {ventaja.metricSource && (
+                            <div className="text-white/60 mt-0.5">
+                              — {ventaja.metricSource}
+                            </div>
+                          )}
+                          {ventaja.source && !ventaja.metricSource && (
+                            <div className="text-white/60 mt-0.5">
+                              — {ventaja.source}
+                            </div>
+                          )}
                         </div>
-                        {ventaja.metricSource && (
-                          <p className="text-[9px] sm:text-xs text-gray-400 ml-4 sm:ml-5 mt-1 group-hover:text-gray-300 transition-colors duration-300">
-                            — {ventaja.metricSource}
-                          </p>
-                        )}
                       </div>
                     )}
                   </div>
@@ -887,7 +855,7 @@ const VentajasSection = memo(() => {
 
                 {/* ChromaGrid-style border effect */}
                 <div className="absolute inset-0 rounded-[20px] border border-gray-600/30 group-hover:border-gray-500/50 transition-all duration-700"></div>
-              </div>
+              </article>
             );
           })}
         </div>
@@ -899,233 +867,83 @@ VentajasSection.displayName = 'VentajasSection';
 
 // Create a memoized historia section component
 const HistoriaSection = memo(() => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [animatedElements, setAnimatedElements] = useState<number[]>([]);
-  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
-  const [isCardAreaHovered, setIsCardAreaHovered] = useState(false);
-
-  // Mouse tracking for ChromaGrid-style spotlight effect
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    card.style.setProperty('--mouse-x', `${x}%`);
-    card.style.setProperty('--mouse-y', `${y}%`);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-
-          // Animate elements sequentially
-          [0, 1].forEach((index) => {
-            setTimeout(() => {
-              setAnimatedElements(prev => [...prev, index]);
-            }, index * 200);
-          });
-
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
-    );
-
-    const section = document.getElementById('historia');
-    if (section) {
-      observer.observe(section);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  // Card flipping logic
-  const getFlipped = (index: number) => {
-    if (!isCardAreaHovered) return false;
-    return hoveredCardIndex === index;
-  };
-
   return (
     <section
       id="historia"
-      className="min-h-screen py-8 sm:py-24 md:py-32 px-4 sm:px-5 relative overflow-hidden flex flex-col justify-center items-center sm:block"
-      style={{ willChange: 'auto' }}
+      className="max-w-7xl sm:px-6 sm:mt-12 mt-8 mr-auto mb-16 ml-auto pt-10 pr-4 pl-4"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-black"></div>
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        {/* Team Section */}
-        <div className={`mb-12 sm:mb-20 transition-all duration-1000 delay-300 ${animatedElements.includes(0)
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-20'
-          }`}>
-          <div className="relative">
-            {/* Desktop Fade-in text for Mauricio (left) */}
-            <div
-              className={`hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-0 -translate-x-[14.5rem] text-left transition-opacity duration-500 ${getFlipped(1) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              style={{ minWidth: 'max-content' }}>
-              <span className="font-bold text-white text-lg">Andrea Rodriguez Jerez</span><br />
-              <span className="text-gray-300 text-sm">Industrial designer, UI/UX and branding.</span>
-            </div>
-            {/* Desktop Fade-in text for Andrea (right) */}
-            <div
-              className={`hidden lg:block absolute right-full top-1/2 -translate-y-1/2 mr-0 translate-x-[14.5rem] text-right transition-opacity duration-500 ${getFlipped(0) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              style={{ minWidth: 'max-content' }}>
-              <span className="font-bold text-white text-lg">Mauricio Perucho Sequeda</span><br />
-              <span className="text-gray-300 text-sm">Generative AI, data science and engineering.</span>
-            </div>
-
-            {/* Cards Container - Optimized for Small Mobile Screens */}
-            <div
-              className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-8 max-w-[340px] sm:max-w-md lg:max-w-3xl mx-auto px-2 sm:px-4 lg:px-0"
-              onMouseEnter={() => setIsCardAreaHovered(true)}
-              onMouseLeave={() => { setIsCardAreaHovered(false); setHoveredCardIndex(null); }}
-            >
-              {/* Mauricio Card - Optimized for iPhone 13 mini dimensions */}
-              <div
-                className="group relative h-[240px] sm:h-[280px] lg:h-[600px] cursor-pointer"
-                onMouseMove={handleMouseMove}
-                style={{ perspective: '1000px' }}
-                onMouseEnter={() => setHoveredCardIndex(0)}
-                onMouseLeave={() => setHoveredCardIndex(null)}
-              >
-                <div
-                  className="relative w-full h-full"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: getFlipped(0) ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                    transition: 'transform 0.7s ease-in-out'
-                  }}
-                >
-                  {/* Front Side */}
-                  <div className="absolute inset-0"
-                    style={{
-                      willChange: 'transform, opacity',
-                      '--mouse-x': '50%',
-                      '--mouse-y': '50%',
-                      '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
-                      border: '1px solid rgba(75, 85, 99, 0.3)',
-                      background: 'white',
-                      borderRadius: '0px',
-                      backfaceVisibility: 'hidden'
-                    } as React.CSSProperties}>
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
-                      style={{
-                        background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
-                      }}
-                    ></div>
-                    <div className="relative z-20 w-full h-full flex items-center justify-center">
-                      <div
-                        className="w-full h-full"
-                        style={{
-                          background: `url('/m.png') center/cover, url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E")`,
-                          backgroundBlendMode: 'overlay'
-                        }}
-                      />
-                    </div>
-                  </div>
-                  {/* Back Side */}
-                  <div className="absolute inset-0 bg-white border border-gray-300 flex items-center justify-center"
-                    style={{
-                      borderRadius: '0px',
-                      backfaceVisibility: 'hidden',
-                      transform: 'rotateY(180deg)'
-                    }}>
-                    <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-gray-800">1</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Andrea Card - Optimized for iPhone 13 mini dimensions */}
-              <div
-                className="group relative h-[240px] sm:h-[280px] lg:h-[600px] cursor-pointer"
-                onMouseMove={handleMouseMove}
-                style={{ perspective: '1000px' }}
-                onMouseEnter={() => setHoveredCardIndex(1)}
-                onMouseLeave={() => setHoveredCardIndex(null)}
-              >
-                <div
-                  className="relative w-full h-full"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: getFlipped(1) ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                    transition: 'transform 0.7s ease-in-out'
-                  }}
-                >
-                  {/* Front Side */}
-                  <div className="absolute inset-0"
-                    style={{
-                      willChange: 'transform, opacity',
-                      '--mouse-x': '50%',
-                      '--mouse-y': '50%',
-                      '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
-                      border: '1px solid rgba(75, 85, 99, 0.3)',
-                      background: 'white',
-                      borderRadius: '0px',
-                      backfaceVisibility: 'hidden'
-                    } as React.CSSProperties}>
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
-                      style={{
-                        background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
-                      }}
-                    ></div>
-                    <div className="relative z-20 w-full h-full flex items-center justify-center">
-                      <div
-                        className="w-full h-full"
-                        style={{
-                          background: `url('/a.png') center/cover, url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E")`,
-                          backgroundBlendMode: 'overlay'
-                        }}
-                      />
-                    </div>
-                  </div>
-                  {/* Back Side */}
-                  <div className="absolute inset-0 bg-white border border-gray-300 flex items-center justify-center"
-                    style={{
-                      borderRadius: '0px',
-                      backfaceVisibility: 'hidden',
-                      transform: 'rotateY(180deg)'
-                    }}>
-                    <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-gray-800">2</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Text Labels - Compact Design for Small Screens */}
-            <div className="lg:hidden mt-4 sm:mt-6 px-2 sm:px-4 text-center">
-              <div className="grid grid-cols-2 gap-3 max-w-[340px] sm:max-w-md mx-auto">
-                <div className="p-2 sm:p-3 bg-gray-900/30 rounded border border-gray-700/50">
-                  <span className="font-bold text-white text-xs sm:text-sm block leading-tight">Mauricio Perucho</span>
-                  <span className="text-gray-300 text-[10px] sm:text-xs leading-tight">AI & Engineering</span>
-                </div>
-                <div className="p-2 sm:p-3 bg-gray-900/30 rounded border border-gray-700/50">
-                  <span className="font-bold text-white text-xs sm:text-sm block leading-tight">Andrea Rodriguez</span>
-                  <span className="text-gray-300 text-[10px] sm:text-xs leading-tight">Design & Branding</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950 text-white p-6 sm:p-8">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(255,255,255,0.07),transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(255,255,255,0.06),transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.15]"></div>
         </div>
-        {/* CTA Section - Mobile Optimized */}
-        <div className={`text-center px-4 transition-all duration-1000 delay-500 ${animatedElements.includes(1)
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-20'
-          }`}>
-          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-            Somos el equipo que tu competencia teme que contrates.
-          </h3>
+
+        <div className="relative">
+          <h2 className="text-[14vw] sm:text-[10vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tight">
+            Construyamos juntos. <span className="text-white/70">:)</span>
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:divide-x md:divide-white/10">
+            <div>
+              <p className="text-sm text-white/70">Email</p>
+              <a
+                href="mailto:contacto@tumarca.com"
+                className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  data-lucide="mail"
+                  className="lucide lucide-mail w-5 h-5"
+                >
+                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                </svg>
+                <span className="break-all">contacto@tumarca.com</span>
+              </a>
+            </div>
+
+            <div className="md:pl-8">
+              <p className="text-sm text-white/70">Schedule</p>
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-tight text-gray-900 bg-white hover:bg-white/90 border border-white/10 mt-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  data-lucide="calendar"
+                  className="lucide lucide-calendar w-4 h-4"
+                >
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                </svg>
+                <span>Book a call</span>
+              </a>
+            </div>
+
+          </div>
+
+          <p className="mt-6 text-center text-[11px] text-white/60">
+            © <span id="year">2025</span> — Disponible para proyectos
+          </p>
         </div>
       </div>
     </section>
@@ -1138,6 +956,27 @@ function LandingPage() {
   const [showChroma, setShowChroma] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Preload Spline chunk + scene as soon as possible so it appears faster on screen
+  useEffect(() => {
+    // Warm up the dynamic chunk that contains SplineBackground + the Spline scene file
+    const preload = async () => {
+      try {
+        await Promise.all([
+          import('./components/SplineBackground'),
+          // Pre‑fetch the .splinecode so it's already in cache when Spline mounts
+          fetch('/robot/scene.splinecode', {
+            cache: 'force-cache',
+            mode: 'no-cors',
+          }),
+        ]);
+      } catch {
+        // Silently ignore preload errors – normal loading will still work
+      }
+    };
+
+    preload();
+  }, []);
 
   // Detect mobile screen size
   useEffect(() => {
@@ -1166,13 +1005,25 @@ function LandingPage() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean) as Element[];
-      const scrollPosition = window.scrollY + 200; // Offset for header
+      const viewportMiddle = window.scrollY + window.innerHeight / 2;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOffset = window.innerHeight / 2;
+
+      // If we're near the bottom of the page, always highlight the last section (Hablemos)
+      if (window.scrollY + window.innerHeight + bottomOffset >= pageHeight) {
+        if (activeIndex !== sections.length - 1) {
+          setActiveIndex(sections.length - 1);
+        }
+        return;
+      }
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
 
-        if (scrollPosition >= sectionTop) {
+        if (viewportMiddle >= sectionTop && viewportMiddle < sectionBottom) {
           if (i !== activeIndex) {
             setActiveIndex(i);
           }
@@ -1223,7 +1074,7 @@ function LandingPage() {
   }, []);
 
   return (
-    <div className="bg-black text-white font-sans">
+    <div className="bg-black text-white font-sans overflow-x-hidden">
       <OptimizedFonts />
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 md:py-6">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -1326,6 +1177,8 @@ function LandingPage() {
         </div>
       </header>
       <HeroSection key="hero-section-persistent" isInicioActive={activeIndex === 0} />
+      {/* Espacio vacío entre Inicio y Servicios */}
+      <div className="h-12 sm:h-16 md:h-24" />
       <ServicesSection {...servicesChunks} isServiciosActive={activeIndex === 1} showChroma={showChroma} />
       <VentajasSection />
       <HistoriaSection />
