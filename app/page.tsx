@@ -19,11 +19,6 @@ import OptimizedFonts from "./components/OptimizedFonts";
 import "@/components/ui/chroma-grid/ChromaGrid.css";
 import "./components/AnimatedShadows.css";
 
-const SplineBackground = dynamic(() => import('./components/SplineBackground'), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-black/20" />
-});
-
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
 
@@ -309,23 +304,10 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
             </p>
             <div className="mt-1.5 flex flex-wrap items-center gap-1">
               <a
-                href="#contacto"
-                className="inline-flex items-center gap-0.5 rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur hover:bg-white/10 transition-all duration-200"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                  className="h-2.5 w-2.5">
-                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-                  <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                  <path d="M10 9H8"></path>
-                  <path d="M16 13H8"></path>
-                  <path d="M16 17H8"></path>
-                </svg>
-                Solicitar cotización
-              </a>
-              <a
-                href="#contacto"
+                href="https://wa.me/573171053785"
                 className="inline-flex items-center gap-0.5 text-[10px] font-medium text-black bg-emerald-500 rounded px-2 py-0.5 hover:bg-emerald-400 transition-all duration-200"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
@@ -365,8 +347,10 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 />
               </div>
               <a
-                href="#contacto"
+                href="https://wa.me/573171053785"
                 className="mt-2.5 inline-flex items-center justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/90 backdrop-blur hover:bg-white/10 hover:text-white transition-all duration-200"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Solicitar cotización
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -432,39 +416,45 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center">
-            <button
-              type="button"
-              className="hero-button"
-              style={{
-                background: 'radial-gradient(65.28% 65.28% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0) 100%), linear-gradient(0deg, #2563eb, #2563eb)',
-                padding: '12px 18px',
-                minHeight: '48px',
-                minWidth: '102px',
-                cursor: 'pointer'
-              }}
+            <a
+              href="https://wa.me/573171053785"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <div className="points_wrapper">
-                {[...Array(10)].map((_, i) => (
-                  <i
-                    key={i}
-                    className="point"
-                    style={{
-                      left: `${[10, 30, 25, 44, 50, 75, 88, 58, 98, 65][i]}%`,
-                      opacity: [1, 0.7, 0.8, 0.6, 1, 0.5, 0.9, 0.8, 0.6, 1][i],
-                      animation: `floating-points ${[2.35, 2.5, 2.2, 2.05, 1.9, 1.5, 2.2, 2.25, 2.6, 2.5][i]}s infinite ease-in-out`,
-                      animationDelay: `${[0.2, 0.5, 0.1, 0, 0, 1.5, 0.2, 0.2, 0.1, 0.2][i]}s`
-                    }}
-                  />
-                ))}
-              </div>
-              <span className="inner">
-                Cuentanos tu problema
-                <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </span>
-            </button>
+              <button
+                type="button"
+                className="hero-button"
+                style={{
+                  background: 'radial-gradient(65.28% 65.28% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0) 100%), linear-gradient(0deg, #2563eb, #2563eb)',
+                  padding: '12px 18px',
+                  minHeight: '48px',
+                  minWidth: '102px',
+                  cursor: 'pointer'
+                }}
+              >
+                <div className="points_wrapper">
+                  {[...Array(10)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="point"
+                      style={{
+                        left: `${[10, 30, 25, 44, 50, 75, 88, 58, 98, 65][i]}%`,
+                        opacity: [1, 0.7, 0.8, 0.6, 1, 0.5, 0.9, 0.8, 0.6, 1][i],
+                        animation: `floating-points ${[2.35, 2.5, 2.2, 2.05, 1.9, 1.5, 2.2, 2.25, 2.6, 2.5][i]}s infinite ease-in-out`,
+                        animationDelay: `${[0.2, 0.5, 0.1, 0, 0, 1.5, 0.2, 0.2, 0.1, 0.2][i]}s`
+                      }}
+                    />
+                  ))}
+                </div>
+                <span className="inner">
+                  Cuentanos tu problema
+                  <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </span>
+              </button>
+            </a>
           </div>
         </div>
       </div>
@@ -509,13 +499,13 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
               <div className="sm:p-6 p-4">
                 <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 ring-1 ring-white/10 h-[360px] sm:h-[460px]">
                   <div className="absolute inset-0 w-full h-full">
-                    <SplineBackground
-                      scene="/robot/scene.splinecode"
-                      isVisible={true}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                      }}
+                    <iframe
+                      src="https://my.spline.design/nexbotrobotcharacterconcept-Y7kCIxqyBi9dwdEtS20sUnaZ/"
+                      frameBorder="0"
+                      width="100%"
+                      height="100%"
+                      className="w-full h-full"
+                      loading="lazy"
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10"></div>
@@ -951,27 +941,6 @@ function LandingPage() {
   const [showChroma, setShowChroma] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
-  // Preload Spline chunk + scene as soon as possible so it appears faster on screen
-  useEffect(() => {
-    // Warm up the dynamic chunk that contains SplineBackground + the Spline scene file
-    const preload = async () => {
-      try {
-        await Promise.all([
-          import('./components/SplineBackground'),
-          // Pre‑fetch the .splinecode so it's already in cache when Spline mounts
-          fetch('/robot/scene.splinecode', {
-            cache: 'force-cache',
-            mode: 'no-cors',
-          }),
-        ]);
-      } catch {
-        // Silently ignore preload errors – normal loading will still work
-      }
-    };
-
-    preload();
-  }, []);
 
   // Detect mobile screen size
   useEffect(() => {
