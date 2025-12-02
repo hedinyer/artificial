@@ -512,3 +512,209 @@ body {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
+
+/* AI Demo Carousel Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.4s ease-out forwards;
+}
+
+@keyframes progressBar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progressBar 4s linear forwards;
+}
+
+/* Float animation for UI elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shimmer effect for cards */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ============================================
+   OPTIMIZED GIF LOADING STYLES
+   ============================================ */
+
+/* GPU acceleration for smooth GIF rendering */
+.optimized-gif-container,
+.optimized-gif-container img {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth fade-in for loaded GIFs */
+.gif-fade-in {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gif-fade-in.loaded {
+  opacity: 1;
+}
+
+/* Optimized background loading for ventajas cards */
+.ventaja-bg-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.ventaja-bg-loading::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(50, 50, 50, 0.8) 50%,
+    rgba(30, 30, 30, 1) 100%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  z-index: 0;
+}
+
+.ventaja-bg-loading.loaded::before {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+/* Mobile-optimized image rendering */
+@media (max-width: 768px) {
+  .optimized-gif-container img {
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  /* Reduce animation complexity on mobile */
+  .optimized-gif-container {
+    will-change: auto;
+  }
+  
+  /* Faster transitions on mobile */
+  .gif-fade-in {
+    transition: opacity 0.3s ease-out;
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .optimized-gif-container img,
+  .gif-fade-in {
+    transition: opacity 0.1s ease-out;
+  }
+  
+  .ventaja-bg-loading::before {
+    animation: none;
+  }
+}
+
+/* Content visibility optimization for off-screen elements */
+.lazy-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Intersection observer animation triggers */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading skeleton pulse for cards */
+.skeleton-pulse {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(50, 50, 50, 0.8) 50%,
+    rgba(30, 30, 30, 1) 100%
+  );
+}
+
+.skeleton-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: skeleton-wave 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

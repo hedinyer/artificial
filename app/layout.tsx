@@ -21,6 +21,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         
+        {/* Preload critical GIFs for optimal loading experience */}
+        <link rel="preload" href="/gifs/software.gif" as="image" type="image/gif" />
+        <link rel="preload" href="/gifs/uiux.gif" as="image" type="image/gif" />
+        
+        {/* Prefetch secondary GIFs */}
+        <link rel="prefetch" href="/gifs/branding.gif" as="image" type="image/gif" />
+        <link rel="prefetch" href="/gifs/inteligencia.gif" as="image" type="image/gif" />
+        
         {/* Optimize resource hints */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="format-detection" content="telephone=no" />

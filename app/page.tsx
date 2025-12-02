@@ -13,14 +13,39 @@ const SplitText = dynamic(() => import('./components/SplitText'), {
 });
 
 import ScrollVelocity from "./components/ScrollVelocity";
-import { Sparkles, Zap, DollarSign, TrendingUp, Palette, Bot, Shield } from "lucide-react";
+import { Sparkles, Zap, DollarSign, TrendingUp, Palette, Bot, Shield, FileText, Users, Receipt, Factory, Workflow } from "lucide-react";
 import Beams from "./components/Beams";
 import OptimizedFonts from "./components/OptimizedFonts";
 import "@/components/ui/chroma-grid/ChromaGrid.css";
 import "./components/AnimatedShadows.css";
+import "./components/OptimizedMedia.css";
+import OptimizedGif from "./components/OptimizedGif";
+import useGifPreloader, { getGifLoadingAttrs } from "./hooks/useGifPreloader";
 
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
+
+// GIF paths for preloading optimization
+const criticalGifs = [
+  "/gifs/software.gif",
+  "/gifs/uiux.gif",
+];
+
+const secondaryGifs = [
+  "/gifs/branding.gif",
+  "/gifs/inteligencia.gif",
+  "/gifs/marketing.gif",
+  "/gifs/consultaria.gif",
+];
+
+const benefitGifs = [
+  "/card_benefits/1.gif",
+  "/card_benefits/2.gif",
+  "/card_benefits/3.gif",
+  "/card_benefits/4.gif",
+  "/card_benefits/5.gif",
+  "/card_benefits/6.gif",
+];
 
 // Optimized static data with memoization
 const chromaItems = [
@@ -282,10 +307,12 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         {/* Featured Service - Large Card */}
         <div className="group relative overflow-hidden rounded-md border border-white/10 bg-white/5 md:col-span-2 hover:border-white/20 transition-all duration-300">
           <div className="relative">
-            <img
+            <OptimizedGif
               src={featuredService.image}
               alt={featuredService.title}
-              className="aspect-[5/2] w-full object-cover"
+              className="aspect-[5/2] w-full"
+              priority={true}
+              objectFit="cover"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
           </div>
@@ -340,10 +367,12 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 {service.description}
               </p>
               <div className={`${index === otherServices.length - 1 ? 'mt-1.5' : 'mt-2.5'} rounded-md overflow-hidden border border-white/10 group-hover:border-white/20 transition-all duration-300`}>
-                <img
+                <OptimizedGif
                   src={service.image}
                   alt={service.title}
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-[4/3] w-full"
+                  priority={index < 2}
+                  objectFit="cover"
                 />
               </div>
               <a
@@ -395,6 +424,447 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
   );
 });
 ServicesSection.displayName = 'ServicesSection';
+
+// AI Demo data for animated carousel
+const aiDemos = [
+  {
+    id: 'automation',
+    title: 'Automatización de Procesos',
+    description: 'Flujos inteligentes que trabajan 24/7',
+    icon: Workflow,
+    color: '#3B82F6',
+    gradient: 'from-blue-500 to-cyan-500'
+  },
+  {
+    id: 'documents',
+    title: 'Procesamiento de Documentos',
+    description: 'Extracción y análisis automático con IA',
+    icon: FileText,
+    color: '#10B981',
+    gradient: 'from-emerald-500 to-teal-500'
+  },
+  {
+    id: 'customers',
+    title: 'Gestión de Clientes',
+    description: 'CRM potenciado con inteligencia artificial',
+    icon: Users,
+    color: '#8B5CF6',
+    gradient: 'from-purple-500 to-pink-500'
+  },
+  {
+    id: 'invoices',
+    title: 'Procesamiento de Facturas',
+    description: 'Automatiza tu facturación completamente',
+    icon: Receipt,
+    color: '#F59E0B',
+    gradient: 'from-amber-500 to-orange-500'
+  },
+  {
+    id: 'production',
+    title: 'Automatización de Producción',
+    description: 'Control y optimización en tiempo real',
+    icon: Factory,
+    color: '#EF4444',
+    gradient: 'from-red-500 to-rose-500'
+  }
+];
+
+// Helper function to get demo metadata for editorial headers
+const getDemoMetadata = (demoId: string) => {
+  const metadata: Record<string, { label: string; shortTitle: string; colorClass: string }> = {
+    automation: {
+      label: 'Automatización · Flujo Continuo',
+      shortTitle: 'Automatización de procesos',
+      colorClass: 'blue'
+    },
+    documents: {
+      label: 'Documento · Flujo Inteligente',
+      shortTitle: 'Procesamiento de documentos',
+      colorClass: 'emerald'
+    },
+    customers: {
+      label: 'Cliente · CRM Inteligente',
+      shortTitle: 'Gestión de clientes',
+      colorClass: 'purple'
+    },
+    invoices: {
+      label: 'Facturación · Proceso Automático',
+      shortTitle: 'Procesamiento de facturas',
+      colorClass: 'amber'
+    },
+    production: {
+      label: 'Producción · Control en Tiempo Real',
+      shortTitle: 'Automatización de producción',
+      colorClass: 'red'
+    }
+  };
+  return metadata[demoId] || metadata.automation;
+};
+
+// Helper to get color values for gradients and shadows
+const getColorValues = (color: string) => {
+  const colors: Record<string, { 
+    accent: string; 
+    light: string; 
+    shadow: string; 
+    border: string;
+    textLabel: string;
+  }> = {
+    '#3B82F6': { // blue
+      accent: 'rgba(59, 130, 246, 0.9)',
+      light: 'rgba(96, 165, 250, 0.18)',
+      shadow: 'rgba(59, 130, 246, 0.8)',
+      border: 'rgba(96, 165, 250, 0.25)',
+      textLabel: 'rgba(191, 219, 254, 0.8)' // blue-200/80
+    },
+    '#10B981': { // emerald
+      accent: 'rgba(16, 185, 129, 0.9)',
+      light: 'rgba(52, 211, 153, 0.18)',
+      shadow: 'rgba(16, 185, 129, 0.8)',
+      border: 'rgba(52, 211, 153, 0.25)',
+      textLabel: 'rgba(167, 243, 208, 0.8)' // emerald-200/80
+    },
+    '#8B5CF6': { // purple
+      accent: 'rgba(139, 92, 246, 0.9)',
+      light: 'rgba(167, 139, 250, 0.18)',
+      shadow: 'rgba(139, 92, 246, 0.8)',
+      border: 'rgba(167, 139, 250, 0.25)',
+      textLabel: 'rgba(221, 214, 254, 0.8)' // purple-200/80
+    },
+    '#F59E0B': { // amber
+      accent: 'rgba(245, 158, 11, 0.9)',
+      light: 'rgba(251, 191, 36, 0.18)',
+      shadow: 'rgba(245, 158, 11, 0.8)',
+      border: 'rgba(251, 191, 36, 0.25)',
+      textLabel: 'rgba(253, 230, 138, 0.8)' // amber-200/80
+    },
+    '#EF4444': { // red
+      accent: 'rgba(239, 68, 68, 0.9)',
+      light: 'rgba(248, 113, 113, 0.18)',
+      shadow: 'rgba(239, 68, 68, 0.8)',
+      border: 'rgba(248, 113, 113, 0.25)',
+      textLabel: 'rgba(254, 202, 202, 0.8)' // red-200/80
+    }
+  };
+  return colors[color] || colors['#3B82F6'];
+};
+
+// AI Demo Carousel Component
+const AIDemoCarousel = memo(() => {
+  const [activeDemo, setActiveDemo] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Auto-rotate demos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setActiveDemo((prev) => (prev + 1) % aiDemos.length);
+        setIsAnimating(false);
+      }, 300);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentDemo = aiDemos[activeDemo];
+  const IconComponent = currentDemo.icon;
+  const metadata = getDemoMetadata(currentDemo.id);
+  const colorValues = getColorValues(currentDemo.color);
+
+  return (
+    <div className="h-[600px] flex flex-col">
+      {/* Demo Header - Editorial style for all demos */}
+      <div
+        className="
+          mb-3 flex items-center justify-between gap-4
+          px-4 py-2.5
+          relative
+          overflow-hidden
+        "
+        style={{
+          borderBottom: `1px solid ${colorValues.border}`,
+          background: `radial-gradient(circle at top left, ${colorValues.light}, transparent 55%), radial-gradient(circle at bottom right, ${currentDemo.color}1A, transparent 60%)`
+        }}
+      >
+        {/* Left accent bar + label */}
+        <div className="flex items-center gap-3">
+          <span 
+            className="h-8 w-[3px] rounded-full"
+            style={{ 
+              backgroundColor: colorValues.accent,
+              boxShadow: `0 0 20px ${colorValues.shadow}`
+            }}
+          />
+          <div className="flex flex-col leading-tight">
+            <span 
+              className="text-[10px] tracking-[0.22em] uppercase"
+              style={{ color: colorValues.textLabel }}
+            >
+              {metadata.label}
+            </span>
+            <span className="text-xs font-semibold tracking-wide text-white">
+              {metadata.shortTitle}
+            </span>
+          </div>
+        </div>
+
+        {/* Right pill with subtle stats / descriptor */}
+        <div
+          className="
+            hidden sm:flex items-center gap-3
+            rounded-full border border-white/8 bg-black/30
+            px-3 py-1.5
+            text-[10px] tracking-wide text-white/90
+            backdrop-blur-md
+          "
+        >
+          <span 
+            className="inline-flex h-1.5 w-1.5 rounded-full"
+            style={{ 
+              backgroundColor: colorValues.accent,
+              boxShadow: `0 0 10px ${colorValues.shadow}`
+            }}
+          />
+          <span>{currentDemo.description}</span>
+        </div>
+
+        {/* Soft corner highlight */}
+        <div 
+          className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l to-transparent"
+          style={{
+            background: `linear-gradient(to left, ${colorValues.accent.replace('0.9', '0.08')}, transparent)`
+          }}
+        />
+      </div>
+
+      {/* Demo Interface */}
+      <div 
+        className={`flex-1 bg-gradient-to-br from-white/[0.08] to-white/[0.02] rounded-xl border border-white/10 overflow-hidden relative transition-all duration-300 ${
+          isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+        }`}
+      >
+        {/* Demo Title Bar */}
+        <div 
+          className="flex items-center justify-between px-4 py-3 border-b border-white/10"
+          style={{ background: `linear-gradient(90deg, ${currentDemo.color}15, transparent)` }}
+        >
+          <div className="flex items-center gap-2">
+            <div 
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ background: `${currentDemo.color}25` }}
+            >
+              <IconComponent className="w-4 h-4" style={{ color: currentDemo.color }} />
+            </div>
+            <div>
+              <h4 className="text-sm font-medium text-white">{currentDemo.title}</h4>
+              <p className="text-[10px] text-slate-400">{currentDemo.description}</p>
+            </div>
+          </div>
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+          </div>
+        </div>
+
+        {/* Demo Content - Different for each type */}
+        <div className="p-4 h-full">
+          {currentDemo.id === 'automation' && (
+            <div className="space-y-3 animate-fadeIn">
+              {/* Workflow visualization */}
+              <div className="flex items-center gap-2 text-[10px] text-slate-400 mb-4">
+                <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Flujo activo</span>
+                <span>•</span>
+                <span>12 tareas completadas hoy</span>
+              </div>
+              {[
+                { name: 'Recibir email', status: 'completed', time: '2s' },
+                { name: 'Extraer datos', status: 'completed', time: '1.5s' },
+                { name: 'Validar información', status: 'running', time: '...' },
+                { name: 'Actualizar CRM', status: 'pending', time: '-' },
+                { name: 'Enviar notificación', status: 'pending', time: '-' }
+              ].map((step, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-medium ${
+                    step.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' :
+                    step.status === 'running' ? 'bg-blue-500/20 text-blue-400 animate-pulse' :
+                    'bg-white/10 text-white/40'
+                  }`}>
+                    {step.status === 'completed' ? '✓' : step.status === 'running' ? '◉' : idx + 1}
+                  </div>
+                  <span className="flex-1 text-xs text-white/80">{step.name}</span>
+                  <span className="text-[10px] text-white/40">{step.time}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {currentDemo.id === 'documents' && (
+            <div className="space-y-3 animate-fadeIn">
+              <div className="flex gap-3">
+                {/* Document preview */}
+                <div className="flex-1 p-3 rounded-lg bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FileText className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs text-white/80">contrato_2024.pdf</span>
+                  </div>
+                  <div className="space-y-2">
+                    {[1,2,3,4,5].map(i => (
+                      <div key={i} className={`h-2 rounded bg-white/10 ${i === 3 ? 'w-3/4' : i === 5 ? 'w-1/2' : 'w-full'}`}></div>
+                    ))}
+                  </div>
+                </div>
+                {/* Extracted data */}
+                <div className="flex-1 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                  <div className="text-[10px] text-emerald-400 mb-2 font-medium">Datos extraídos</div>
+                  {[
+                    { label: 'Cliente', value: 'Empresa ABC' },
+                    { label: 'Monto', value: '$45,000' },
+                    { label: 'Fecha', value: '15/12/2024' },
+                    { label: 'Tipo', value: 'Servicios' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex justify-between text-[10px] py-1 border-b border-emerald-500/10 last:border-0">
+                      <span className="text-white/50">{item.label}</span>
+                      <span className="text-white/90">{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                <span className="text-[10px] text-emerald-400">✓ 98% precisión en extracción</span>
+              </div>
+            </div>
+          )}
+
+          {currentDemo.id === 'customers' && (
+            <div className="space-y-3 animate-fadeIn">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.9)]"></span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-[9px] tracking-[0.22em] uppercase text-purple-200/80">
+                      Vista CRM
+                    </span>
+                    <span className="text-xs font-medium text-white/85">
+                      Cartera priorizada por IA
+                    </span>
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-md">
+                  <span className="text-[10px] text-purple-200/80">47 clientes activos</span>
+                  <span className="text-[10px] text-white/40">•</span>
+                  <span className="text-[10px] text-emerald-300">12 en foco hoy</span>
+                </div>
+              </div>
+              {[
+                { name: 'María García', status: 'hot', score: 92, action: 'Llamar hoy' },
+                { name: 'Carlos López', status: 'warm', score: 78, action: 'Enviar propuesta' },
+                { name: 'Ana Martínez', status: 'cold', score: 45, action: 'Nurturing' }
+              ].map((client, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/30 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-[10px] font-bold text-white">
+                    {client.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs text-white/90">{client.name}</div>
+                    <div className="text-[10px] text-white/50">{client.action}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className={`text-[10px] font-medium ${
+                      client.status === 'hot' ? 'text-red-400' :
+                      client.status === 'warm' ? 'text-amber-400' : 'text-blue-400'
+                    }`}>
+                      {client.score}% score
+                    </div>
+                    <div className="w-16 h-1.5 rounded-full bg-white/10 overflow-hidden mt-1">
+                      <div 
+                        className={`h-full rounded-full ${
+                          client.status === 'hot' ? 'bg-red-500' :
+                          client.status === 'warm' ? 'bg-amber-500' : 'bg-blue-500'
+                        }`}
+                        style={{ width: `${client.score}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {currentDemo.id === 'invoices' && (
+            <div className="space-y-3 animate-fadeIn">
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[
+                  { label: 'Pendientes', value: '12', color: 'amber' },
+                  { label: 'Procesadas', value: '89', color: 'emerald' },
+                  { label: 'Errores', value: '2', color: 'red' }
+                ].map((stat, idx) => (
+                  <div key={idx} className={`p-2 rounded-lg bg-${stat.color}-500/10 border border-${stat.color}-500/20 text-center`}>
+                    <div className={`text-lg font-bold text-${stat.color}-400`}>{stat.value}</div>
+                    <div className="text-[9px] text-white/50">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+              {[
+                { id: 'FAC-2024-089', client: 'Tech Solutions', amount: '$12,450', status: 'procesando' },
+                { id: 'FAC-2024-088', client: 'Digital Corp', amount: '$8,200', status: 'completado' },
+                { id: 'FAC-2024-087', client: 'Innovate S.A.', amount: '$15,800', status: 'completado' }
+              ].map((invoice, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <Receipt className="w-4 h-4 text-amber-400" />
+                  <div className="flex-1">
+                    <div className="text-xs text-white/90">{invoice.id}</div>
+                    <div className="text-[10px] text-white/50">{invoice.client}</div>
+                  </div>
+                  <div className="text-xs font-medium text-white/80">{invoice.amount}</div>
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded ${
+                    invoice.status === 'completado' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400 animate-pulse'
+                  }`}>
+                    {invoice.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {currentDemo.id === 'production' && (
+            <div className="space-y-3 animate-fadeIn">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] text-red-300 px-2 py-0.5 rounded bg-red-500/20">Planta Principal</span>
+                <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  En línea
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: 'Eficiencia', value: '94%', icon: '⚡' },
+                  { label: 'Unidades/h', value: '1,245', icon: '📦' },
+                  { label: 'Calidad', value: '99.2%', icon: '✓' },
+                  { label: 'Tiempo act.', value: '18h', icon: '⏱' }
+                ].map((metric, idx) => (
+                  <div key={idx} className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-sm">{metric.icon}</span>
+                      <span className="text-[10px] text-white/50">{metric.label}</span>
+                    </div>
+                    <div className="text-lg font-bold text-white/90">{metric.value}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="p-2 rounded-lg bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20">
+                <div className="text-[10px] text-red-300 mb-1">🤖 IA detectó:</div>
+                <div className="text-[10px] text-white/70">Optimización posible en Línea 3 - Ahorro estimado: 12%</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+});
+AIDemoCarousel.displayName = 'AIDemoCarousel';
 
 // Create a simple hero section component
 const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
@@ -496,9 +966,19 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                 <span>1200</span>
               </div>
 
-              <div className="sm:p-6 p-4">
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 ring-1 ring-white/10 h-[360px] sm:h-[460px]">
-                  <div className="absolute inset-0 w-full h-full">
+              <div className="sm:p-6 p-4 space-y-4">
+                {/* Robot canvas */}
+                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black ring-1 ring-white/10 h-[360px] sm:h-[460px]">
+                  {/* Animated background grid */}
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)]"></div>
+                  
+                  {/* Glow orbs */}
+                  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                  <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+                  {/* Robot 3D */}
+                  <div className="absolute inset-0 w-full h-full z-[5]">
                     <iframe
                       src="https://my.spline.design/nexbotrobotcharacterconcept-Y7kCIxqyBi9dwdEtS20sUnaZ/"
                       frameBorder="0"
@@ -508,11 +988,109 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                       loading="lazy"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10"></div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="max-w-xl rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur">
-                      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">Software que hace el trabajo por tu equipo</h3>
-                      <p className="mt-1 text-sm text-slate-300">Automatiza tareas repetitivas, reduce la carga operativa y libera a tu equipo para enfocarse en decisiones y crecimiento.</p>
+
+                  {/* Floating UI Elements */}
+                  <div className="absolute top-4 left-4 z-20 hidden sm:block animate-float">
+                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg px-3 py-2 shadow-xl">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-[10px] text-emerald-400 font-medium">IA Activa</span>
+                      </div>
+                      <div className="mt-1 text-[9px] text-white/50">Procesando 247 tareas/día</div>
+                    </div>
+                  </div>
+
+                  <div className="absolute top-20 right-4 z-20 hidden sm:block animate-float" style={{ animationDelay: '0.5s' }}>
+                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg px-3 py-2 shadow-xl">
+                      <div className="flex items-center gap-2 mb-1">
+                        <svg className="w-3 h-3 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        <span className="text-[10px] text-white/80">Productividad</span>
+                      </div>
+                      <div className="text-lg font-bold text-cyan-400">+312%</div>
+                    </div>
+                  </div>
+
+                  <div className="absolute top-4 right-4 z-20 sm:hidden">
+                    <div className="bg-black/60 backdrop-blur-lg border border-emerald-500/30 rounded-full px-2 py-1">
+                      <div className="flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-[8px] text-emerald-400">IA Activa</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-32 left-4 z-20 hidden sm:block animate-float" style={{ animationDelay: '1s' }}>
+                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg p-2 shadow-xl">
+                      <div className="flex items-center gap-1.5">
+                        <div className="flex -space-x-1">
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">M</div>
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">A</div>
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">+5</div>
+                        </div>
+                        <span className="text-[9px] text-white/60">Equipo liberado</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Gradient overlay over robot */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+                </div>
+
+                {/* Automation explanation card – placed below the robot */}
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                  {/* Card glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-cyan-500/10"></div>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  
+                  <div className="relative p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      {/* Text content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="mb-2 flex items-center gap-3">
+                          <span className="text-[10px] tracking-[0.25em] uppercase text-sky-300/80">
+                            Automatización continua
+                          </span>
+                          <span className="hidden sm:inline h-px w-10 bg-sky-500/60" />
+                          <span className="hidden sm:inline text-[10px] text-white/40">
+                            Operaciones sin fricción
+                          </span>
+                        </div>
+                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                          Software que <span className="font-normal text-sky-300">hace el turno nocturno</span> por tu equipo
+                        </h3>
+                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                          Orquestamos bots y flujos de IA que se encargan del trabajo repetitivo 24/7, para que tu equipo humano solo intervenga cuando hay decisiones reales que tomar.
+                        </p>
+                      </div>
+
+                      {/* Stats / Editorial metrics */}
+                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Carga operativa
+                          </div>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-xl sm:text-2xl font-mono text-emerald-400">-70%</span>
+                            <span className="text-[10px] text-white/50">tareas manuales</span>
+                          </div>
+                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                            <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Tiempo activo
+                          </div>
+                          <div className="text-sm font-mono text-sky-300">
+                            24·7·365
+                          </div>
+                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                            Supervisa, responde y reporta mientras tu equipo duerme.
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -531,144 +1109,8 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                 </button>
               </div>
 
-              <div className="space-y-3">
-                {/* Code Block */}
-                <div className="bg-white/5 rounded-lg p-4 space-y-2 h-[600px] flex flex-col">
-                  <div className="mb-2 flex items-center justify-between text-xs">
-                    <span className="text-slate-300 font-medium">Code</span>
-                    <button className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-slate-400 hover:bg-white/10">
-                      Copy
-                    </button>
-                  </div>
-                  <div className="bg-black/40 rounded-md overflow-hidden flex-1 relative">
-                    <div className="absolute inset-0 overflow-hidden">
-                      <pre className="p-4 text-[10px] text-slate-300 font-mono leading-relaxed code-scroll">
-                        <code className="block">
-                          {`<HeroSection isInicioActive={true}>
-  <div className="hero-content">
-    <h1 className="text-4xl font-bold">
-      Multiplica tu productividad
-    </h1>
-    <p className="text-lg text-gray-300">
-      Con IA y automatización
-    </p>
-    <button className="mt-4 px-6 py-2 
-        bg-blue-500 rounded-lg">
-      Prueba gratis
-    </button>
-  </div>
-</HeroSection>
-
-<ServicesSection>
-  <div className="services-grid">
-    <ServiceCard 
-      title="Branding"
-      description="Impulsa tu marca"
-    />
-    <ServiceCard 
-      title="UX/UI"
-      description="Experiencias únicas"
-    />
-    <ServiceCard 
-      title="Software"
-      description="Automatización"
-    />
-  </div>
-</ServicesSection>
-
-<VentajasSection>
-  <div className="ventajas-list">
-    <VentajaCard 
-      icon={Zap}
-      title="Multiplica productividad"
-      benefit="Hasta 3x más rápido"
-    />
-    <VentajaCard 
-      icon={DollarSign}
-      title="Ahorra costos"
-      benefit="Hasta 32% menos"
-    />
-  </div>
-</VentajasSection>
-
-<HistoriaSection>
-  <div className="team-grid">
-    <TeamMember 
-      name="Mauricio"
-      role="AI & Engineering"
-    />
-    <TeamMember 
-      name="Andrea"
-      role="Design & Branding"
-    />
-  </div>
-</HistoriaSection>
-
-<HeroSection isInicioActive={true}>
-  <div className="hero-content">
-    <h1 className="text-4xl font-bold">
-      Multiplica tu productividad
-    </h1>
-    <p className="text-lg text-gray-300">
-      Con IA y automatización
-    </p>
-    <button className="mt-4 px-6 py-2 
-        bg-blue-500 rounded-lg">
-      Prueba gratis
-    </button>
-  </div>
-</HeroSection>
-
-<ServicesSection>
-  <div className="services-grid">
-    <ServiceCard 
-      title="Branding"
-      description="Impulsa tu marca"
-    />
-    <ServiceCard 
-      title="UX/UI"
-      description="Experiencias únicas"
-    />
-    <ServiceCard 
-      title="Software"
-      description="Automatización"
-    />
-  </div>
-</ServicesSection>
-
-<VentajasSection>
-  <div className="ventajas-list">
-    <VentajaCard 
-      icon={Zap}
-      title="Multiplica productividad"
-      benefit="Hasta 3x más rápido"
-    />
-    <VentajaCard 
-      icon={DollarSign}
-      title="Ahorra costos"
-      benefit="Hasta 32% menos"
-    />
-  </div>
-</VentajasSection>
-
-<HistoriaSection>
-  <div className="team-grid">
-    <TeamMember 
-      name="Mauricio"
-      role="AI & Engineering"
-    />
-    <TeamMember 
-      name="Andrea"
-      role="Design & Branding"
-    />
-  </div>
-</HistoriaSection>`}
-                        </code>
-                      </pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* AI Demo Interfaces - Animated Carousel */}
+              <AIDemoCarousel />
             </aside>
           </div>
         </div>
@@ -682,6 +1124,27 @@ HeroSection.displayName = 'HeroSection';
 const VentajasSection = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedCards, setAnimatedCards] = useState<number[]>([]);
+  const [loadedBackgrounds, setLoadedBackgrounds] = useState<Set<number>>(new Set());
+
+  // Preload background GIFs when cards come into view
+  useEffect(() => {
+    if (!isVisible) return;
+    
+    // Load backgrounds progressively
+    ventajas.forEach((_, index) => {
+      const img = new Image();
+      const gifPath = `/card_benefits/${index + 1}.gif`;
+      
+      img.onload = () => {
+        setLoadedBackgrounds(prev => new Set([...prev, index]));
+      };
+      
+      // Stagger the loading to prevent bandwidth congestion
+      setTimeout(() => {
+        img.src = gifPath;
+      }, index * 150);
+    });
+  }, [isVisible]);
 
   // Mouse tracking for ChromaGrid-style spotlight effect
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -753,10 +1216,10 @@ const VentajasSection = memo(() => {
             return (
               <article
                 key={index}
-                className={`chroma-ventaja-card group relative overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl bg-cover backdrop-blur-lg transition-all duration-700 transform sm:h-[320px] ${isAnimated
+                className={`chroma-ventaja-card group relative overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl backdrop-blur-lg transition-all duration-700 transform sm:h-[320px] ${isAnimated
                     ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-20 scale-95'
-                  }`}
+                  } ${!loadedBackgrounds.has(index) ? 'ventaja-skeleton' : ''}`}
                 onMouseMove={handleMouseMove}
                 style={{
                   transitionDelay: `${index * 150}ms`,
@@ -767,7 +1230,10 @@ const VentajasSection = memo(() => {
                   '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
                   minHeight: '280px',
                   border: '1px solid rgba(75, 85, 99, 0.3)',
-                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9)), url(/card_benefits/${index + 1}.gif)`,
+                  backgroundColor: 'rgb(20, 20, 20)',
+                  backgroundImage: loadedBackgrounds.has(index) 
+                    ? `linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9)), url(/card_benefits/${index + 1}.gif)`
+                    : 'linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9))',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   cursor: 'pointer'
@@ -873,7 +1339,7 @@ const HistoriaSection = memo(() => {
             <div>
               <p className="text-sm text-white/70">Email</p>
               <a
-                href="mailto:contacto@tumarca.com"
+                href="mailto:contacto@artiificial.art"
                 className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight"
               >
                 <svg
@@ -892,14 +1358,16 @@ const HistoriaSection = memo(() => {
                   <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
                   <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                 </svg>
-                <span className="break-all">contacto@tumarca.com</span>
+                <span className="break-all">contacto@artiificial.art</span>
               </a>
             </div>
 
             <div className="md:pl-8">
               <p className="text-sm text-white/70">Schedule</p>
               <a
-                href="#"
+                href="https://calendly.com/artificial-company-local/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-tight text-gray-900 bg-white hover:bg-white/90 border border-white/10 mt-2"
               >
                 <svg
@@ -941,6 +1409,13 @@ function LandingPage() {
   const [showChroma, setShowChroma] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Preload critical GIFs for optimal loading experience
+  const { isLoaded: isGifLoaded } = useGifPreloader(
+    criticalGifs,
+    [...secondaryGifs, ...benefitGifs],
+    { delay: 100, concurrent: 2 }
+  );
 
   // Detect mobile screen size
   useEffect(() => {
