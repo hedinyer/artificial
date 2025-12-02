@@ -22,7 +22,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         
         {/* Preload critical GIFs for optimal loading experience */}
-        <link rel="preload" href="/gifs/software.gif" as="image" type="image/gif" />
+        <link rel="preload" href="/1.png" as="image" type="image/png" />
         <link rel="preload" href="/gifs/uiux.gif" as="image" type="image/gif" />
         
         {/* Prefetch secondary GIFs */}

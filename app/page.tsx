@@ -27,7 +27,7 @@ const MemoizedBeams = memo(Beams);
 
 // GIF paths for preloading optimization
 const criticalGifs = [
-  "/gifs/software.gif",
+  "/1.png",
   "/gifs/uiux.gif",
 ];
 
@@ -66,7 +66,7 @@ const chromaItems = [
     url: "#"
   },
   {
-    image: "/gifs/software.gif",
+    image: "/1.png",
     title: "Software a Medida",
     subtitle: "Automatiza tus procesos de negocio",
     borderColor: "#F59E0B",
@@ -647,14 +647,14 @@ const AIDemoCarousel = memo(() => {
         {/* Demo Title Bar */}
         <div 
           className="flex items-center justify-between px-4 py-3 border-b border-white/10"
-          style={{ background: `linear-gradient(90deg, ${currentDemo.color}15, transparent)` }}
+          style={{ background: `linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent)` }}
         >
           <div className="flex items-center gap-2">
             <div 
               className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: `${currentDemo.color}25` }}
+              style={{ background: 'rgba(255, 255, 255, 0.1)' }}
             >
-              <IconComponent className="w-4 h-4" style={{ color: currentDemo.color }} />
+              <IconComponent className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
             </div>
             <div>
               <h4 className="text-sm font-medium text-white">{currentDemo.title}</h4>
@@ -662,200 +662,535 @@ const AIDemoCarousel = memo(() => {
             </div>
           </div>
           <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
-            <span className="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-white/40"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-white/40"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-white/40"></span>
           </div>
         </div>
 
         {/* Demo Content - Different for each type */}
-        <div className="p-4 h-full">
+        <div className="p-4 h-full relative overflow-hidden">
+          {/* Animated grid background */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: '20px 20px',
+              animation: 'gridMove 20s linear infinite'
+            }}
+          />
+          
           {currentDemo.id === 'automation' && (
-            <div className="space-y-3 animate-fadeIn">
-              {/* Workflow visualization */}
-              <div className="flex items-center gap-2 text-[10px] text-slate-400 mb-4">
-                <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Flujo activo</span>
-                <span>•</span>
-                <span>12 tareas completadas hoy</span>
+            <div className="space-y-2.5 relative z-10 animate-fadeIn">
+              {/* Terminal-style header */}
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                </div>
+                <div className="flex-1 font-mono text-[9px] text-white/30 ml-2">
+                  workflow://automation/main
+                </div>
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse"></div>
+                  <span className="text-[9px] font-mono text-white/70">ACTIVE</span>
+                </div>
               </div>
+
+              {/* Stats bar */}
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                <div className="px-2.5 py-1.5 rounded border border-white/5 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm">
+                  <div className="text-[8px] uppercase tracking-wider text-white/40 mb-0.5 font-mono">Tasks Today</div>
+                  <div className="text-lg font-bold text-white/90 font-mono">12</div>
+                </div>
+                <div className="px-2.5 py-1.5 rounded border border-white/5 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm">
+                  <div className="text-[8px] uppercase tracking-wider text-white/40 mb-0.5 font-mono">Avg Time</div>
+                  <div className="text-lg font-bold text-white/80 font-mono">1.8s</div>
+                </div>
+              </div>
+
+              {/* Workflow steps with terminal aesthetic */}
               {[
-                { name: 'Recibir email', status: 'completed', time: '2s' },
-                { name: 'Extraer datos', status: 'completed', time: '1.5s' },
-                { name: 'Validar información', status: 'running', time: '...' },
-                { name: 'Actualizar CRM', status: 'pending', time: '-' },
-                { name: 'Enviar notificación', status: 'pending', time: '-' }
+                { name: 'Recibir email', status: 'completed', time: '2s', progress: 100 },
+                { name: 'Extraer datos', status: 'completed', time: '1.5s', progress: 100 },
+                { name: 'Validar información', status: 'running', time: '...', progress: 65 },
+                { name: 'Actualizar CRM', status: 'pending', time: '-', progress: 0 },
+                { name: 'Enviar notificación', status: 'pending', time: '-', progress: 0 }
               ].map((step, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/5">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-medium ${
-                    step.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' :
-                    step.status === 'running' ? 'bg-blue-500/20 text-blue-400 animate-pulse' :
-                    'bg-white/10 text-white/40'
-                  }`}>
-                    {step.status === 'completed' ? '✓' : step.status === 'running' ? '◉' : idx + 1}
+                <div 
+                  key={idx} 
+                  className="group relative overflow-hidden rounded-md border border-white/5 bg-gradient-to-br from-white/[0.06] to-white/[0.02] hover:border-white/10 transition-all duration-300"
+                  style={{
+                    boxShadow: step.status === 'running' 
+                      ? '0 0 20px rgba(255, 255, 255, 0.08)' 
+                      : 'none'
+                  }}
+                >
+                  {/* Progress bar background */}
+                  {step.status === 'running' && (
+                    <div 
+                      className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-current to-transparent opacity-30"
+                      style={{ 
+                        width: `${step.progress}%`,
+                        color: currentDemo.color,
+                        animation: 'pulse 2s ease-in-out infinite'
+                      }}
+                    />
+                  )}
+                  
+                  <div className="flex items-center gap-3 p-2.5 relative">
+                    {/* Status indicator with custom design */}
+                    <div className="relative flex-shrink-0">
+                      {step.status === 'completed' ? (
+                        <div className="w-5 h-5 rounded border flex items-center justify-center" style={{ borderColor: 'rgba(255, 255, 255, 0.2)', background: 'rgba(255, 255, 255, 0.08)' }}>
+                          <svg className="w-2.5 h-2.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      ) : step.status === 'running' ? (
+                        <div 
+                          className="w-5 h-5 rounded border flex items-center justify-center relative"
+                          style={{
+                            borderColor: 'rgba(255, 255, 255, 0.2)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.08)'
+                          }}
+                        >
+                          <div 
+                            className="w-2 h-2 rounded-full"
+                            style={{
+                              backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                              boxShadow: '0 0 8px rgba(255, 255, 255, 0.4)',
+                              animation: 'pulse 1.5s ease-in-out infinite'
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-5 h-5 rounded border border-white/20 bg-white/5 flex items-center justify-center">
+                          <span className="text-[8px] font-mono text-white/30">{String(idx + 1).padStart(2, '0')}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-[11px] font-medium text-white/90 font-mono tracking-tight">
+                          {step.name}
+                        </span>
+                      </div>
+                      {step.status === 'running' && (
+                        <div className="h-0.5 w-full bg-white/5 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full"
+                            style={{
+                              width: `${step.progress}%`,
+                              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2))',
+                              animation: 'shimmer 1.5s ease-in-out infinite'
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex-shrink-0">
+                      <span 
+                        className={`text-[9px] font-mono ${
+                          step.status === 'completed' ? 'text-white/70' :
+                          step.status === 'running' ? 'text-white/60' :
+                          'text-white/20'
+                        }`}
+                      >
+                        {step.time}
+                      </span>
+                    </div>
                   </div>
-                  <span className="flex-1 text-xs text-white/80">{step.name}</span>
-                  <span className="text-[10px] text-white/40">{step.time}</span>
                 </div>
               ))}
             </div>
           )}
 
           {currentDemo.id === 'documents' && (
-            <div className="space-y-3 animate-fadeIn">
-              <div className="flex gap-3">
-                {/* Document preview */}
-                <div className="flex-1 p-3 rounded-lg bg-white/5 border border-white/10">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FileText className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs text-white/80">contrato_2024.pdf</span>
+            <div className="space-y-3 relative z-10 animate-fadeIn">
+              {/* Terminal header */}
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                </div>
+                <div className="flex-1 font-mono text-[9px] text-white/30 ml-2">
+                  extract://document/processing
+                </div>
+                <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                  <span className="text-[9px] font-mono text-white/70">98% ACC</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                {/* Document preview with scan effect */}
+                <div className="relative p-3 rounded-md border border-white/5 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent animate-scan" 
+                       style={{ animation: 'scan 3s ease-in-out infinite' }} />
+                  <div className="flex items-center gap-2 mb-3 relative z-10">
+                    <div className="w-6 h-6 rounded border flex items-center justify-center" style={{ borderColor: 'rgba(255, 255, 255, 0.15)', background: 'rgba(255, 255, 255, 0.08)' }}>
+                      <FileText className="w-3 h-3 text-white/70" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-white/90">contrato_2024.pdf</div>
+                      <div className="text-[8px] text-white/40 font-mono">2.4 MB · PDF</div>
+                    </div>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 relative z-10">
                     {[1,2,3,4,5].map(i => (
-                      <div key={i} className={`h-2 rounded bg-white/10 ${i === 3 ? 'w-3/4' : i === 5 ? 'w-1/2' : 'w-full'}`}></div>
+                      <div 
+                        key={i} 
+                        className={`h-1.5 rounded bg-gradient-to-r from-white/10 to-white/5 ${
+                          i === 3 ? 'w-3/4' : i === 5 ? 'w-1/2' : 'w-full'
+                        }`}
+                        style={{ animationDelay: `${i * 0.1}s` }}
+                      />
                     ))}
                   </div>
                 </div>
-                {/* Extracted data */}
-                <div className="flex-1 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                  <div className="text-[10px] text-emerald-400 mb-2 font-medium">Datos extraídos</div>
-                  {[
-                    { label: 'Cliente', value: 'Empresa ABC' },
-                    { label: 'Monto', value: '$45,000' },
-                    { label: 'Fecha', value: '15/12/2024' },
-                    { label: 'Tipo', value: 'Servicios' }
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex justify-between text-[10px] py-1 border-b border-emerald-500/10 last:border-0">
-                      <span className="text-white/50">{item.label}</span>
-                      <span className="text-white/90">{item.value}</span>
-                    </div>
-                  ))}
+                
+                {/* Extracted data with structured layout */}
+                <div className="p-3 rounded-md border backdrop-blur-sm" style={{ borderColor: 'rgba(255, 255, 255, 0.15)', background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))' }}>
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <div className="w-1 h-4 rounded-full bg-white/50"></div>
+                    <span className="text-[9px] uppercase tracking-wider text-white/60 font-mono">Extracted Data</span>
+                  </div>
+                  <div className="space-y-2">
+                    {[
+                      { label: 'Cliente', value: 'Empresa ABC', icon: '👤' },
+                      { label: 'Monto', value: '$45,000', icon: '💰' },
+                      { label: 'Fecha', value: '15/12/2024', icon: '📅' },
+                      { label: 'Tipo', value: 'Servicios', icon: '📋' }
+                    ].map((item, idx) => (
+                      <div 
+                        key={idx} 
+                        className="flex items-center justify-between p-1.5 rounded border bg-white/5 hover:bg-white/10 transition-colors"
+                        style={{ 
+                          animationDelay: `${idx * 0.1}s`,
+                          borderColor: 'rgba(255, 255, 255, 0.08)'
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px]">{item.icon}</span>
+                          <span className="text-[9px] text-white/50 font-mono uppercase">{item.label}</span>
+                        </div>
+                        <span className="text-[10px] font-mono text-white/80 font-semibold">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                <span className="text-[10px] text-emerald-400">✓ 98% precisión en extracción</span>
+              
+              <div className="flex items-center gap-2 p-2 rounded-md border backdrop-blur-sm" style={{ borderColor: 'rgba(255, 255, 255, 0.15)', background: 'linear-gradient(to right, rgba(255, 255, 255, 0.08), transparent)' }}>
+                <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse"></div>
+                <span className="text-[9px] font-mono text-white/70">98% precisión · OCR + NLP</span>
               </div>
             </div>
           )}
 
           {currentDemo.id === 'customers' && (
-            <div className="space-y-3 animate-fadeIn">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.9)]"></span>
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-[9px] tracking-[0.22em] uppercase text-purple-200/80">
-                      Vista CRM
-                    </span>
-                    <span className="text-xs font-medium text-white/85">
-                      Cartera priorizada por IA
-                    </span>
-                  </div>
+            <div className="space-y-2.5 relative z-10 animate-fadeIn">
+              {/* Terminal header */}
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-md">
-                  <span className="text-[10px] text-purple-200/80">47 clientes activos</span>
-                  <span className="text-[10px] text-white/40">•</span>
-                  <span className="text-[10px] text-emerald-300">12 en foco hoy</span>
+                <div className="flex-1 font-mono text-[9px] text-white/30 ml-2">
+                  crm://portfolio/ai-prioritized
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                    <span className="text-[9px] font-mono text-white/70">47 ACTIVE</span>
+                  </div>
+                  <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                    <span className="text-[9px] font-mono text-white/70">12 FOCUS</span>
+                  </div>
                 </div>
               </div>
+
+              {/* Client cards with enhanced design */}
               {[
-                { name: 'María García', status: 'hot', score: 92, action: 'Llamar hoy' },
-                { name: 'Carlos López', status: 'warm', score: 78, action: 'Enviar propuesta' },
-                { name: 'Ana Martínez', status: 'cold', score: 45, action: 'Nurturing' }
-              ].map((client, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/30 transition-colors">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-[10px] font-bold text-white">
-                    {client.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-xs text-white/90">{client.name}</div>
-                    <div className="text-[10px] text-white/50">{client.action}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-[10px] font-medium ${
-                      client.status === 'hot' ? 'text-red-400' :
-                      client.status === 'warm' ? 'text-amber-400' : 'text-blue-400'
-                    }`}>
-                      {client.score}% score
+                { name: 'María García', status: 'hot', score: 92, action: 'Llamar hoy', priority: 'HIGH' },
+                { name: 'Carlos López', status: 'warm', score: 78, action: 'Enviar propuesta', priority: 'MED' },
+                { name: 'Ana Martínez', status: 'cold', score: 45, action: 'Nurturing', priority: 'LOW' }
+              ].map((client, idx) => {
+                const statusColors = {
+                  hot: { 
+                    bgFrom: 'rgba(255, 255, 255, 0.12)', 
+                    bgTo: 'rgba(255, 255, 255, 0.06)', 
+                    border: 'rgba(255, 255, 255, 0.2)', 
+                    text: 'rgba(255, 255, 255, 0.8)', 
+                    bar: 'rgba(255, 255, 255, 0.5)',
+                    shadow: 'rgba(255, 255, 255, 0.1)'
+                  },
+                  warm: { 
+                    bgFrom: 'rgba(255, 255, 255, 0.1)', 
+                    bgTo: 'rgba(255, 255, 255, 0.05)', 
+                    border: 'rgba(255, 255, 255, 0.18)', 
+                    text: 'rgba(255, 255, 255, 0.75)', 
+                    bar: 'rgba(255, 255, 255, 0.45)',
+                    shadow: 'rgba(255, 255, 255, 0.08)'
+                  },
+                  cold: { 
+                    bgFrom: 'rgba(255, 255, 255, 0.08)', 
+                    bgTo: 'rgba(255, 255, 255, 0.04)', 
+                    border: 'rgba(255, 255, 255, 0.15)', 
+                    text: 'rgba(255, 255, 255, 0.7)', 
+                    bar: 'rgba(255, 255, 255, 0.4)',
+                    shadow: 'rgba(255, 255, 255, 0.06)'
+                  }
+                };
+                const colors = statusColors[client.status as keyof typeof statusColors];
+                
+                return (
+                  <div 
+                    key={idx} 
+                    className="group relative overflow-hidden rounded-md border hover:border-opacity-50 transition-all duration-300"
+                    style={{
+                      borderColor: colors.border,
+                      background: `linear-gradient(to bottom right, ${colors.bgFrom}, ${colors.bgTo})`,
+                      boxShadow: `0 0 20px ${colors.shadow}`
+                    }}
+                  >
+                    <div className="flex items-center gap-3 p-2.5 relative">
+                      {/* Avatar with status indicator */}
+                      <div className="relative flex-shrink-0">
+                        <div className="w-9 h-9 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-[11px] font-bold text-white border border-white/20">
+                          {client.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div 
+                          className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-black" 
+                          style={{ backgroundColor: colors.bar }}
+                        />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[11px] font-medium text-white/90 font-mono tracking-tight">
+                            {client.name}
+                          </span>
+                          <span 
+                            className="text-[7px] px-1 py-0.5 rounded border font-mono uppercase"
+                            style={{ 
+                              borderColor: colors.border,
+                              color: colors.text
+                            }}
+                          >
+                            {client.priority}
+                          </span>
+                        </div>
+                        <div className="text-[9px] text-white/50 font-mono mb-1.5">{client.action}</div>
+                        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full"
+                            style={{ 
+                              width: `${client.score}%`,
+                              backgroundColor: colors.bar,
+                              boxShadow: `0 0 8px ${colors.bar}80`
+                            }}
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="text-right flex-shrink-0">
+                        <div className="text-lg font-bold font-mono" style={{ color: colors.text }}>
+                          {client.score}
+                        </div>
+                        <div className="text-[8px] text-white/40 font-mono uppercase">Score</div>
+                      </div>
                     </div>
-                    <div className="w-16 h-1.5 rounded-full bg-white/10 overflow-hidden mt-1">
-                      <div 
-                        className={`h-full rounded-full ${
-                          client.status === 'hot' ? 'bg-red-500' :
-                          client.status === 'warm' ? 'bg-amber-500' : 'bg-blue-500'
-                        }`}
-                        style={{ width: `${client.score}%` }}
-                      ></div>
-                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
           {currentDemo.id === 'invoices' && (
-            <div className="space-y-3 animate-fadeIn">
+            <div className="space-y-2.5 relative z-10 animate-fadeIn">
+              {/* Terminal header */}
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                </div>
+                <div className="flex-1 font-mono text-[9px] text-white/30 ml-2">
+                  invoice://processing/queue
+                </div>
+                <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                  <span className="text-[9px] font-mono text-white/70">AUTO</span>
+                </div>
+              </div>
+
+              {/* Stats grid with enhanced design */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {[
-                  { label: 'Pendientes', value: '12', color: 'amber' },
-                  { label: 'Procesadas', value: '89', color: 'emerald' },
-                  { label: 'Errores', value: '2', color: 'red' }
+                  { label: 'Pendientes', value: '12', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, icon: '⏳' },
+                  { label: 'Procesadas', value: '89', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, icon: '✓' },
+                  { label: 'Errores', value: '2', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, icon: '⚠' }
                 ].map((stat, idx) => (
-                  <div key={idx} className={`p-2 rounded-lg bg-${stat.color}-500/10 border border-${stat.color}-500/20 text-center`}>
-                    <div className={`text-lg font-bold text-${stat.color}-400`}>{stat.value}</div>
-                    <div className="text-[9px] text-white/50">{stat.label}</div>
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden rounded-md border p-2.5 text-center backdrop-blur-sm"
+                    style={{
+                      borderColor: stat.color.border,
+                      background: `linear-gradient(to bottom right, ${stat.color.bgFrom}, ${stat.color.bgTo})`
+                    }}
+                  >
+                    <div className="text-base mb-1">{stat.icon}</div>
+                    <div className="text-xl font-bold font-mono mb-0.5" style={{ color: stat.color.text }}>{stat.value}</div>
+                    <div className="text-[8px] uppercase tracking-wider text-white/50 font-mono">{stat.label}</div>
                   </div>
                 ))}
               </div>
+
+              {/* Invoice list with terminal aesthetic */}
               {[
-                { id: 'FAC-2024-089', client: 'Tech Solutions', amount: '$12,450', status: 'procesando' },
-                { id: 'FAC-2024-088', client: 'Digital Corp', amount: '$8,200', status: 'completado' },
-                { id: 'FAC-2024-087', client: 'Innovate S.A.', amount: '$15,800', status: 'completado' }
+                { id: 'FAC-2024-089', client: 'Tech Solutions', amount: '$12,450', status: 'procesando', progress: 75 },
+                { id: 'FAC-2024-088', client: 'Digital Corp', amount: '$8,200', status: 'completado', progress: 100 },
+                { id: 'FAC-2024-087', client: 'Innovate S.A.', amount: '$15,800', status: 'completado', progress: 100 }
               ].map((invoice, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/5">
-                  <Receipt className="w-4 h-4 text-amber-400" />
-                  <div className="flex-1">
-                    <div className="text-xs text-white/90">{invoice.id}</div>
-                    <div className="text-[10px] text-white/50">{invoice.client}</div>
+                <div 
+                  key={idx} 
+                  className="group relative overflow-hidden rounded-md border hover:border-opacity-50 transition-all duration-300"
+                  style={{
+                    borderColor: 'rgba(255, 255, 255, 0.15)',
+                    background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))'
+                  }}
+                >
+                  {invoice.status === 'procesando' && (
+                    <div 
+                      className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-50"
+                      style={{ 
+                        width: `${invoice.progress}%`,
+                        animation: 'pulse 2s ease-in-out infinite'
+                      }}
+                    />
+                  )}
+                  
+                  <div className="flex items-center gap-3 p-2.5 relative">
+                    <div className="w-8 h-8 rounded border flex items-center justify-center" style={{ borderColor: 'rgba(255, 255, 255, 0.2)', background: 'rgba(255, 255, 255, 0.08)' }}>
+                      <Receipt className="w-4 h-4 text-white/70" />
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-[10px] font-mono text-white/90 tracking-tight">{invoice.id}</span>
+                        {invoice.status === 'procesando' && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></div>
+                        )}
+                      </div>
+                      <div className="text-[9px] text-white/50 font-mono">{invoice.client}</div>
+                      {invoice.status === 'procesando' && (
+                        <div className="mt-1.5 h-0.5 w-full bg-white/5 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full bg-amber-500"
+                            style={{ width: `${invoice.progress}%` }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="text-right flex-shrink-0">
+                      <div className="text-sm font-bold text-white/90 font-mono">{invoice.amount}</div>
+                      <span 
+                        className="text-[8px] px-1.5 py-0.5 rounded border font-mono uppercase"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          borderColor: 'rgba(255, 255, 255, 0.15)',
+                          color: 'rgba(255, 255, 255, 0.7)'
+                        }}
+                      >
+                        {invoice.status}
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-xs font-medium text-white/80">{invoice.amount}</div>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded ${
-                    invoice.status === 'completado' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400 animate-pulse'
-                  }`}>
-                    {invoice.status}
-                  </span>
                 </div>
               ))}
             </div>
           )}
 
           {currentDemo.id === 'production' && (
-            <div className="space-y-3 animate-fadeIn">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] text-red-300 px-2 py-0.5 rounded bg-red-500/20">Planta Principal</span>
-                <span className="text-[10px] text-emerald-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  En línea
-                </span>
+            <div className="space-y-2.5 relative z-10 animate-fadeIn">
+              {/* Terminal header */}
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                </div>
+                <div className="flex-1 font-mono text-[9px] text-white/30 ml-2">
+                  production://plant-01/monitor
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                    <span className="text-[9px] font-mono text-white/70">PLANTA 01</span>
+                  </div>
+                  <div className="px-2 py-0.5 rounded-md border backdrop-blur-sm" style={{ background: 'rgba(255, 255, 255, 0.08)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
+                    <div className="flex items-center gap-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse"></div>
+                      <span className="text-[9px] font-mono text-white/70">ONLINE</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Metrics grid with enhanced design */}
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { label: 'Eficiencia', value: '94%', icon: '⚡' },
-                  { label: 'Unidades/h', value: '1,245', icon: '📦' },
-                  { label: 'Calidad', value: '99.2%', icon: '✓' },
-                  { label: 'Tiempo act.', value: '18h', icon: '⏱' }
+                  { label: 'Eficiencia', value: '94%', icon: '⚡', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, trend: '+2.1%' },
+                  { label: 'Unidades/h', value: '1,245', icon: '📦', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, trend: '+5.3%' },
+                  { label: 'Calidad', value: '99.2%', icon: '✓', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, trend: '+0.8%' },
+                  { label: 'Tiempo act.', value: '18h', icon: '⏱', color: { border: 'rgba(255, 255, 255, 0.15)', bgFrom: 'rgba(255, 255, 255, 0.08)', bgTo: 'rgba(255, 255, 255, 0.04)', text: 'rgba(255, 255, 255, 0.8)' }, trend: '24/7' }
                 ].map((metric, idx) => (
-                  <div key={idx} className="p-2.5 rounded-lg bg-white/5 border border-white/5">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="text-sm">{metric.icon}</span>
-                      <span className="text-[10px] text-white/50">{metric.label}</span>
+                  <div 
+                    key={idx} 
+                    className="relative overflow-hidden rounded-md border p-2.5 backdrop-blur-sm"
+                    style={{
+                      borderColor: metric.color.border,
+                      background: `linear-gradient(to bottom right, ${metric.color.bgFrom}, ${metric.color.bgTo})`
+                    }}
+                  >
+                    <div className="flex items-start justify-between mb-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-base">{metric.icon}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-white/50 font-mono">{metric.label}</span>
+                      </div>
+                      <span className="text-[8px] font-mono" style={{ color: metric.color.text }}>{metric.trend}</span>
                     </div>
-                    <div className="text-lg font-bold text-white/90">{metric.value}</div>
+                    <div className="text-xl font-bold font-mono" style={{ color: metric.color.text }}>{metric.value}</div>
                   </div>
                 ))}
               </div>
-              <div className="p-2 rounded-lg bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20">
-                <div className="text-[10px] text-red-300 mb-1">🤖 IA detectó:</div>
-                <div className="text-[10px] text-white/70">Optimización posible en Línea 3 - Ahorro estimado: 12%</div>
+
+              {/* AI Alert with enhanced design */}
+              <div className="relative overflow-hidden rounded-md border backdrop-blur-sm p-2.5" style={{ borderColor: 'rgba(255, 255, 255, 0.2)', background: 'linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.08))' }}>
+                <div className="flex items-start gap-2">
+                  <div className="w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5" style={{ borderColor: 'rgba(255, 255, 255, 0.2)', background: 'rgba(255, 255, 255, 0.08)' }}>
+                    <span className="text-xs">🤖</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono">IA Alert</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse"></div>
+                    </div>
+                    <div className="text-[10px] text-white/80 font-mono leading-relaxed">
+                      Optimización detectada en Línea 3
+                    </div>
+                    <div className="text-[9px] text-white/70 font-mono mt-1">
+                      → Ahorro estimado: 12% · ROI: +$2.4K/mes
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -967,77 +1302,6 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
               </div>
 
               <div className="sm:p-6 p-4 space-y-4">
-                {/* Robot canvas */}
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black ring-1 ring-white/10 h-[360px] sm:h-[460px]">
-                  {/* Animated background grid */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)]"></div>
-                  
-                  {/* Glow orbs */}
-                  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-                  <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                  <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-
-                  {/* Robot 3D */}
-                  <div className="absolute inset-0 w-full h-full z-[5]">
-                    <iframe
-                      src="https://my.spline.design/nexbotrobotcharacterconcept-Y7kCIxqyBi9dwdEtS20sUnaZ/"
-                      frameBorder="0"
-                      width="100%"
-                      height="100%"
-                      className="w-full h-full"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  {/* Floating UI Elements */}
-                  <div className="absolute top-4 left-4 z-20 hidden sm:block animate-float">
-                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg px-3 py-2 shadow-xl">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span className="text-[10px] text-emerald-400 font-medium">IA Activa</span>
-                      </div>
-                      <div className="mt-1 text-[9px] text-white/50">Procesando 247 tareas/día</div>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-20 right-4 z-20 hidden sm:block animate-float" style={{ animationDelay: '0.5s' }}>
-                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg px-3 py-2 shadow-xl">
-                      <div className="flex items-center gap-2 mb-1">
-                        <svg className="w-3 h-3 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                        <span className="text-[10px] text-white/80">Productividad</span>
-                      </div>
-                      <div className="text-lg font-bold text-cyan-400">+312%</div>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-4 right-4 z-20 sm:hidden">
-                    <div className="bg-black/60 backdrop-blur-lg border border-emerald-500/30 rounded-full px-2 py-1">
-                      <div className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span className="text-[8px] text-emerald-400">IA Activa</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-32 left-4 z-20 hidden sm:block animate-float" style={{ animationDelay: '1s' }}>
-                    <div className="bg-black/60 backdrop-blur-lg border border-white/10 rounded-lg p-2 shadow-xl">
-                      <div className="flex items-center gap-1.5">
-                        <div className="flex -space-x-1">
-                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">M</div>
-                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">A</div>
-                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border border-black flex items-center justify-center text-[7px] font-bold text-white">+5</div>
-                        </div>
-                        <span className="text-[9px] text-white/60">Equipo liberado</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Gradient overlay over robot */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
-                </div>
-
                 {/* Automation explanation card – placed below the robot */}
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
                   {/* Card glow effect */}
@@ -1088,6 +1352,120 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                           </div>
                           <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
                             Supervisa, responde y reporta mientras tu equipo duerme.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Intelligence explanation card */}
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                  {/* Card glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10"></div>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  
+                  <div className="relative p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      {/* Text content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="mb-2 flex items-center gap-3">
+                          <span className="text-[10px] tracking-[0.25em] uppercase text-purple-300/80">
+                            Inteligencia de datos
+                          </span>
+                          <span className="hidden sm:inline h-px w-10 bg-purple-500/60" />
+                          <span className="hidden sm:inline text-[10px] text-white/40">
+                            Oportunidades ocultas
+                          </span>
+                        </div>
+                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                          Datos que <span className="font-normal text-purple-300">revelan el futuro</span> de tu negocio
+                        </h3>
+                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                          Analizamos métricas y patrones para identificar oportunidades de crecimiento, optimizar procesos y tomar decisiones basadas en datos reales que impulsan resultados.
+                        </p>
+                      </div>
+
+                      {/* Stats / Editorial metrics */}
+                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Oportunidades
+                          </div>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-xl sm:text-2xl font-mono text-purple-400">+85%</span>
+                            <span className="text-[10px] text-white/50">identificadas</span>
+                          </div>
+                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                            <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-purple-400 to-pink-500" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Métricas clave
+                          </div>
+                          <div className="text-sm font-mono text-purple-300">
+                            Real-time
+                          </div>
+                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                            Dashboards interactivos con insights accionables.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Consulting explanation card */}
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                  {/* Card glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-orange-500/10"></div>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  
+                  <div className="relative p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      {/* Text content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="mb-2 flex items-center gap-3">
+                          <span className="text-[10px] tracking-[0.25em] uppercase text-amber-300/80">
+                            Consultoría digital
+                          </span>
+                          <span className="hidden sm:inline h-px w-10 bg-amber-500/60" />
+                          <span className="hidden sm:inline text-[10px] text-white/40">
+                            Crecimiento estratégico
+                          </span>
+                        </div>
+                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                          Software que <span className="font-normal text-amber-300">transforma</span> tu empresa
+                        </h3>
+                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                          Diseñamos e implementamos soluciones tecnológicas personalizadas que aceleran el crecimiento, mejoran la eficiencia y posicionan tu empresa en la vanguardia digital.
+                        </p>
+                      </div>
+
+                      {/* Stats / Editorial metrics */}
+                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Crecimiento
+                          </div>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-xl sm:text-2xl font-mono text-amber-400">+250%</span>
+                            <span className="text-[10px] text-white/50">ROI promedio</span>
+                          </div>
+                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                            <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                            Implementación
+                          </div>
+                          <div className="text-sm font-mono text-amber-300">
+                            30-90 días
+                          </div>
+                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                            Soluciones escalables desde el día uno.
                           </div>
                         </div>
                       </div>
