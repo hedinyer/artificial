@@ -21,6 +21,7 @@ import "./components/AnimatedShadows.css";
 import "./components/OptimizedMedia.css";
 import OptimizedGif from "./components/OptimizedGif";
 import useGifPreloader, { getGifLoadingAttrs } from "./hooks/useGifPreloader";
+import LightRays from "./components/LightRays";
 
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
@@ -287,7 +288,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
   return (
     <section
       id="servicios"
-      className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20"
+      className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:mt-0 pt-4 pb-20"
     >
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -1205,9 +1206,23 @@ AIDemoCarousel.displayName = 'AIDemoCarousel';
 const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
   return (
     <section id="inicio" className="relative z-10 min-h-screen">
-      <div className="mx-auto max-w-7xl px-4 pt-24 pb-8 md:px-6 md:pt-32">
+      {/* Light Rays Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#00ffff"
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={3.2}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
+        />
+      </div>
+      <div className="mx-auto max-w-7xl px-4 pt-32 pb-8 md:px-6 md:pt-32 relative z-10">
         <div className="max-w-3xl text-center mr-auto ml-auto">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-400/60 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
             <Sparkles className="h-4 w-4 text-sky-400" />
             150+ empresas transformadas
           </p>
@@ -1216,11 +1231,11 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
             Multiplica tu productividad con IA y automatización
           </h1>
 
-          <p className="mt-5 text-base md:text-lg text-slate-300">
+          <p className="mt-8 sm:mt-5 text-base md:text-lg text-slate-300">
             Del branding al software, convertimos problemas en ventajas. Hacemos que tu competencia se pregunte cómo lo lograste.
           </p>
 
-          <div className="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center">
+          <div className="flex flex-col gap-3 sm:flex-row mt-12 sm:mt-8 items-center justify-center">
             <a
               href="https://wa.me/573171053785"
               target="_blank"
@@ -1261,237 +1276,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
               </button>
             </a>
           </div>
-        </div>
-      </div>
-
-      {/* Editor preview */}
-      <div className="-mb-8 max-w-7xl md:px-6 mr-auto ml-auto pr-4 pl-4">
-        <div className="relative w-full overflow-hidden shadow-black/50 bg-gradient-to-b from-white/[0.04] to-white/[0.02] border-white/10 border rounded-2xl mr-auto ml-auto shadow-2xl backdrop-blur-lg">
-          {/* Topbar */}
-          <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
-              <span className="h-3 w-3 rounded-full bg-yellow-400/80"></span>
-              <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
-              <div className="ml-3 hidden items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-xs text-slate-300 sm:flex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-slate-200"><rect width="7" height="18" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect></svg>
-                art_ificial Studio — Proyecto: Aurora
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
-              </button>
-              <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-              </button>
-              <button className="rounded-md bg-sky-500/90 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-500">Publicar</button>
-            </div>
           </div>
-
-          {/* Editor body */}
-          <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* Canvas */}
-            <main className="relative md:col-span-6 bg-black/20">
-              <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2 text-xs text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-sky-400"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg>
-                <span>Breakpoint</span>
-                <span className="rounded-md bg-white/5 px-1.5 py-0.5">Desktop</span>
-                <span className="text-slate-500">|</span>
-                <span>1200</span>
-              </div>
-
-              <div className="sm:p-6 p-4 space-y-4">
-                {/* Automation explanation card – placed below the robot */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                  {/* Card glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-cyan-500/10"></div>
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                  
-                  <div className="relative p-4 sm:p-5">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                      {/* Text content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="mb-2 flex items-center gap-3">
-                          <span className="text-[10px] tracking-[0.25em] uppercase text-sky-300/80">
-                            Automatización continua
-                          </span>
-                          <span className="hidden sm:inline h-px w-10 bg-sky-500/60" />
-                          <span className="hidden sm:inline text-[10px] text-white/40">
-                            Operaciones sin fricción
-                          </span>
-                        </div>
-                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                          Software que <span className="font-normal text-sky-300">hace el turno nocturno</span> por tu equipo
-                        </h3>
-                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                          Orquestamos bots y flujos de IA que se encargan del trabajo repetitivo 24/7, para que tu equipo humano solo intervenga cuando hay decisiones reales que tomar.
-                        </p>
-                      </div>
-
-                      {/* Stats / Editorial metrics */}
-                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Carga operativa
-                          </div>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-xl sm:text-2xl font-mono text-emerald-400">-70%</span>
-                            <span className="text-[10px] text-white/50">tareas manuales</span>
-                          </div>
-                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                            <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Tiempo activo
-                          </div>
-                          <div className="text-sm font-mono text-sky-300">
-                            24·7·365
-                          </div>
-                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                            Supervisa, responde y reporta mientras tu equipo duerme.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Intelligence explanation card */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                  {/* Card glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10"></div>
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                  
-                  <div className="relative p-4 sm:p-5">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                      {/* Text content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="mb-2 flex items-center gap-3">
-                          <span className="text-[10px] tracking-[0.25em] uppercase text-purple-300/80">
-                            Inteligencia de datos
-                          </span>
-                          <span className="hidden sm:inline h-px w-10 bg-purple-500/60" />
-                          <span className="hidden sm:inline text-[10px] text-white/40">
-                            Oportunidades ocultas
-                          </span>
-                        </div>
-                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                          Datos que <span className="font-normal text-purple-300">revelan el futuro</span> de tu negocio
-                        </h3>
-                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                          Analizamos métricas y patrones para identificar oportunidades de crecimiento, optimizar procesos y tomar decisiones basadas en datos reales que impulsan resultados.
-                        </p>
-                      </div>
-
-                      {/* Stats / Editorial metrics */}
-                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Oportunidades
-                          </div>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-xl sm:text-2xl font-mono text-purple-400">+85%</span>
-                            <span className="text-[10px] text-white/50">identificadas</span>
-                          </div>
-                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                            <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-purple-400 to-pink-500" />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Métricas clave
-                          </div>
-                          <div className="text-sm font-mono text-purple-300">
-                            Real-time
-                          </div>
-                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                            Dashboards interactivos con insights accionables.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Consulting explanation card */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                  {/* Card glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-orange-500/10"></div>
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                  
-                  <div className="relative p-4 sm:p-5">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                      {/* Text content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="mb-2 flex items-center gap-3">
-                          <span className="text-[10px] tracking-[0.25em] uppercase text-amber-300/80">
-                            Consultoría digital
-                          </span>
-                          <span className="hidden sm:inline h-px w-10 bg-amber-500/60" />
-                          <span className="hidden sm:inline text-[10px] text-white/40">
-                            Crecimiento estratégico
-                          </span>
-                        </div>
-                        <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                          Software que <span className="font-normal text-amber-300">transforma</span> tu empresa
-                        </h3>
-                        <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                          Diseñamos e implementamos soluciones tecnológicas personalizadas que aceleran el crecimiento, mejoran la eficiencia y posicionan tu empresa en la vanguardia digital.
-                        </p>
-                      </div>
-
-                      {/* Stats / Editorial metrics */}
-                      <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Crecimiento
-                          </div>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-xl sm:text-2xl font-mono text-amber-400">+250%</span>
-                            <span className="text-[10px] text-white/50">ROI promedio</span>
-                          </div>
-                          <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                            <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                            Implementación
-                          </div>
-                          <div className="text-sm font-mono text-amber-300">
-                            30-90 días
-                          </div>
-                          <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                            Soluciones escalables desde el día uno.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </main>
-
-            {/* Right panel */}
-            <aside className="block md:col-span-6 border-t md:border-t-0 md:border-l border-white/10 bg-black/30 p-3 mt-3 md:mt-0">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-slate-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
-                  Propiedades
-                </div>
-                <button className="rounded-md border border-white/10 bg-white/5 p-1 text-slate-300 hover:bg-white/10">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                </button>
-              </div>
-
-              {/* AI Demo Interfaces - Animated Carousel */}
-              <AIDemoCarousel />
-            </aside>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -1687,6 +1472,236 @@ const VentajasSection = memo(() => {
               </article>
             );
           })}
+        </div>
+
+        {/* Editor preview */}
+        <div className="-mb-8 max-w-7xl md:px-6 mr-auto ml-auto pr-4 pl-4">
+          <div className="relative w-full overflow-hidden shadow-black/50 bg-gradient-to-b from-white/[0.04] to-white/[0.02] border-white/10 border rounded-2xl mr-auto ml-auto shadow-2xl backdrop-blur-lg">
+            {/* Topbar */}
+            <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
+                <span className="h-3 w-3 rounded-full bg-yellow-400/80"></span>
+                <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
+                <div className="ml-3 hidden items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-xs text-slate-300 sm:flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-slate-200"><rect width="7" height="18" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect></svg>
+                  art_ificial Studio — Proyecto: Aurora
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+                </button>
+                <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                </button>
+                <button className="rounded-md bg-sky-500/90 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-500">Publicar</button>
+              </div>
+            </div>
+
+            {/* Editor body */}
+            <div className="grid grid-cols-1 md:grid-cols-12">
+              {/* Canvas */}
+              <main className="relative md:col-span-6 bg-black/20">
+                <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2 text-xs text-slate-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-sky-400"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg>
+                  <span>Breakpoint</span>
+                  <span className="rounded-md bg-white/5 px-1.5 py-0.5">Desktop</span>
+                  <span className="text-slate-500">|</span>
+                  <span>1200</span>
+                </div>
+
+                <div className="sm:p-6 p-4 space-y-4">
+                  {/* Automation explanation card – placed below the robot */}
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                    {/* Card glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-cyan-500/10"></div>
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                    
+                    <div className="relative p-4 sm:p-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        {/* Text content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="mb-2 flex items-center gap-3">
+                            <span className="text-[10px] tracking-[0.25em] uppercase text-sky-300/80">
+                              Automatización continua
+                            </span>
+                            <span className="hidden sm:inline h-px w-10 bg-sky-500/60" />
+                            <span className="hidden sm:inline text-[10px] text-white/40">
+                              Operaciones sin fricción
+                            </span>
+                          </div>
+                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                            Software que <span className="font-normal text-sky-300">hace el turno nocturno</span> por tu equipo
+                          </h3>
+                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                            Orquestamos bots y flujos de IA que se encargan del trabajo repetitivo 24/7, para que tu equipo humano solo intervenga cuando hay decisiones reales que tomar.
+                          </p>
+                        </div>
+
+                        {/* Stats / Editorial metrics */}
+                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Carga operativa
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xl sm:text-2xl font-mono text-emerald-400">-70%</span>
+                              <span className="text-[10px] text-white/50">tareas manuales</span>
+                            </div>
+                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                              <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Tiempo activo
+                            </div>
+                            <div className="text-sm font-mono text-sky-300">
+                              24·7·365
+                            </div>
+                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                              Supervisa, responde y reporta mientras tu equipo duerme.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Intelligence explanation card */}
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                    {/* Card glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10"></div>
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                    
+                    <div className="relative p-4 sm:p-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        {/* Text content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="mb-2 flex items-center gap-3">
+                            <span className="text-[10px] tracking-[0.25em] uppercase text-purple-300/80">
+                              Inteligencia de datos
+                            </span>
+                            <span className="hidden sm:inline h-px w-10 bg-purple-500/60" />
+                            <span className="hidden sm:inline text-[10px] text-white/40">
+                              Oportunidades ocultas
+                            </span>
+                          </div>
+                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                            Datos que <span className="font-normal text-purple-300">revelan el futuro</span> de tu negocio
+                          </h3>
+                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                            Analizamos métricas y patrones para identificar oportunidades de crecimiento, optimizar procesos y tomar decisiones basadas en datos reales que impulsan resultados.
+                          </p>
+                        </div>
+
+                        {/* Stats / Editorial metrics */}
+                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Oportunidades
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xl sm:text-2xl font-mono text-purple-400">+85%</span>
+                              <span className="text-[10px] text-white/50">identificadas</span>
+                            </div>
+                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                              <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-purple-400 to-pink-500" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Métricas clave
+                            </div>
+                            <div className="text-sm font-mono text-purple-300">
+                              Real-time
+                            </div>
+                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                              Dashboards interactivos con insights accionables.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Consulting explanation card */}
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
+                    {/* Card glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-orange-500/10"></div>
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                    
+                    <div className="relative p-4 sm:p-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        {/* Text content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="mb-2 flex items-center gap-3">
+                            <span className="text-[10px] tracking-[0.25em] uppercase text-amber-300/80">
+                              Consultoría digital
+                            </span>
+                            <span className="hidden sm:inline h-px w-10 bg-amber-500/60" />
+                            <span className="hidden sm:inline text-[10px] text-white/40">
+                              Crecimiento estratégico
+                            </span>
+                          </div>
+                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
+                            Software que <span className="font-normal text-amber-300">transforma</span> tu empresa
+                          </h3>
+                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
+                            Diseñamos e implementamos soluciones tecnológicas personalizadas que aceleran el crecimiento, mejoran la eficiencia y posicionan tu empresa en la vanguardia digital.
+                          </p>
+                        </div>
+
+                        {/* Stats / Editorial metrics */}
+                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Crecimiento
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xl sm:text-2xl font-mono text-amber-400">+250%</span>
+                              <span className="text-[10px] text-white/50">ROI promedio</span>
+                            </div>
+                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
+                              <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
+                              Implementación
+                            </div>
+                            <div className="text-sm font-mono text-amber-300">
+                              30-90 días
+                            </div>
+                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
+                              Soluciones escalables desde el día uno.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </main>
+
+              {/* Right panel */}
+              <aside className="block md:col-span-6 border-t md:border-t-0 md:border-l border-white/10 bg-black/30 p-3 mt-3 md:mt-0">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-slate-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
+                    Propiedades
+                  </div>
+                  <button className="rounded-md border border-white/10 bg-white/5 p-1 text-slate-300 hover:bg-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                  </button>
+                </div>
+
+                {/* AI Demo Interfaces - Animated Carousel */}
+                <AIDemoCarousel />
+              </aside>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1994,8 +2009,6 @@ function LandingPage() {
         </div>
       </header>
       <HeroSection key="hero-section-persistent" isInicioActive={activeIndex === 0} />
-      {/* Espacio vacío entre Inicio y Servicios */}
-      <div className="h-12 sm:h-16 md:h-24" />
       <ServicesSection {...servicesChunks} isServiciosActive={activeIndex === 1} showChroma={showChroma} />
       <VentajasSection />
       <HistoriaSection />
