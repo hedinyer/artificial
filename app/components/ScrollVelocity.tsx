@@ -288,7 +288,7 @@ export const ScrollVelocity = ({
           >
             {item.text}
             {index < texts.length - 1 && (
-              <span className="mx-4 text-gray-500 opacity-60">•</span>
+              <span className="mx-6 sm:mx-8 text-cyan-400/40 font-light" style={{ fontSize: '0.6em' }}>◆</span>
             )}
           </span>
         ))}

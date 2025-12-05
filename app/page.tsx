@@ -100,27 +100,27 @@ const chromaItems = [
   },
 ];
 
-// Services data with stable reference
+// Services data with stable reference - Premium professional industries
 const services = [
-  { text: "Fábricas pequeñas", className: "font-oswald" },
-  { text: "Talleres de producción", className: "font-playfair" },
-  { text: "Clínicas estéticas", className: "font-lato" },
-  { text: "Consultorios odontológicos", className: "font-montserrat" },
-  { text: "Spas", className: "font-roboto" },
-  { text: "Centros de uñas", className: "font-oswald" },
-  { text: "Centros de cejas", className: "font-playfair" },
-  { text: "Estudios jurídicos", className: "font-lato" },
-  { text: "Empresas de ingeniería", className: "font-montserrat" },
-  { text: "Peluquerías", className: "font-roboto" },
-  { text: "Barberías", className: "font-oswald" },
-  { text: "Clínicas veterinarias", className: "font-playfair" },
-  { text: "Tiendas de ropa", className: "font-lato" },
-  { text: "Tiendas de zapatos", className: "font-montserrat" },
-  { text: "Tiendas de muebles", className: "font-roboto" },
-  { text: "Licoreras", className: "font-oswald" },
-  { text: "Ópticas", className: "font-playfair" },
-  { text: "Tiendas de accesorios", className: "font-lato" },
-  { text: "Negocios e-commerce", className: "font-montserrat" },
+  { text: "Manufactura Inteligente", className: "font-oswald" },
+  { text: "Centros Médicos Especializados", className: "font-playfair" },
+  { text: "Clínicas de Estética Avanzada", className: "font-lato" },
+  { text: "Consultorios Odontológicos Premium", className: "font-montserrat" },
+  { text: "Spas & Wellness Centers", className: "font-roboto" },
+  { text: "Estudios Jurídicos", className: "font-oswald" },
+  { text: "Empresas de Ingeniería", className: "font-playfair" },
+  { text: "Clínicas Veterinarias", className: "font-lato" },
+  { text: "Retail & Fashion", className: "font-montserrat" },
+  { text: "E-commerce & Marketplaces", className: "font-roboto" },
+  { text: "Salones de Belleza Premium", className: "font-oswald" },
+  { text: "Centros de Salud Visual", className: "font-playfair" },
+  { text: "Boutiques & Concept Stores", className: "font-lato" },
+  { text: "Farmacias & Salud", className: "font-montserrat" },
+  { text: "Restaurantes & Hospitality", className: "font-roboto" },
+  { text: "Gimnasios & Fitness", className: "font-oswald" },
+  { text: "Inmobiliarias", className: "font-playfair" },
+  { text: "Educación & Capacitación", className: "font-lato" },
+  { text: "Startups & Scale-ups", className: "font-montserrat" },
 ];
 
 // Navigation items with stable reference
@@ -395,29 +395,42 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
         ))}
       </div>
 
-      {/* Industries Marquee */}
+      {/* Industries Marquee - Premium Design */}
       <div className="w-full text-center mt-16 sm:mt-20">
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6">
-          Trabajamos con una amplia gama de industrias
-        </h3>
+        <div className="mb-6 sm:mb-8">
+          <p className="text-xs sm:text-sm font-medium text-white/50 mb-2 tracking-wider uppercase">
+            Confían en nosotros
+          </p>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white">
+            Líderes de múltiples industrias
+          </h3>
+          <p className="mt-3 text-sm sm:text-base text-white/60 max-w-2xl mx-auto">
+            Transformamos negocios de todos los sectores con tecnología de vanguardia
+          </p>
+        </div>
         <div
-          className="relative h-32 sm:h-40 md:h-48 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+          className="relative h-36 sm:h-44 md:h-52 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-full flex flex-col gap-y-3 sm:gap-y-4 md:gap-y-6">
+            <div className="w-full flex flex-col gap-y-4 sm:gap-y-5 md:gap-y-7">
               <ScrollVelocity
                 texts={firstHalf}
                 velocity={-20}
                 singleLine={true}
-                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80"
+                className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white/90 font-medium tracking-wide"
               />
               <ScrollVelocity
                 texts={secondHalf}
                 velocity={20}
                 singleLine={true}
-                className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-400 font-light opacity-80"
+                className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white/90 font-medium tracking-wide"
               />
             </div>
+          </div>
+          {/* Gradient overlays for premium effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black via-transparent to-transparent"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black via-transparent to-transparent"></div>
           </div>
         </div>
       </div>
@@ -1205,7 +1218,7 @@ AIDemoCarousel.displayName = 'AIDemoCarousel';
 // Create a simple hero section component
 const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
   return (
-    <section id="inicio" className="relative z-10 min-h-screen">
+    <section id="inicio" className="relative z-10 min-h-screen flex items-center justify-center">
       {/* Light Rays Background */}
       <div className="absolute inset-0 w-full h-full">
         <LightRays
@@ -1220,8 +1233,8 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
           distortion={0.05}
         />
       </div>
-      <div className="mx-auto max-w-7xl px-4 pt-32 pb-8 md:px-6 md:pt-32 relative z-10">
-        <div className="max-w-3xl text-center mr-auto ml-auto">
+      <div className="mx-auto max-w-7xl w-full px-4 py-8 md:px-6 relative z-10 flex items-center justify-center">
+        <div className="max-w-3xl w-full text-center mx-auto">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-400/60 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
             <Sparkles className="h-4 w-4 text-sky-400" />
             150+ empresas transformadas
@@ -1289,25 +1302,6 @@ const VentajasSection = memo(() => {
   const [animatedCards, setAnimatedCards] = useState<number[]>([]);
   const [loadedBackgrounds, setLoadedBackgrounds] = useState<Set<number>>(new Set());
 
-  // Preload background GIFs when cards come into view
-  useEffect(() => {
-    if (!isVisible) return;
-    
-    // Load backgrounds progressively
-    ventajas.forEach((_, index) => {
-      const img = new Image();
-      const gifPath = `/card_benefits/${index + 1}.gif`;
-      
-      img.onload = () => {
-        setLoadedBackgrounds(prev => new Set([...prev, index]));
-      };
-      
-      // Stagger the loading to prevent bandwidth congestion
-      setTimeout(() => {
-        img.src = gifPath;
-      }, index * 150);
-    });
-  }, [isVisible]);
 
   // Mouse tracking for ChromaGrid-style spotlight effect
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -1393,20 +1387,43 @@ const VentajasSection = memo(() => {
                   '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
                   minHeight: '280px',
                   border: '1px solid rgba(75, 85, 99, 0.3)',
-                  backgroundColor: 'rgb(20, 20, 20)',
-                  backgroundImage: loadedBackgrounds.has(index) 
-                    ? `linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9)), url(/card_benefits/${index + 1}.gif)`
-                    : 'linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.9))',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  backgroundColor: loadedBackgrounds.has(index) ? 'transparent' : 'rgb(20, 20, 20)',
                   cursor: 'pointer'
                 } as React.CSSProperties}
               >
+                {/* GIF Background - Using img element for continuous playback */}
+                <img
+                  src={`/card_benefits/${index + 1}.gif`}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover z-0"
+                  style={{
+                    imageRendering: 'auto',
+                    pointerEvents: 'none',
+                    opacity: loadedBackgrounds.has(index) ? 1 : 0.5
+                  }}
+                  loading="eager"
+                  decoding="async"
+                  onLoad={() => {
+                    setLoadedBackgrounds(prev => new Set([...prev, index]));
+                  }}
+                  onError={(e) => {
+                    console.error('Error loading GIF:', `/card_benefits/${index + 1}.gif`, e);
+                  }}
+                />
+                {/* Gradient overlay - Less opaque to show GIF */}
+                <div 
+                  className="absolute inset-0 z-[1] pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
+                  }}
+                />
+
                 {/* ChromaGrid-style spotlight effect */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
                   style={{
-                    background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`
+                    background: `radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)`,
+                    zIndex: 11
                   }}
                 ></div>
 
@@ -1724,7 +1741,7 @@ const HistoriaSection = memo(() => {
         </div>
 
         <div className="relative">
-          <h2 className="text-[11vw] sm:text-[9vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-tight">
             Construyamos juntos. <span className="text-white/70">:)</span>
           </h2>
 
@@ -2017,3 +2034,6 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
+
+
