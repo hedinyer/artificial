@@ -60,8 +60,8 @@ const chromaItems = [
   },
   {
     image: "/gifs/uiux.gif",
-    title: "UX/UI Diseño",
-    subtitle: "Experiencias que enamoran usuarios",
+    title: "Automatización de Procesos IA",
+    subtitle: "Empleados virtuales que trabajan mejor",
     borderColor: "#10B981",
     gradient: "linear-gradient(180deg, #10B981, #000)",
     url: "#"
@@ -214,38 +214,38 @@ const credibilityData = [
 const enhancedServices = [
   {
     ...chromaItems[2], // Software a Medida
-    description: "Desarrollamos sistemas que asumen el trabajo operativo de tu equipo: automatizan tareas repetitivas, reducen horas hombre y hacen que cada persona aporte mucho más valor estratégico.",
+    description: "Elimina el 80% del trabajo manual. Sistemas que trabajan 24/7 y multiplican tus márgenes sin aumentar nómina.",
     benefits: [
-      "Menos tareas manuales, más foco en el negocio",
-      "Automatización 24/7 de procesos repetitivos",
-      "Aumenta márgenes sin contratar más personal"
+      "Ahorra 40 horas semanales",
+      "Automatización sin descanso",
+      "ROI desde el primer mes"
     ],
-    ctaText: "Solicitar consulta",
+    ctaText: "Ver ahorro $50K/año",
     featured: true
   },
   {
-    ...chromaItems[1], // UX/UI Diseño
-    description: "Diseñamos experiencias digitales intuitivas que convierten visitantes en clientes. Interfaces que tus usuarios amarán usar.",
-    benefits: ["Mayor tasa de conversión", "Reducción de fricción", "Mejor retención"],
-    ctaText: "Ver portfolio"
+    ...chromaItems[1], // Automatización de Procesos IA
+    description: "Reemplaza empleados con IA que trabaja 24/7. Cuesta 90% menos y procesa 10x más rápido.",
+    benefits: ["Reduce nómina 70%", "Trabajo 365 días", "99.9% precisión"],
+    ctaText: "Calcular ahorro"
   },
   {
     ...chromaItems[0], // Branding Estratégico
-    description: "Creamos identidades de marca que conectan emocionalmente con tu audiencia. Desde el naming hasta la estrategia visual completa.",
-    benefits: ["Aumento de reconocimiento de marca", "Consistencia visual en todos los canales", "Posicionamiento competitivo"],
-    ctaText: "Ver casos de éxito"
+    description: "Marca que vende sola. Identidad visual que convierte visitantes en clientes leales.",
+    benefits: ["Reconocimiento 3x", "Confianza instantánea", "Diferénciate"],
+    ctaText: "Ver casos"
   },
   {
     ...chromaItems[3], // Inteligencia de Datos
-    description: "Transformamos tus datos en decisiones estratégicas. Analytics avanzado y dashboards en tiempo real para crecer con confianza.",
-    benefits: ["Decisiones basadas en datos", "Insights accionables", "ROI medible"],
-    ctaText: "Ver demos"
+    description: "Tus datos revelan dónde está el dinero. Dashboards que muestran cómo duplicar ventas.",
+    benefits: ["Oportunidades ocultas", "Predice tendencias", "ROI medible"],
+    ctaText: "Descubrir"
   },
   {
     ...chromaItems[5], // Consultoría Digital
-    description: "Te acompañamos en tu transformación digital con estrategias personalizadas y roadmap claro hacia el éxito. Optimizamos y maximizamos resultados.",
-    benefits: ["Roadmap claro", "Implementación guiada", "Resultados garantizados"],
-    ctaText: "Agendar llamada"
+    description: "Transforma tu negocio en 90 días. Estrategia probada + implementación = resultados garantizados.",
+    benefits: ["Plan paso a paso", "Implementación guiada", "Resultados garantizados"],
+    ctaText: "Estrategia gratis"
   }
 ];
 
@@ -343,7 +343,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                   <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
                   <path d="m21.854 2.147-10.94 10.939"></path>
                 </svg>
-                Solicitar cotización
+                {featuredService.ctaText}
               </a>
             </div>
           </div>
@@ -382,7 +382,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Solicitar cotización
+                {service.ctaText}
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                   className="h-3 w-3">
