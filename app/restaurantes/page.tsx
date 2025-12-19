@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import OptimizedFonts from "../components/OptimizedFonts";
 import LightRays from "../components/LightRays";
 import OptimizedGif from "../components/OptimizedGif";
+import RestaurantDashboard from "./restaurant-dashboard";
+
 import "../components/AnimatedShadows.css";
 import "../components/OptimizedMedia.css";
 import { 
@@ -20,6 +22,14 @@ import {
   Calendar as CalendarIcon,
   Sparkles
 } from "lucide-react";
+
+// Navigation items for RestaurantesPage
+const navItems = [
+  { label: "Inicio", href: "#hero" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Contáctanos", href: "#contactanos" },
+];
 
 // Services data for restaurants
 const restaurantServices = [
@@ -67,9 +77,59 @@ const restaurantServices = [
   }
 ];
 
+type Category = "dashboard" | "mesas" | "pedidos" | "inventario" | "finanzas" | "personal";
+
+const categoryContent: Record<Category, { badge: string; title: string; description: string; ctaText: string }> = {
+  dashboard: {
+    badge: "ANÁLISIS EN TIEMPO REAL",
+    title: "Dashboards Inteligentes",
+    description: "Paneles de control con métricas en tiempo real, análisis de ventas, inventario y rendimiento operativo para tomar decisiones informadas.",
+    ctaText: "Ver dashboards"
+  },
+  mesas: {
+    badge: "GESTIÓN INTELIGENTE",
+    title: "Sistema de Mesas",
+    description: "Control completo del estado de mesas en tiempo real. Visualiza disponibilidad, reservas y optimiza la distribución del salón para maximizar la ocupación.",
+    ctaText: "Gestionar mesas"
+  },
+  pedidos: {
+    badge: "AUTOMATIZACIÓN",
+    title: "Sistema de Pedidos",
+    description: "Gestión completa de pedidos online y presenciales con integración de pagos y seguimiento en tiempo real desde la cocina hasta la mesa.",
+    ctaText: "Explorar sistema"
+  },
+  inventario: {
+    badge: "CONTROL TOTAL",
+    title: "Gestión de Inventario",
+    description: "Monitorea tu stock en tiempo real, recibe alertas automáticas de productos bajos y optimiza tus compras con análisis predictivo.",
+    ctaText: "Ver inventario"
+  },
+  finanzas: {
+    badge: "ANÁLISIS FINANCIERO",
+    title: "Reportes y Finanzas",
+    description: "Dashboards financieros completos con análisis de ventas, gastos, utilidades y métricas clave para tomar decisiones estratégicas informadas.",
+    ctaText: "Ver reportes"
+  },
+  personal: {
+    badge: "GESTIÓN DE EQUIPO",
+    title: "Administración de Personal",
+    description: "Gestiona horarios, turnos y rendimiento de tu equipo. Controla asistencia, asignaciones de zonas y optimiza la productividad del personal.",
+    ctaText: "Gestionar personal"
+  }
+};
+
 export default function RestaurantesPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isAnnual, setIsAnnual] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>("dashboard");
+  const [contentKey, setContentKey] = useState(0);
+
+  const handleCategoryChange = (category: Category) => {
+    setSelectedCategory(category);
+    setContentKey(prev => prev + 1);
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -82,12 +142,59 @@ export default function RestaurantesPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
+  // Scroll detection for active navigation item
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean) as Element[];
+      const viewportMiddle = window.scrollY + window.innerHeight / 2;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOffset = window.innerHeight / 2;
+
+      // If we're near the bottom of the page, always highlight the last section
+      if (window.scrollY + window.innerHeight + bottomOffset >= pageHeight) {
+        if (activeIndex !== sections.length - 1) {
+          setActiveIndex(sections.length - 1);
+        }
+        return;
+      }
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
+
+        if (viewportMiddle >= sectionTop && viewportMiddle < sectionBottom) {
+          if (i !== activeIndex) {
+            setActiveIndex(i);
+          }
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeIndex]);
+
+  // Memoized scroll to section function
+  const scrollToSection = useCallback((href: string, index: number) => {
+    const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      const isMobileDevice = window.innerWidth < 768;
+      const extraMargin = isMobileDevice ? 60 : 120;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight + extraMargin;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      setActiveIndex(index);
     }
-  };
+  }, []);
 
   // Pricing data
   const pricingPlans = {
@@ -102,75 +209,166 @@ export default function RestaurantesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black">
       <OptimizedFonts />
       
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 md:py-6">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between">
-            <a href="/" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-              art_ificial
-            </a>
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-                Inicio
-              </a>
-              <button 
-                onClick={() => scrollToSection('servicios')}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex justify-center">
+            <nav className="flex items-center justify-center">
+              {/* Apple-style Tab Bar - Center with Brand */}
+              <div 
+                className="apple-tab-bar px-6 py-2 flex items-center space-x-52 justify-start"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                  color: 'rgba(0, 0, 0, 0.32)',
+                  fontFamily: '"Helvetica Neue"',
+                  boxShadow: '0px 8px 32px 0px rgba(0, 0, 0, 0.4), 0px 0px 0px 1px rgba(255, 255, 255, 0.1), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2)'
+                }}
               >
-                Servicios
-              </button>
-              <button 
-                onClick={() => scrollToSection('pricing')}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-              >
-                Pricing
-              </button>
-              <button 
-                onClick={() => scrollToSection('contactanos')}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-              >
-                Contáctanos
-              </button>
+                {/* Brand Logo - Left Side of Tab Bar */}
+                <div className="flex items-center group cursor-pointer">
+                  <a href="/" className="text-center">
+                    <h1 className="brand-logo text-xl font-bold tracking-tight">
+                      art_ificial
+                    </h1>
+                  </a>
+                </div>
+                {/* Navigation Items */}
+                <div className="flex items-center space-x-1">
+                  {navItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => scrollToSection(item.href, index)}
+                      className={`apple-tab-item px-4 py-2 text-sm font-medium transition-all duration-300 ${activeIndex === index
+                          ? 'active text-white'
+                          : 'text-gray-300 hover:text-white'
+                        }`}
+                    >
+                      <span className="relative z-10">{item.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </nav>
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center justify-between">
+            {/* Mobile Brand Logo */}
+            <div className="flex items-center group cursor-pointer">
+              <a href="/" className="text-left">
+                <h1 className="brand-logo text-xl font-bold tracking-tight">
+                  art_ificial
+                </h1>
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="relative w-8 h-8 flex flex-col items-center justify-center space-y-1.5 transition-all duration-300"
+              aria-label="Toggle menu"
+            >
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}></span>
+            </button>
+          </div>
+
+          {/* Mobile Menu Overlay */}
+          <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            }`}>
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/90 backdrop-blur-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            ></div>
+
+            {/* Menu Content */}
+            <div className={`relative flex flex-col items-center justify-center h-full transition-all duration-500 ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-10'
+              }`}>
+              <nav className="flex flex-col items-center space-y-8">
+                {navItems.map((item, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      scrollToSection(item.href, index);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`text-2xl font-semibold transition-all duration-300 hover:scale-110 ${activeIndex === index
+                        ? 'text-white'
+                        : 'text-gray-300 hover:text-white'
+                      }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+
+              {/* Mobile menu decoration */}
+              <div className="absolute bottom-20 text-center">
+                <p className="text-sm text-gray-400">
+                  Toca en cualquier lugar para cerrar
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="relative z-10 min-h-screen flex items-center justify-center">
-        {/* Light Rays Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#00ffff"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={3.2}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-          />
-        </div>
-        <div className="mx-auto max-w-7xl w-full px-4 py-8 md:px-6 relative z-10 flex items-center justify-center">
-          <div className="max-w-3xl w-full text-center mx-auto">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-400/60 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
-              <Sparkles className="h-4 w-4 text-sky-400" />
+      <section id="hero" className="relative z-10 min-h-[calc(150vh+150px)] md:min-h-screen flex items-center justify-center bg-black overflow-hidden">
+        {/* Fondo negro */}
+        <div className="absolute inset-0 bg-black" />
+
+        {/* Imágenes en las esquinas */}
+        <img 
+          src="/restaurantes/image 303.png" 
+          alt="" 
+          className="absolute top-0 left-0 w-auto h-auto max-w-[200px] md:max-w-[300px] opacity-80 pointer-events-none z-0"
+          style={{ transform: 'rotate(-25deg)' }}
+        />
+        <img 
+          src="/restaurantes/image 303.png" 
+          alt="" 
+          className="absolute top-0 right-0 w-auto h-auto max-w-[200px] md:max-w-[300px] opacity-80 pointer-events-none z-0"
+          style={{ transform: 'rotate(18deg)' }}
+        />
+        <img 
+          src="/restaurantes/image 303.png" 
+          alt="" 
+          className="absolute bottom-0 left-0 w-auto h-auto max-w-[200px] md:max-w-[300px] opacity-80 pointer-events-none z-0"
+          style={{ transform: 'rotate(22deg)' }}
+        />
+        <img 
+          src="/restaurantes/image 303.png" 
+          alt="" 
+          className="absolute bottom-0 right-0 w-auto h-auto max-w-[200px] md:max-w-[300px] opacity-80 pointer-events-none z-0"
+          style={{ transform: 'rotate(-28deg)' }}
+        />
+
+        <div className="mx-auto max-w-7xl w-full px-4 py-4 md:py-8 md:px-6 relative z-10 flex items-center justify-center">
+          <div className="max-w-3xl w-full text-center mx-auto -mt-[150px] md:mt-[clamp(60px,12vh,180px)]">
+            <p className="mb-3 md:mb-4 inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-sky-400/60 bg-transparent px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs font-black text-white shadow-[0_0_40px_rgba(56,189,248,0.2)]">
+              <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-sky-400" />
               Soluciones tecnológicas para restaurantes
             </p>
 
-            <h1 className="sm:text-5xl md:text-7xl text-4xl font-semibold tracking-tight text-white">
-              Transforma tu restaurante con tecnología inteligente
+            <h1 className="sm:text-4xl md:text-6xl text-2xl font-semibold tracking-tight text-white">
+              Tecnología que vende por ti
             </h1>
 
-            <p className="mt-8 sm:mt-5 text-base md:text-lg text-slate-300">
-              Desde pedidos y reservas hasta dashboards y automatización. Hacemos que tu restaurante opere como un negocio de clase mundial.
+            <p className="mt-4 sm:mt-5 text-sm md:text-lg font-semibold text-gray-300">
+              Automatizamos pedidos, reservas y fidelización para que tengas más mesas llenas, menos errores y decisiones basadas en datos reales.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row mt-12 sm:mt-8 items-center justify-center">
+            <div className="flex flex-col gap-3 sm:flex-row mt-6 sm:mt-8 items-center justify-center">
               <a
                 href="https://wa.me/573171053785"
                 target="_blank"
@@ -202,7 +400,7 @@ export default function RestaurantesPage() {
                     ))}
                   </div>
                   <span className="inner">
-                    Cuéntanos tu restaurante
+                    Automatiza tu restaurante
                     <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
                       <path d="M5 12h14"></path>
                       <path d="m12 5 7 7-7 7"></path>
@@ -211,94 +409,92 @@ export default function RestaurantesPage() {
                 </button>
               </a>
             </div>
+
+            {/* Dashboard Component */}
+            <div className="mt-6 md:mt-12 w-full flex justify-center">
+              <div className="relative w-[95vw] md:w-[85vw] max-w-[1313px] aspect-[16/8]">
+                <div className="relative rounded-3xl border border-black/10 bg-white overflow-hidden w-full h-full aspect-[16/8] transition-all duration-500 animated-colorful-shadow" style={{ minHeight: 'clamp(800px, 80vh, 900px)' }}>
+                  <RestaurantDashboard onCategoryChange={handleCategoryChange} />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Servicios Section */}
-      <section id="servicios" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:mt-0 pt-4 pb-20">
+      <section id="servicios" className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:mt-0 pt-4 pb-20 overflow-hidden">
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div className="relative z-10 flex flex-col items-center justify-center gap-4 mb-8 text-center">
           <div>
-            <p className="text-sm font-medium text-white/50 mb-2">Lo que ofrecemos</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-white">
+            <p className="text-sm font-medium text-black/60 mb-2">Lo que ofrecemos</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-black">
               Servicios para restaurantes
             </h2>
-            <p className="mt-3 text-base text-white/70 max-w-2xl">
+            <p className="mt-3 text-base text-black/70 max-w-2xl mx-auto">
               Herramientas completas para gestionar y optimizar todas las operaciones de tu restaurante con tecnología de vanguardia.
             </p>
           </div>
         </div>
 
         {/* Services Vertical Layout */}
-        <div className="flex flex-col gap-4">
-          {/* All Services - Vertical Cards */}
+        <div className="relative z-10 flex flex-col gap-4">
+          {/* All Services - Cards */}
           {restaurantServices.map((service, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-lg border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-300 h-[280px] md:h-[320px]"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 sm:p-8 bg-white border-black/10 border rounded-[24px] pt-6 pr-6 pb-6 pl-6 items-center max-w-6xl mx-auto"
             >
-              <div className="flex flex-col md:flex-row h-full">
-                {/* Image Section */}
-                <div className="relative w-full md:w-1/3 h-full">
-                  <OptimizedGif
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover"
-                    priority={index < 2}
-                    objectFit="cover"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:bg-gradient-to-r md:from-black/60 md:via-transparent"></div>
+              {/* Left: Copy adaptado al servicio */}
+              <div className="max-w-[620px]">
+                <p className="text-sm text-emerald-600 mb-3 font-geist tracking-tight transition-all duration-500 ease-out">
+                  {service.badge}
+                </p>
+                <h2 className="text-[32px] sm:text-5xl md:text-6xl leading-[1.05] tracking-tight font-geist font-semibold text-black transition-all duration-500 ease-out">
+                  {service.title}
+                </h2>
+                <p className="sm:text-base text-sm text-neutral-700 mt-3 font-geist tracking-tight transition-all duration-500 ease-out">
+                  {service.description}
+                </p>
+              </div>
+
+              {/* Right: Visual con imagen del servicio */}
+              <div className="relative">
+                <div className="absolute inset-4 -z-10 rounded-3xl overflow-hidden opacity-60">
+                  {index === 2 ? (
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                    />
+                  ) : (
+                    <OptimizedGif
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      priority={index < 3}
+                      objectFit="cover"
+                    />
+                  )}
                 </div>
-                
-                {/* Content Section */}
-                <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-flex items-center gap-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-1 text-[9px] sm:text-[10px] font-medium text-emerald-300">
-                        {service.badge}
-                      </span>
-                      <span className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-1 text-[9px] font-medium text-emerald-300">
-                        IA
-                      </span>
-                    </div>
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-white mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-4">
-                      {service.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href="https://wa.me/573171053785"
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-black bg-emerald-500 rounded-md px-4 py-2 hover:bg-emerald-400 transition-all duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                        className="h-3.5 w-3.5">
-                        <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
-                        <path d="m21.854 2.147-10.94 10.939"></path>
-                      </svg>
-                      {service.ctaText}
-                    </a>
-                    <a
-                      href="https://wa.me/573171053785"
-                      className="inline-flex items-center justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-xs sm:text-sm font-medium text-white/90 backdrop-blur hover:bg-white/10 hover:text-white transition-all duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Más información
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                        className="h-3.5 w-3.5">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                      </svg>
-                    </a>
-                  </div>
+                <div className="relative rounded-3xl border border-black/10 bg-white overflow-hidden backdrop-blur-sm aspect-[4/3]">
+                  {index === 2 ? (
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                    />
+                  ) : (
+                    <OptimizedGif
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      priority={index < 3}
+                      objectFit="cover"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -307,7 +503,7 @@ export default function RestaurantesPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="isolate overflow-hidden pt-24 pb-24 relative">
+      <section id="pricing" className="isolate overflow-hidden pt-24 pb-24 relative bg-black">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_0%,rgba(255,255,255,0.05),transparent_60%)]"></div>
 
         <div className="z-10 md:px-8 max-w-7xl mr-auto ml-auto pr-6 pl-6 relative">
@@ -317,7 +513,7 @@ export default function RestaurantesPage() {
             </h2>
 
             <div className="flex mt-6 gap-x-4 gap-y-4 items-center justify-center">
-              <span className={`text-sm transition-colors ${!isAnnual ? 'text-white' : 'text-white/70'}`}>
+              <span className={`text-sm transition-colors ${!isAnnual ? 'text-white' : 'text-white/50'}`}>
                 Mensual
               </span>
               <button
@@ -330,7 +526,7 @@ export default function RestaurantesPage() {
                   }`}
                 ></span>
               </button>
-              <span className={`text-sm transition-colors ${isAnnual ? 'text-white' : 'text-white/70'}`}>
+              <span className={`text-sm transition-colors ${isAnnual ? 'text-white' : 'text-white/50'}`}>
                 Anual
                 <span
                   className={`ml-2 inline-flex items-center rounded-full bg-amber-400/10 px-2 py-0.5 text-[10px] text-amber-300 ring-1 ring-amber-300/20 transition-opacity ${
@@ -345,7 +541,7 @@ export default function RestaurantesPage() {
 
           <div className="grid gap-6 lg:grid-cols-3 mt-10 gap-x-6 gap-y-6">
             {/* Plan Esencial */}
-            <div className="border-white/10 border rounded-3xl pt-6 pr-6 pb-6 pl-6 backdrop-blur-xl">
+            <div className="border-white/10 border rounded-3xl pt-6 pr-6 pb-6 pl-6 backdrop-blur-xl bg-white/5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm uppercase tracking-[0.18em] text-white/60">Esencial</div>
@@ -405,7 +601,7 @@ export default function RestaurantesPage() {
             </div>
 
             {/* Plan Profesional - Featured */}
-            <div className="border-white/10 border ring-amber-300/10 ring-1 rounded-3xl pt-2 pr-2 pb-2 pl-2 relative backdrop-blur-xl">
+            <div className="border-white/10 border ring-amber-300/10 ring-1 rounded-3xl pt-2 pr-2 pb-2 pl-2 relative backdrop-blur-xl bg-white/5">
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/[0.06] to-transparent">
                 <div className="absolute inset-0">
                   <div className="h-48 w-full rounded-t-2xl bg-gradient-to-br from-amber-500/20 to-emerald-500/20 opacity-60"></div>
@@ -492,7 +688,7 @@ export default function RestaurantesPage() {
             </div>
 
             {/* Plan Enterprise */}
-            <div className="border-white/10 border rounded-3xl pt-6 pr-6 pb-6 pl-6 backdrop-blur-xl">
+            <div className="border-white/10 border rounded-3xl pt-6 pr-6 pb-6 pl-6 backdrop-blur-xl bg-white/5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm uppercase tracking-[0.18em] text-white/60">Enterprise</div>
@@ -562,7 +758,7 @@ export default function RestaurantesPage() {
       {/* Contáctanos Section */}
       <section id="contactanos" className="py-20 px-4 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950 text-white p-6 sm:p-8 md:p-12">
+          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white text-black p-6 sm:p-8 md:p-12">
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(255,255,255,0.07),transparent_60%)]"></div>
               <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(255,255,255,0.06),transparent_60%)]"></div>
@@ -571,15 +767,15 @@ export default function RestaurantesPage() {
 
             <div className="relative">
               <h2 className="text-4xl sm:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-tight mb-8">
-                Contáctanos <span className="text-white/70">:)</span>
+                Contáctanos <span className="text-black/60">:)</span>
               </h2>
 
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:divide-x md:divide-white/10">
                 <div>
-                  <p className="text-sm text-white/70 mb-2">Email</p>
+                  <p className="text-sm text-black/60 mb-2">Email</p>
                   <a
                     href="mailto:contacto@artiificial.art"
-                    className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight hover:text-white/80 transition-colors"
+                    className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight hover:text-black/80 transition-colors"
                   >
                     <Mail className="w-5 h-5" />
                     <span className="break-all">contacto@artiificial.art</span>
@@ -587,7 +783,7 @@ export default function RestaurantesPage() {
                 </div>
 
                 <div className="md:pl-8">
-                  <p className="text-sm text-white/70 mb-2">Agenda una llamada</p>
+                  <p className="text-sm text-black/60 mb-2">Agenda una llamada</p>
                   <a
                     href="https://calendly.com/artificial-company-local/30min"
                     target="_blank"
@@ -600,7 +796,7 @@ export default function RestaurantesPage() {
                 </div>
               </div>
 
-              <p className="mt-6 text-center text-[11px] text-white/60">
+              <p className="mt-6 text-center text-[11px] text-black/60">
                 © <span id="year">2025</span> — Disponible para proyectos
               </p>
             </div>
