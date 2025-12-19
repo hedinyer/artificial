@@ -20,7 +20,8 @@ import {
   Check,
   Mail,
   Calendar as CalendarIcon,
-  Sparkles
+  Sparkles,
+  ChevronDown
 } from "lucide-react";
 
 // Navigation items for RestaurantesPage
@@ -408,6 +409,14 @@ export default function RestaurantesPage() {
                   </span>
                 </button>
               </a>
+            </div>
+
+            {/* Text and Arrow below button */}
+            <div className="flex flex-col items-center justify-center gap-3 mt-1">
+              <p className="text-lg md:text-xl text-gray-300 font-medium">
+                Tu restaurante en un solo software
+              </p>
+              <ChevronDown className="w-6 h-6 text-gray-300 animate-bounce" />
             </div>
 
             {/* Dashboard Component */}
