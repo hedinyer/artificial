@@ -1841,6 +1841,11 @@ HistoriaSection.displayName = 'HistoriaSection';
 
 type SplashPhase = "splash" | "fade" | "none";
 
+/** Tiempo logo a pantalla completa antes del crossfade (ms) */
+const SPLASH_HOLD_MS = 3000;
+/** Duración del crossfade overlay ↔ página (ms); alinear con `duration-[${…}ms]` en splashFadeClass */
+const SPLASH_FADE_MS = 2400;
+
 function LandingPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showChroma, setShowChroma] = useState(false);
@@ -1848,15 +1853,15 @@ function LandingPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [splashPhase, setSplashPhase] = useState<SplashPhase>("splash");
 
-  // Splash: fondo blanco + logo centrado, luego fade; scroll del documento bloqueado solo mientras dura
+  // Splash: fondo blanco + logo centrado 3s, luego crossfade a la página; scroll bloqueado hasta quitar overlay
   useEffect(() => {
     const reduce =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const showMs = reduce ? 250 : 1200;
-    const fadeMs = reduce ? 1 : 780;
+    const showMs = reduce ? 250 : SPLASH_HOLD_MS;
+    const fadeMs = reduce ? 1 : SPLASH_FADE_MS;
     const tFade = window.setTimeout(() => setSplashPhase("fade"), showMs);
-    const tDone = window.setTimeout(() => setSplashPhase("none"), showMs + fadeMs + 120);
+    const tDone = window.setTimeout(() => setSplashPhase("none"), showMs + fadeMs + 150);
     return () => {
       window.clearTimeout(tFade);
       window.clearTimeout(tDone);
@@ -1980,7 +1985,7 @@ function LandingPage() {
   }, []);
 
   const splashFadeClass =
-    "transition-opacity duration-[780ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+    "transition-opacity duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
   return (
     <div className="bg-black text-white font-sans overflow-x-clip">
