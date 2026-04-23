@@ -765,49 +765,84 @@ export default function RestaurantesPage() {
       </section>
 
       {/* Contáctanos Section */}
-      <section id="contactanos" className="py-20 px-4 lg:px-8">
+      <section id="contactanos" className="py-24 px-4 lg:px-8 bg-gradient-to-b from-white to-gray-50/50">
         <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white text-black p-6 sm:p-8 md:p-12">
+          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white text-black shadow-xl p-8 sm:p-10 md:p-16">
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(255,255,255,0.07),transparent_60%)]"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(255,255,255,0.06),transparent_60%)]"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.15]"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(0,0,0,0.02),transparent_60%)]"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(0,0,0,0.02),transparent_60%)]"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(#0000000d_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.08]"></div>
             </div>
 
             <div className="relative">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-tight mb-8">
-                Contáctanos <span className="text-black/60">:)</span>
-              </h2>
+              {/* Header */}
+              <div className="text-center mb-12">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+                  Contáctanos
+                </h2>
+                <p className="text-lg sm:text-xl text-black/70 max-w-2xl mx-auto font-light">
+                  Estamos listos para transformar tu restaurante. Hablemos sobre cómo podemos ayudarte a alcanzar tus objetivos.
+                </p>
+              </div>
 
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:divide-x md:divide-white/10">
-                <div>
-                  <p className="text-sm text-black/60 mb-2">Email</p>
+              {/* Contact Methods */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
+                {/* Email Section */}
+                <div className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2.5 rounded-lg bg-black/5 group-hover:bg-black/10 transition-colors">
+                      <Mail className="w-5 h-5 text-black/80" />
+                    </div>
+                    <p className="text-sm font-semibold text-black/60 uppercase tracking-wider">Correo Electrónico</p>
+                  </div>
                   <a
                     href="mailto:contacto@artiificial.art"
-                    className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight hover:text-black/80 transition-colors"
+                    className="block text-xl sm:text-2xl font-semibold tracking-tight text-black hover:text-black/70 transition-colors group"
                   >
-                    <Mail className="w-5 h-5" />
                     <span className="break-all">contacto@artiificial.art</span>
+                    <span className="inline-block ml-2 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                   </a>
+                  <p className="mt-2 text-sm text-black/50">
+                    Respuesta en menos de 24 horas
+                  </p>
                 </div>
 
-                <div className="md:pl-8">
-                  <p className="text-sm text-black/60 mb-2">Agenda una llamada</p>
+                {/* Calendar Section */}
+                <div className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2.5 rounded-lg bg-black/5 group-hover:bg-black/10 transition-colors">
+                      <CalendarIcon className="w-5 h-5 text-black/80" />
+                    </div>
+                    <p className="text-sm font-semibold text-black/60 uppercase tracking-wider">Agendar Consulta</p>
+                  </div>
                   <a
                     href="https://calendly.com/artificial-company-local/30min"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-tight text-gray-900 bg-white hover:bg-white/90 border border-white/10 mt-2 transition-colors"
+                    className="inline-flex items-center gap-3 rounded-lg px-6 py-4 text-base font-semibold tracking-tight text-white bg-black hover:bg-black/90 border border-black/10 shadow-sm transition-all hover:shadow-md group"
                   >
-                    <CalendarIcon className="w-4 h-4" />
-                    <span>Book a call</span>
+                    <CalendarIcon className="w-5 h-5" />
+                    <span>Agendar Llamada</span>
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                   </a>
+                  <p className="mt-2 text-sm text-black/50">
+                    Consulta gratuita de 30 minutos
+                  </p>
                 </div>
               </div>
 
-              <p className="mt-6 text-center text-[11px] text-black/60">
-                © <span id="year">2025</span> — Disponible para proyectos
-              </p>
+              {/* Divider */}
+              <div className="border-t border-black/10 my-12"></div>
+
+              {/* Footer */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-black/50">
+                <p className="font-medium">
+                  © <span id="year">2025</span> Artificial. Todos los derechos reservados.
+                </p>
+                <p className="text-black/60">
+                  Disponible para nuevos proyectos
+                </p>
+              </div>
             </div>
           </div>
         </div>

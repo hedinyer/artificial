@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { useEffect, useState, useMemo, memo, useCallback } from "react"
+import Image from "next/image";
 import dynamic from 'next/dynamic';
 import Silk from './Silk';
 import ShapeBlur from './ShapeBlur';
@@ -13,7 +14,7 @@ const SplitText = dynamic(() => import('./components/SplitText'), {
 });
 
 import ScrollVelocity from "./components/ScrollVelocity";
-import { Sparkles, Zap, DollarSign, TrendingUp, Palette, Bot, Shield, FileText, Users, Receipt, Factory, Workflow } from "lucide-react";
+import { Sparkles, Zap, DollarSign, TrendingUp, Palette, Bot, Shield, FileText, Users, Receipt, Factory, Workflow, ChevronDown } from "lucide-react";
 import Beams from "./components/Beams";
 import OptimizedFonts from "./components/OptimizedFonts";
 import "@/components/ui/chroma-grid/ChromaGrid.css";
@@ -21,7 +22,6 @@ import "./components/AnimatedShadows.css";
 import "./components/OptimizedMedia.css";
 import OptimizedGif from "./components/OptimizedGif";
 import useGifPreloader, { getGifLoadingAttrs } from "./hooks/useGifPreloader";
-import LightRays from "./components/LightRays";
 
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
@@ -40,12 +40,12 @@ const secondaryGifs = [
 ];
 
 const benefitGifs = [
-  "/card_benefits/1.gif",
-  "/card_benefits/2.gif",
-  "/card_benefits/3.gif",
-  "/card_benefits/4.gif",
-  "/card_benefits/5.gif",
-  "/card_benefits/6.gif",
+  "/ventajas/1.jpg",
+  "/ventajas/2.jpg",
+  "/ventajas/3.jpg",
+  "/ventajas/4.jpg",
+  "/ventajas/5.jpg",
+  "/ventajas/6.jpg",
 ];
 
 // Optimized static data with memoization
@@ -125,7 +125,7 @@ const services = [
 
 // Navigation items with stable reference
 const navItems = [
-  { label: "Inicio", href: "#inicio" },
+  { label: "Nosotros", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
   { label: "Ventajas", href: "#ventajas" },
   { label: "Hablemos", href: "#historia" },
@@ -287,7 +287,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
 
   return (
     <section
-      id="servicios"
+      id="servicios-detalle"
       className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:mt-0 pt-4 pb-20"
     >
       {/* Header Section */}
@@ -663,7 +663,7 @@ const AIDemoCarousel = memo(() => {
           className="flex items-center justify-between px-4 py-3 border-b border-white/10"
           style={{ background: `linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent)` }}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 p-0 mx-[182px]">
             <div 
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{ background: 'rgba(255, 255, 255, 0.1)' }}
@@ -1218,50 +1218,50 @@ AIDemoCarousel.displayName = 'AIDemoCarousel';
 // Create a simple hero section component
 const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
   return (
-    <section id="inicio" className="relative z-10 min-h-screen flex items-center justify-center">
-      {/* Light Rays Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#00ffff"
-          raysSpeed={1.5}
-          lightSpread={0.8}
-          rayLength={3.2}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0.1}
-          distortion={0.05}
-        />
-      </div>
-      <div className="mx-auto max-w-7xl w-full px-4 py-8 md:px-6 relative z-10 flex items-center justify-center">
-        <div className="max-w-3xl w-full text-center mx-auto">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-400/60 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
-            <Sparkles className="h-4 w-4 text-sky-400" />
-            150+ empresas transformadas
+    <section
+      id="inicio"
+      className="relative z-10 flex min-h-screen min-h-[100dvh] flex-col bg-white overflow-x-clip"
+    >
+      <div
+        className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-6 pt-[max(5.75rem,env(safe-area-inset-top,0px))] sm:px-5 sm:pb-8 md:px-6 md:py-8"
+      >
+        <div className="mx-auto w-full max-w-3xl text-center">
+          <p className="mb-3 sm:mb-4 inline-flex max-w-[95%] items-center justify-center gap-1.5 rounded-full border border-sky-400/60 bg-white/5 px-2.5 py-1 text-[11px] font-medium leading-tight text-black sm:gap-2 sm:px-3 sm:text-xs">
+            <Sparkles className="h-3.5 w-3.5 shrink-0 text-sky-400 sm:h-4 sm:w-4" />
+            <span className="text-balance">Todo para impulsar tu empresa y crecimiento</span>
           </p>
 
-          <h1 className="sm:text-5xl md:text-7xl text-4xl font-semibold tracking-tight text-white">
-            Multiplica tu productividad con IA y automatización
+          <h1
+            className="text-balance text-[clamp(1.85rem,5.5vw+0.85rem,2.35rem)] font-normal leading-[1.1] tracking-tight text-black sm:text-5xl sm:leading-[1.12] md:text-6xl md:leading-[1.08] lg:text-7xl"
+            style={{ fontFamily: '"Helvetica Neue"' }}
+          >
+            <span className="font-[400]">Una agencia,</span>
+            <br />
+            <span className="font-[400]">Todo </span>
+            <span className="font-[800]">resuelto.</span>
           </h1>
 
-          <p className="mt-8 sm:mt-5 text-base md:text-lg text-slate-300">
-            Del branding al software, convertimos problemas en ventajas. Hacemos que tu competencia se pregunte cómo lo lograste.
+          <p
+            className="mt-5 text-balance text-sm leading-relaxed text-black sm:mt-5 sm:text-base md:mt-6 md:text-lg"
+            style={{ fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif', fontWeight: 300 }}
+          >
+            De la identidad de marca al software inteligente: construimos tu logo, web, app y automatizaciones con IA en una sola agencia que entiende tu negocio de principio a fin.
           </p>
 
-          <div className="flex flex-col gap-3 sm:flex-row mt-12 sm:mt-8 items-center justify-center">
+          <div className="mt-9 flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:mx-auto sm:mt-8 sm:max-w-none sm:w-auto sm:flex-row sm:items-center sm:px-0">
             <a
-              href="https://wa.me/573171053785"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#servicios"
             >
               <button
                 type="button"
-                className="hero-button"
+                className="hero-button w-full sm:w-auto"
                 style={{
                   background: 'radial-gradient(65.28% 65.28% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0) 100%), linear-gradient(0deg, #2563eb, #2563eb)',
                   padding: '12px 18px',
                   minHeight: '48px',
-                  minWidth: '102px',
+                  minWidth: 'min(100%, 220px)',
+                  borderRadius: '9999px',
+                  boxShadow: '0 10px 24px rgba(37, 99, 235, 0.28)',
                   cursor: 'pointer'
                 }}
               >
@@ -1280,7 +1280,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                   ))}
                 </div>
                 <span className="inner">
-                  Cuentanos tu problema
+                  Nuestros servicios
                   <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
@@ -1288,13 +1288,238 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                 </span>
               </button>
             </a>
+            <a
+              href="https://wa.me/573171053785"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+            >
+              <button
+                type="button"
+                className="w-full min-h-12 min-w-0 rounded-full border border-gray-200 bg-white px-8 py-3 text-slate-900 font-medium shadow-md shadow-black/20 transition-colors hover:bg-white/95 sm:min-w-[220px]"
+              >
+                Contactanos
+              </button>
+            </a>
           </div>
-          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden -translate-y-1/2 md:block max-lg:max-w-[min(50vw,420px)] max-lg:opacity-90">
+        <Image
+          src="/header/left_hero.png"
+          alt="Ilustración del hero"
+          width={560}
+          height={560}
+          className="h-auto w-full max-w-[min(56vw,560px)] object-contain lg:max-w-[560px]"
+          sizes="(min-width: 768px) min(50vw, 560px), 0px"
+          priority
+        />
+      </div>
+
+      <div className="pointer-events-none absolute left-0 top-1/2 z-[1] hidden -translate-y-1/2 md:block max-lg:max-w-[min(50vw,420px)] max-lg:opacity-90">
+        <Image
+          src="/header/left_hero2.png"
+          alt="Ilustración izquierda del hero"
+          width={560}
+          height={560}
+          className="h-auto w-full max-w-[min(56vw,560px)] object-contain lg:max-w-[560px]"
+          sizes="(min-width: 768px) min(50vw, 560px), 0px"
+          priority
+        />
       </div>
     </section>
   );
 });
 HeroSection.displayName = 'HeroSection';
+
+const serviciosIntroCards = [
+  {
+    title: "Diseño",
+    image: "/services/diseno.png",
+    bullets: [
+      { headline: "Marca que no se confunde con la competencia", body: "Sistema visual + voz: mismo nivel en web, redes y piezas comerciales." },
+      { headline: "Interfaces que la gente sí termina", body: "Menos fricción en formularios y flujos; más conversiones y menos soporte repetitivo." },
+      { headline: "Primera impresión de agencia, no de plantilla", body: "Pitch, landing y redes alineados: confianza desde el primer scroll." },
+      { headline: "Coherencia en cada touchpoint", body: "PDF, WhatsApp, firma: todo refuerza la misma historia; cero identidad partida." },
+      { headline: "Diseño que vende la propuesta", body: "Jerarquía clara y storytelling visual: priorizamos claridad, no relleno decorativo." },
+    ],
+  },
+  {
+    title: "Productividad",
+    image: "/services/productividad.png",
+    bullets: [
+      { headline: "Quitamos el trabajo zombie del día a día", body: "Datos, reportes y tareas repetitivas: automatizados para que el equipo respire." },
+      { headline: "IA que atiende mientras tú cierras", body: "Agentes para respuestas, seguimiento y admin: 24/7 sin sumar cabezas a nómina." },
+      { headline: "Software hecho para tu flujo real", body: "Nada de forzar un CRM genérico: herramientas que encajan con cómo ya operas." },
+      { headline: "Velocidad operativa sin heroísmos", body: "Menos copiar/pegar entre áreas; menos espera entre “ya te lo mando”." },
+      { headline: "Un solo sitio para procesos y datos", body: "Menos “¿dónde quedó eso?”: trazabilidad y menos errores caros." },
+    ],
+  },
+  {
+    title: "Ganancias",
+    image: "/services/ganancias.png",
+    bullets: [
+      { headline: "Misma capacidad, menos gasto fijo", body: "Automatización y sistemas que sustituyen horas-hombre, no ambición." },
+      { headline: "Sabrás qué línea de negocio te paga de verdad", body: "Inteligencia de datos y dashboards: decisiones con números, no solo instinto." },
+      { headline: "El equipo vuelve a vender y a estrategia", body: "Menos apagar incendios administrativos; más foco en ingresos." },
+      { headline: "Menos fugas de dinero por error humano", body: "Controles y flujos que reducen reprocesos, multas y retrabajo." },
+      { headline: "Escalar volumen sin inflar la planilla", body: "Tecnología que absorbe picos: creces sin prometer lo imposible al talento." },
+    ],
+  },
+] as const;
+
+type ServiciosIntroAccordionPanelProps = {
+  cardIndex: number;
+  panelId: string;
+  openRow: number | null;
+  onRowClick: (row: number) => void;
+  className?: string;
+};
+
+const ServiciosIntroAccordionPanel = memo(function ServiciosIntroAccordionPanel({
+  cardIndex,
+  panelId,
+  openRow,
+  onRowClick,
+  className = "",
+}: ServiciosIntroAccordionPanelProps) {
+  const card = serviciosIntroCards[cardIndex];
+  return (
+    <div
+      id={panelId}
+      role="region"
+      aria-labelledby={`servicios-card-${cardIndex}`}
+      className={`rounded-2xl border border-black/10 bg-black/[0.02] px-3 py-4 sm:px-6 sm:py-5 ${className}`}
+    >
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/50">{card.title}</p>
+      <p className="mt-1 text-sm font-medium text-black/80 sm:text-base">
+        Cinco formas concretas en las que te impactamos
+      </p>
+      <div className="mt-4 flex flex-col divide-y divide-black/10 border-t border-black/10">
+        {card.bullets.map((row, i) => {
+          const expanded = openRow === i;
+          return (
+            <div key={row.headline}>
+              <button
+                type="button"
+                onClick={() => onRowClick(i)}
+                aria-expanded={expanded}
+                className="flex w-full items-start gap-3 py-3.5 text-left outline-none transition-colors hover:bg-black/[0.03] focus-visible:bg-black/[0.04] sm:py-4"
+              >
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black text-[11px] font-semibold text-white">
+                  {i + 1}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-semibold leading-snug tracking-tight text-black sm:text-base">
+                    {row.headline}
+                  </span>
+                </span>
+                <ChevronDown
+                  className={`mt-0.5 h-5 w-5 shrink-0 text-black/40 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+                  aria-hidden
+                />
+              </button>
+              <div
+                className={`grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <p className="pb-4 pl-9 text-sm leading-relaxed text-black/65 sm:pl-10 sm:text-[15px]">{row.body}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+ServiciosIntroAccordionPanel.displayName = "ServiciosIntroAccordionPanel";
+
+const ServiciosIntroSection = memo(() => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openRow, setOpenRow] = useState<number | null>(0);
+
+  const toggleCard = useCallback((index: number) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  }, []);
+
+  useEffect(() => {
+    if (activeIndex !== null) setOpenRow(0);
+  }, [activeIndex]);
+
+  const handleRowClick = useCallback((index: number) => {
+    setOpenRow((prev) => (prev === index ? null : index));
+  }, []);
+
+  return (
+    <section id="servicios" className="relative z-10 bg-white pb-12 pt-2 sm:pb-16 sm:pt-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-6">
+        <div className="mb-6 text-center sm:mb-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-black/60 sm:text-sm">Servicios</p>
+          <h2 className="mt-2 text-balance text-[1.35rem] font-light leading-snug tracking-tight text-black sm:text-[25px] [font-family:'Helvetica Neue']">
+            Lo que hacemos para tu crecimiento
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3">
+          {serviciosIntroCards.map((card, index) => {
+            const isActive = activeIndex === index;
+            return (
+              <div key={`${card.title}-${index}`} className="min-w-0">
+                <article
+                  className={`bg-transparent transition-transform duration-300 sm:hover:-translate-y-1 ${isActive ? "sm:-translate-y-1" : ""}`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleCard(index)}
+                    aria-expanded={isActive}
+                    id={`servicios-card-${index}`}
+                    className={`group relative w-full border-0 bg-transparent p-0 text-left shadow-none outline-none transition-[box-shadow,transform] focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white ${isActive ? "rounded-2xl ring-2 ring-black ring-offset-2 ring-offset-white" : "rounded-2xl"}`}
+                  >
+                    <span className="sr-only">{card.title}. Toca para ver qué hacemos en esta línea.</span>
+                    <Image
+                      src={card.image}
+                      alt=""
+                      width={1200}
+                      height={1200}
+                      className="h-auto w-full rounded-2xl object-contain"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      aria-hidden
+                    />
+                  </button>
+                </article>
+
+                {isActive && (
+                  <div className="mt-4 md:hidden">
+                    <ServiciosIntroAccordionPanel
+                      cardIndex={index}
+                      panelId={`servicios-acordeon-m-${index}`}
+                      openRow={openRow}
+                      onRowClick={handleRowClick}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {activeIndex !== null && (
+          <div className="mt-6 hidden sm:mt-8 md:block">
+            <ServiciosIntroAccordionPanel
+              cardIndex={activeIndex}
+              panelId="servicios-acordeon-d"
+              openRow={openRow}
+              onRowClick={handleRowClick}
+            />
+          </div>
+        )}
+      </div>
+    </section>
+  );
+});
+ServiciosIntroSection.displayName = 'ServiciosIntroSection';
 
 // Create a memoized ventajas section component
 const VentajasSection = memo(() => {
@@ -1349,23 +1574,23 @@ const VentajasSection = memo(() => {
   return (
     <section
       id="ventajas"
-      className="min-h-screen py-16 sm:py-24 md:py-32 px-4 sm:px-5 relative overflow-hidden"
+      className="relative min-h-screen overflow-x-clip py-12 px-3 sm:px-5 sm:py-24 md:py-32"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-black"></div>
+      <div className="absolute inset-0 bg-white"></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 mx-auto max-w-7xl">
 
         {/* Header - Mobile Optimized */}
-        <div className="text-center mb-12 sm:mb-16 px-4">
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white max-w-4xl mx-auto leading-relaxed">
+        <div className="mb-10 px-1 text-center sm:mb-16 sm:px-4">
+          <p className="mx-auto max-w-4xl text-balance text-lg font-bold leading-snug text-black sm:text-2xl md:text-3xl md:leading-tight lg:text-4xl">
             IA que multiplica tu productividad y reduce costos automáticamente
           </p>
         </div>
 
         {/* Ventajas Grid - Mobile Responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-20 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 sm:justify-items-center sm:gap-6 lg:grid-cols-3">
           {ventajas.map((ventaja, index) => {
             const IconComponent = ventaja.icon;
             const isAnimated = animatedCards.includes(index);
@@ -1373,7 +1598,7 @@ const VentajasSection = memo(() => {
             return (
               <article
                 key={index}
-                className={`chroma-ventaja-card group relative overflow-hidden rounded-2xl lg:rounded-3xl shadow-xl backdrop-blur-lg transition-all duration-700 transform sm:h-[320px] ${isAnimated
+                className={`chroma-ventaja-card group relative aspect-[9/16] w-full max-w-[min(100%,22rem)] transform overflow-hidden rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-700 sm:max-w-[320px] sm:rounded-[28px] sm:backdrop-blur-lg ${isAnimated
                     ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-20 scale-95'
                   } ${!loadedBackgrounds.has(index) ? 'ventaja-skeleton' : ''}`}
@@ -1385,15 +1610,14 @@ const VentajasSection = memo(() => {
                   '--mouse-x': '50%',
                   '--mouse-y': '50%',
                   '--spotlight-color': 'rgba(255, 255, 255, 0.15)',
-                  minHeight: '280px',
                   border: '1px solid rgba(75, 85, 99, 0.3)',
                   backgroundColor: loadedBackgrounds.has(index) ? 'transparent' : 'rgb(20, 20, 20)',
                   cursor: 'pointer'
                 } as React.CSSProperties}
               >
-                {/* GIF Background - Using img element for continuous playback */}
+                {/* Fondo: imágenes en /public/ventajas (1.jpg … 6.jpg) */}
                 <img
-                  src={`/card_benefits/${index + 1}.gif`}
+                  src={`/ventajas/${index + 1}.jpg`}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover z-0"
                   style={{
@@ -1407,14 +1631,14 @@ const VentajasSection = memo(() => {
                     setLoadedBackgrounds(prev => new Set([...prev, index]));
                   }}
                   onError={(e) => {
-                    console.error('Error loading GIF:', `/card_benefits/${index + 1}.gif`, e);
+                    console.error('Error loading imagen de ventaja:', `/ventajas/${index + 1}.jpg`, e);
                   }}
                 />
-                {/* Gradient overlay - Less opaque to show GIF */}
+                {/* Gradient overlay */}
                 <div 
                   className="absolute inset-0 z-[1] pointer-events-none"
                   style={{
-                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
+                    background: 'linear-gradient(to bottom, rgba(8,12,18,0.05) 10%, rgba(8,12,18,0.45) 55%, rgba(8,12,18,0.88) 100%)'
                   }}
                 />
 
@@ -1427,330 +1651,112 @@ const VentajasSection = memo(() => {
                   }}
                 ></div>
 
-                {/* Content Container inspired by motion campaign card */}
-                <div className="relative z-20 flex flex-col h-full p-4 sm:p-6 lg:p-8 justify-between">
-                  {/* Top badges + icon button */}
-                  <div className="flex items-start justify-between mb-3 sm:mb-5">
-                    <div className="flex flex-wrap gap-1.5">
-                      <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-white/90 ring-1 ring-white/30 bg-white/15 backdrop-blur-sm">
+                {/* Content Container */}
+                <div className="relative z-20 flex h-full flex-col p-4 sm:p-5">
+                  <div className="flex items-start justify-between">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2.5 py-1 rounded-full text-[9px] font-semibold uppercase tracking-[0.14em] text-white/90 ring-1 ring-white/30 bg-white/15 backdrop-blur-sm">
                         Automatización IA
                       </span>
                       {ventaja.benefit && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-white/90 ring-1 ring-white/30 bg-white/15 backdrop-blur-sm">
+                        <span className="px-2.5 py-1 rounded-full text-[9px] font-semibold uppercase tracking-[0.12em] text-white/90 ring-1 ring-white/25 bg-black/25 backdrop-blur-sm">
                           {ventaja.benefit}
                         </span>
                       )}
                     </div>
-                    <button className="p-2 rounded-full bg-black/20 hover:bg-black/30 transition-colors backdrop-blur-sm border border-white/10">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/25 backdrop-blur-sm">
                       <IconComponent className="w-4 h-4 text-white" />
-                    </button>
+                    </span>
                   </div>
 
-                  {/* Main copy */}
-                  <div className="mt-auto">
-                    <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight mb-1.5">
+                  <div className="mt-auto flex h-[132px] w-full flex-col rounded-2xl border border-white/20 bg-white/10 p-2.5 sm:p-3 backdrop-blur-md">
+                    <h3 className="shrink-0 text-[17px] font-semibold leading-[1.12] text-white tracking-tight line-clamp-2 min-h-[2.35rem]">
                       {ventaja.title}
                     </h3>
-                    <p className="text-[11px] sm:text-xs leading-relaxed text-white/85 mb-2.5 sm:mb-3">
+                    <p className="mt-1.5 h-[3.35rem] shrink-0 text-[11px] leading-snug text-white/85 line-clamp-3">
                       {ventaja.description}
                     </p>
-
-                    {(ventaja.metric || ventaja.source) && (
-                      <div className="mt-1.5 flex items-start gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-black/30 border border-white/10 flex items-center justify-center overflow-hidden">
-                          <span className="text-[10px] text-white/80 font-medium">
-                            {index + 1}
-                          </span>
-                        </div>
-                        <div className="text-[9px] sm:text-[10px]">
-                          {ventaja.metric && (
-                            <div className="text-white/90 font-medium">
-                              {ventaja.metric}
-                            </div>
-                          )}
-                          {ventaja.metricSource && (
-                            <div className="text-white/60 mt-0.5">
-                              — {ventaja.metricSource}
-                            </div>
-                          )}
-                          {ventaja.source && !ventaja.metricSource && (
-                            <div className="text-white/60 mt-0.5">
-                              — {ventaja.source}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
 
                 {/* ChromaGrid-style border effect */}
-                <div className="absolute inset-0 rounded-[20px] border border-gray-600/30 group-hover:border-gray-500/50 transition-all duration-700"></div>
+                <div className="absolute inset-0 rounded-2xl border border-gray-500/35 transition-all duration-700 group-hover:border-gray-400/60 sm:rounded-[28px]"></div>
               </article>
             );
           })}
         </div>
 
-        {/* Editor preview */}
-        <div className="-mb-8 max-w-7xl md:px-6 mr-auto ml-auto pr-4 pl-4">
-          <div className="relative w-full overflow-hidden shadow-black/50 bg-gradient-to-b from-white/[0.04] to-white/[0.02] border-white/10 border rounded-2xl mr-auto ml-auto shadow-2xl backdrop-blur-lg">
-            {/* Topbar */}
-            <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
-                <span className="h-3 w-3 rounded-full bg-yellow-400/80"></span>
-                <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
-                <div className="ml-3 hidden items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-xs text-slate-300 sm:flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-slate-200"><rect width="7" height="18" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect></svg>
-                  art_ificial Studio — Proyecto: Aurora
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
-                </button>
-                <button className="hidden rounded-md border border-white/10 bg-white/5 p-1.5 text-slate-200 hover:bg-white/10 sm:inline-flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                </button>
-                <button className="rounded-md bg-sky-500/90 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-500">Publicar</button>
-              </div>
-            </div>
-
-            {/* Editor body */}
-            <div className="grid grid-cols-1 md:grid-cols-12">
-              {/* Canvas */}
-              <main className="relative md:col-span-6 bg-black/20">
-                <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2 text-xs text-slate-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-sky-400"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg>
-                  <span>Breakpoint</span>
-                  <span className="rounded-md bg-white/5 px-1.5 py-0.5">Desktop</span>
-                  <span className="text-slate-500">|</span>
-                  <span>1200</span>
-                </div>
-
-                <div className="sm:p-6 p-4 space-y-4">
-                  {/* Automation explanation card – placed below the robot */}
-                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                    {/* Card glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-cyan-500/10"></div>
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    
-                    <div className="relative p-4 sm:p-5">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        {/* Text content */}
-                        <div className="flex-1 min-w-0">
-                          <div className="mb-2 flex items-center gap-3">
-                            <span className="text-[10px] tracking-[0.25em] uppercase text-sky-300/80">
-                              Automatización continua
-                            </span>
-                            <span className="hidden sm:inline h-px w-10 bg-sky-500/60" />
-                            <span className="hidden sm:inline text-[10px] text-white/40">
-                              Operaciones sin fricción
-                            </span>
-                          </div>
-                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                            Software que <span className="font-normal text-sky-300">hace el turno nocturno</span> por tu equipo
-                          </h3>
-                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                            Orquestamos bots y flujos de IA que se encargan del trabajo repetitivo 24/7, para que tu equipo humano solo intervenga cuando hay decisiones reales que tomar.
-                          </p>
-                        </div>
-
-                        {/* Stats / Editorial metrics */}
-                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Carga operativa
-                            </div>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xl sm:text-2xl font-mono text-emerald-400">-70%</span>
-                              <span className="text-[10px] text-white/50">tareas manuales</span>
-                            </div>
-                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                              <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Tiempo activo
-                            </div>
-                            <div className="text-sm font-mono text-sky-300">
-                              24·7·365
-                            </div>
-                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                              Supervisa, responde y reporta mientras tu equipo duerme.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Intelligence explanation card */}
-                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                    {/* Card glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10"></div>
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    
-                    <div className="relative p-4 sm:p-5">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        {/* Text content */}
-                        <div className="flex-1 min-w-0">
-                          <div className="mb-2 flex items-center gap-3">
-                            <span className="text-[10px] tracking-[0.25em] uppercase text-purple-300/80">
-                              Inteligencia de datos
-                            </span>
-                            <span className="hidden sm:inline h-px w-10 bg-purple-500/60" />
-                            <span className="hidden sm:inline text-[10px] text-white/40">
-                              Oportunidades ocultas
-                            </span>
-                          </div>
-                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                            Datos que <span className="font-normal text-purple-300">revelan el futuro</span> de tu negocio
-                          </h3>
-                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                            Analizamos métricas y patrones para identificar oportunidades de crecimiento, optimizar procesos y tomar decisiones basadas en datos reales que impulsan resultados.
-                          </p>
-                        </div>
-
-                        {/* Stats / Editorial metrics */}
-                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Oportunidades
-                            </div>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xl sm:text-2xl font-mono text-purple-400">+85%</span>
-                              <span className="text-[10px] text-white/50">identificadas</span>
-                            </div>
-                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                              <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-purple-400 to-pink-500" />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Métricas clave
-                            </div>
-                            <div className="text-sm font-mono text-purple-300">
-                              Real-time
-                            </div>
-                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                              Dashboards interactivos con insights accionables.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Consulting explanation card */}
-                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-black/80 via-black/70 to-black/80 backdrop-blur-xl">
-                    {/* Card glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-orange-500/10"></div>
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    
-                    <div className="relative p-4 sm:p-5">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        {/* Text content */}
-                        <div className="flex-1 min-w-0">
-                          <div className="mb-2 flex items-center gap-3">
-                            <span className="text-[10px] tracking-[0.25em] uppercase text-amber-300/80">
-                              Consultoría digital
-                            </span>
-                            <span className="hidden sm:inline h-px w-10 bg-amber-500/60" />
-                            <span className="hidden sm:inline text-[10px] text-white/40">
-                              Crecimiento estratégico
-                            </span>
-                          </div>
-                          <h3 className="text-[1.1rem] sm:text-[1.3rem] leading-tight font-semibold text-white">
-                            Software que <span className="font-normal text-amber-300">transforma</span> tu empresa
-                          </h3>
-                          <p className="mt-2 text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-xl">
-                            Diseñamos e implementamos soluciones tecnológicas personalizadas que aceleran el crecimiento, mejoran la eficiencia y posicionan tu empresa en la vanguardia digital.
-                          </p>
-                        </div>
-
-                        {/* Stats / Editorial metrics */}
-                        <div className="flex sm:flex-col gap-4 sm:gap-3 shrink-0 border-t sm:border-t-0 sm:border-l border-white/10 pt-3 sm:pt-0 sm:pl-4">
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Crecimiento
-                            </div>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xl sm:text-2xl font-mono text-amber-400">+250%</span>
-                              <span className="text-[10px] text-white/50">ROI promedio</span>
-                            </div>
-                            <div className="mt-2 h-1.5 w-24 rounded-full bg-white/10 overflow-hidden">
-                              <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-[10px] text-white/40 uppercase tracking-[0.18em] mb-1">
-                              Implementación
-                            </div>
-                            <div className="text-sm font-mono text-amber-300">
-                              30-90 días
-                            </div>
-                            <div className="mt-1 text-[10px] text-white/55 max-w-[120px]">
-                              Soluciones escalables desde el día uno.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </main>
-
-              {/* Right panel */}
-              <aside className="block md:col-span-6 border-t md:border-t-0 md:border-l border-white/10 bg-black/30 p-3 mt-3 md:mt-0">
-                <div className="mb-3 flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-slate-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
-                    Propiedades
-                  </div>
-                  <button className="rounded-md border border-white/10 bg-white/5 p-1 text-slate-300 hover:bg-white/10">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                  </button>
-                </div>
-
-                {/* AI Demo Interfaces - Animated Carousel */}
-                <AIDemoCarousel />
-              </aside>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
 });
 VentajasSection.displayName = 'VentajasSection';
 
+const HISTORIA_SOCIAL = [
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/573171053785",
+    aria: "Escribir por WhatsApp",
+    className: "text-[#25D366] hover:border-transparent hover:bg-[#25D366] hover:text-white",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.78 3.1 1.19 4.75 1.2h.08c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.15-2.9-7.01a9.82 9.82 0 0 0-7-2.9zm.04 17.9h-.01c-1.49 0-2.95-.4-4.22-1.15l-.3-.18-3.12.82.83-3.04-.2-.32a7.6 7.6 0 0 1-1.16-3.99c0-4.2 3.42-7.63 7.64-7.63 2.04 0 3.95.8 5.4 2.25a7.6 7.6 0 0 1 2.24 5.4c0 4.2-3.42 7.63-7.64 7.64zm4.2-5.4c-.23-.12-1.35-.66-1.55-.74-.2-.08-.35-.12-.5.12-.15.24-.55.74-.68.9-.12.15-.25.16-.48.05-.22-.12-1.35-.5-2.57-1.6-.95-.85-1.6-1.9-1.78-2.22-.2-.3-.02-.47.15-.63.16-.16.35-.4.5-.6.12-.2.12-.32.18-.5.05-.2 0-.35-.1-.5-.1-.12-.5-1.2-.68-1.65-.18-.45-.4-.4-.5-.4h-.42c-.2 0-.5.05-.75.4-.25.3-.95.92-.95 2.25 0 1.32.97 2.6 1.1 2.8.12.2 1.9 2.9 4.6 4.04.64.28 1.15.45 1.55.6.64.2 1.22.17 1.68.1.5-.05 1.5-.6 1.7-1.2.2-.6.2-1.12.15-1.2-.1-.1-.2-.12-.4-.2z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/artiificial.art",
+    aria: "Instagram",
+    className: "text-pink-600 hover:border-transparent hover:bg-gradient-to-br hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#515BD4] hover:text-white",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+      </svg>
+    ),
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/artificial",
+    aria: "LinkedIn",
+    className: "text-[#0A66C2] hover:border-transparent hover:bg-[#0A66C2] hover:text-white",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+] as const;
+
 // Create a memoized historia section component
 const HistoriaSection = memo(() => {
   return (
     <section
       id="historia"
-      className="max-w-7xl sm:px-6 sm:mt-12 mt-8 mr-auto mb-16 ml-auto pt-10 pr-4 pl-4"
+      className="w-full bg-white px-2 pb-24 text-slate-900 pt-[4.5rem] sm:px-0 sm:pb-32 sm:pt-[5.5rem]"
     >
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-950 text-white p-6 sm:p-8">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6">
+      <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:rounded-3xl sm:p-8">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(255,255,255,0.07),transparent_60%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(255,255,255,0.06),transparent_60%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.15]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_20%_-20%,rgba(15,23,42,0.04),transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_120%,rgba(15,23,42,0.03),transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(#0f172a0a_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.4]"></div>
         </div>
 
         <div className="relative">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-tight">
-            Construyamos juntos. <span className="text-white/70">:)</span>
+          <h2 className="text-balance text-3xl font-semibold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl sm:leading-[1.02] lg:text-6xl">
+            <span className="block">Empecemos por una conversación clara.</span>
+            <span className="mt-3 block max-w-[42rem] text-base font-medium leading-relaxed tracking-tight text-slate-500 sm:mt-2 sm:text-2xl sm:leading-snug lg:text-[1.7rem]">
+              Escuchamos con intención, alineamos lo que buscas y comunicamos con precisión desde el primer mensaje.
+            </span>
           </h2>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:divide-x md:divide-white/10">
-            <div>
-              <p className="text-sm text-white/70">Email</p>
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-0 lg:divide-x lg:divide-slate-200/90">
+            <div className="lg:pr-8">
+              <p className="text-sm text-slate-500">Email</p>
               <a
                 href="mailto:contacto@artiificial.art"
-                className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight"
+                className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight text-slate-900"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1763,7 +1769,7 @@ const HistoriaSection = memo(() => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   data-lucide="mail"
-                  className="lucide lucide-mail w-5 h-5"
+                  className="lucide lucide-mail w-5 h-5 shrink-0"
                 >
                   <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
                   <rect x="2" y="4" width="20" height="16" rx="2"></rect>
@@ -1772,13 +1778,13 @@ const HistoriaSection = memo(() => {
               </a>
             </div>
 
-            <div className="md:pl-8">
-              <p className="text-sm text-white/70">Schedule</p>
+            <div className="sm:pl-0 lg:px-8">
+              <p className="text-sm text-slate-500">Agenda</p>
               <a
                 href="https://calendly.com/artificial-company-local/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-tight text-gray-900 bg-white hover:bg-white/90 border border-white/10 mt-2"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-tight text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 mt-2 shadow-sm"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1802,23 +1808,74 @@ const HistoriaSection = memo(() => {
               </a>
             </div>
 
+            <div className="sm:col-span-2 sm:border-t sm:border-slate-200/90 sm:pt-8 lg:col-span-1 lg:border-t-0 lg:pt-0 lg:pl-8 sm:mt-0">
+              <p className="text-sm text-slate-500">Redes</p>
+              <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                {HISTORIA_SOCIAL.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.aria}
+                    title={s.name}
+                    className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/90 bg-white text-slate-600 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400 ${s.className}`}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <p className="mt-6 text-center text-[11px] text-white/60">
-            © <span id="year">2025</span> — Disponible para proyectos
+          <p className="mt-6 text-center text-[11px] text-slate-500">
+            © <span id="year">{new Date().getFullYear()}</span> — Disponible para proyectos
           </p>
         </div>
+      </div>
       </div>
     </section>
   );
 });
 HistoriaSection.displayName = 'HistoriaSection';
 
+type SplashPhase = "splash" | "fade" | "none";
+
 function LandingPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showChroma, setShowChroma] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [splashPhase, setSplashPhase] = useState<SplashPhase>("splash");
+
+  // Splash: fondo blanco + logo centrado, luego fade; scroll del documento bloqueado solo mientras dura
+  useEffect(() => {
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const showMs = reduce ? 250 : 1200;
+    const fadeMs = reduce ? 1 : 780;
+    const tFade = window.setTimeout(() => setSplashPhase("fade"), showMs);
+    const tDone = window.setTimeout(() => setSplashPhase("none"), showMs + fadeMs + 120);
+    return () => {
+      window.clearTimeout(tFade);
+      window.clearTimeout(tDone);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (splashPhase === "none") {
+      document.documentElement.style.removeProperty("overflow");
+      document.body.style.removeProperty("overflow");
+      return;
+    }
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.removeProperty("overflow");
+      document.body.style.removeProperty("overflow");
+    };
+  }, [splashPhase]);
 
   // Preload critical GIFs for optimal loading experience
   const { isLoaded: isGifLoaded } = useGifPreloader(
@@ -1922,113 +1979,166 @@ function LandingPage() {
     }
   }, []);
 
+  const splashFadeClass =
+    "transition-opacity duration-[780ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+
   return (
-    <div className="bg-black text-white font-sans overflow-x-hidden">
+    <div className="bg-black text-white font-sans overflow-x-clip">
+      {splashPhase !== "none" && (
+        <div
+          className={`fixed inset-0 z-[200] flex items-center justify-center bg-white ${splashFadeClass} ${
+            splashPhase === "fade" ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+          aria-hidden
+        >
+          <div className="relative h-44 w-44 sm:h-52 sm:w-52 md:h-60 md:w-60">
+            <Image
+              src="/splash/splash.png"
+              alt=""
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 176px, 240px"
+              priority
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={`${splashFadeClass} ${
+          splashPhase === "splash"
+            ? "pointer-events-none opacity-0"
+            : "opacity-100"
+        }`}
+      >
       <OptimizedFonts />
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 md:py-6">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/95 backdrop-blur-sm py-3">
+        <div className="mx-auto flex max-w-7xl items-center px-4 lg:px-8">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex justify-center">
-            <nav className="flex items-center justify-center">
-              {/* Apple-style Tab Bar - Center with Brand */}
-              <div className="apple-tab-bar px-6 py-3 flex items-center space-x-52">
-                {/* Brand Logo - Left Side of Tab Bar */}
-                <div className="flex items-center group cursor-pointer">
-                  <div className="text-center">
-                    <h1 className="brand-logo text-xl font-bold tracking-tight">
-                      art_ificial
-                    </h1>
-                  </div>
-                </div>
-                {/* Navigation Items */}
-                <div className="flex items-center space-x-1">
-                  {navItems.map((item, index) => (
-                    <button
-                      key={index}
-                      onClick={() => scrollToSection(item.href, index)}
-                      className={`apple-tab-item px-4 py-2 text-sm font-medium transition-all duration-300 ${activeIndex === index
-                          ? 'active text-white'
-                          : 'text-gray-300 hover:text-white'
-                        }`}
-                    >
-                      <span className="relative z-10">{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="relative hidden w-full items-center md:flex">
+            <div className="flex items-center gap-2 px-[10px] mx-[216px]">
+              <h1 className="text-lg font-semibold tracking-tight text-white">
+                art_ificial
+              </h1>
+              <Image
+                src="/header/logo_header.png"
+                alt="Logo Art_ificial"
+                width={19}
+                height={20}
+                className="h-5 w-auto opacity-90"
+                priority
+              />
+            </div>
+            <nav className="absolute left-1/2 flex -translate-x-1/2 items-center gap-8">
+              {navItems.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToSection(item.href, index)}
+                  className={`text-xs font-medium tracking-wide transition-colors duration-200 ${activeIndex === index
+                    ? 'text-white'
+                    : 'text-white/75 hover:text-white'
+                    }`}
+                >
+                  {item.label}
+                </button>
+              ))}
             </nav>
           </div>
 
           {/* Mobile Navigation */}
-          <div className="md:hidden flex items-center justify-between">
+          <div className="flex w-full items-center justify-between md:hidden">
             {/* Mobile Brand Logo */}
-            <div className="flex items-center group cursor-pointer">
-              <div className="text-left">
-                <h1 className="brand-logo text-xl font-bold tracking-tight">
-                  art_ificial
-                </h1>
-              </div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg font-semibold tracking-tight text-white">
+                art_ificial
+              </h1>
+              <Image
+                src="/header/logo_header.png"
+                alt="Logo Art_ificial"
+                width={19}
+                height={20}
+                className="h-5 w-auto opacity-90"
+                priority
+              />
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button — barras absolutas para que la X coincida al abrir */}
             <button
+              type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative w-8 h-8 flex flex-col items-center justify-center space-y-1.5 transition-all duration-300"
-              aria-label="Toggle menu"
+              className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={isMobileMenuOpen}
             >
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-                }`}></span>
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''
-                }`}></span>
-              <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-                }`}></span>
+              <span
+                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isMobileMenuOpen ? "translate-y-0 rotate-45" : "-translate-y-[7px] rotate-0"
+                }`}
+              />
+              <span
+                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-opacity duration-200 ease-out ${
+                  isMobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isMobileMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-[7px] rotate-0"
+                }`}
+              />
             </button>
-          </div>
-
-          {/* Mobile Menu Overlay */}
-          <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-            }`}>
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-black/90 backdrop-blur-lg"
-              onClick={() => setIsMobileMenuOpen(false)}
-            ></div>
-
-            {/* Menu Content */}
-            <div className={`relative flex flex-col items-center justify-center h-full transition-all duration-500 ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-10'
-              }`}>
-              <nav className="flex flex-col items-center space-y-8">
-                {navItems.map((item, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      scrollToSection(item.href, index);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`text-2xl font-semibold transition-all duration-300 hover:scale-110 ${activeIndex === index
-                        ? 'text-white'
-                        : 'text-gray-300 hover:text-white'
-                      }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-
-              {/* Mobile menu decoration */}
-              <div className="absolute bottom-20 text-center">
-                <p className="text-sm text-gray-400">
-                  Toca en cualquier lugar para cerrar
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </header>
+
+      {/* Menú móvil fuera del header: backdrop-blur en el header hace que fixed dentro quede recortado a ~56px */}
+      <div
+        className={`fixed inset-0 z-40 bg-black md:hidden ${
+          isMobileMenuOpen
+            ? "visible opacity-100"
+            : "invisible pointer-events-none opacity-0"
+        } transition-opacity duration-300 ease-out`}
+      >
+        <div
+          className="absolute inset-0 bg-black"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden
+        />
+
+        <div
+          className={`relative z-10 mx-auto flex min-h-0 h-full max-h-[100dvh] w-full max-w-md flex-col justify-center px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(5.25rem,env(safe-area-inset-top))] transition-transform duration-300 ease-out motion-reduce:transition-none ${
+            isMobileMenuOpen ? "translate-y-0" : "translate-y-3"
+          }`}
+        >
+          <nav className="flex flex-col gap-1" role="navigation" aria-label="Principal móvil">
+            {navItems.map((item, index) => {
+              const active = activeIndex === index;
+              return (
+                <button
+                  key={item.href}
+                  type="button"
+                  onClick={() => {
+                    scrollToSection(item.href, index);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full py-4 text-center text-xl font-semibold tracking-tight transition-colors ${
+                    active ? "text-white" : "text-white/70 active:text-white/90"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          <p className="mx-auto mt-auto max-w-sm pt-12 text-center text-xs leading-relaxed text-white/35">
+            Toca fuera o el icono arriba para cerrar
+          </p>
+        </div>
+      </div>
       <HeroSection key="hero-section-persistent" isInicioActive={activeIndex === 0} />
-      <ServicesSection {...servicesChunks} isServiciosActive={activeIndex === 1} showChroma={showChroma} />
+      <ServiciosIntroSection />
       <VentajasSection />
       <HistoriaSection />
+      </div>
     </div>
   )
 }
