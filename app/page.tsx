@@ -1378,6 +1378,12 @@ const portfolioItems = [
   {
     title: "Unisantander",
     type: "Branding + Web institucional",
+    image: "/portfolio/unisantander.png",
+    gallery: [
+      "/portfolio/unisantander2.png",
+      "/portfolio/unisantander3.png",
+      "/portfolio/unisantander4.png",
+    ],
     problem:
       "Tenían presencia digital fragmentada y su comunicación no reflejaba el nivel institucional que necesitaban proyectar.",
     solution:
@@ -1387,6 +1393,12 @@ const portfolioItems = [
   {
     title: "Vierco SAS",
     type: "Web + Infraestructura agéntica",
+    image: "/portfolio/vierco.png",
+    gallery: [
+      "/portfolio/vierco2.png",
+      "/portfolio/vierco3.png",
+      "/portfolio/vierco4.png",
+    ],
     problem:
       "La operación dependía de seguimiento manual, mensajes cruzados y tareas repetitivas que frenaban el crecimiento.",
     solution:
@@ -1396,6 +1408,8 @@ const portfolioItems = [
   {
     title: "Próximo caso publicado",
     type: "Implementación en curso",
+    image: "",
+    gallery: [],
     problem:
       "Muchas pymes saben que deben digitalizarse, pero no tienen una ruta clara de qué atacar primero para ver retorno.",
     solution:
@@ -1562,6 +1576,35 @@ const ServiciosIntroSection = memo(() => {
 ServiciosIntroSection.displayName = 'ServiciosIntroSection';
 
 const PortfolioSection = memo(() => {
+  const [activeSlides, setActiveSlides] = useState<Record<string, number>>({});
+
+  const getSlides = useCallback((item: (typeof portfolioItems)[number]) => {
+    return item.image ? [item.image, ...item.gallery] : [];
+  }, []);
+
+  const goToSlide = useCallback((title: string, nextIndex: number, total: number) => {
+    const safeIndex = ((nextIndex % total) + total) % total;
+    setActiveSlides((prev) => ({ ...prev, [title]: safeIndex }));
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSlides((prev) => {
+        const next = { ...prev };
+        portfolioItems.forEach((item) => {
+          const slides = getSlides(item);
+          if (slides.length > 1) {
+            const current = prev[item.title] ?? 0;
+            next[item.title] = (current + 1) % slides.length;
+          }
+        });
+        return next;
+      });
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, [getSlides]);
+
   return (
     <section id="portafolio" className="relative z-10 bg-white px-4 pb-14 pt-4 sm:px-6 sm:pb-16">
       <div className="mx-auto max-w-7xl">
@@ -1571,18 +1614,91 @@ const PortfolioSection = memo(() => {
             Trabajo real con resultados concretos
           </h2>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {portfolioItems.map((item) => (
-            <article key={item.title} className="rounded-2xl border border-black/10 bg-black/[0.02] p-4 sm:p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-black/55">{item.type}</p>
-              <h3 className="mt-1 text-xl font-semibold tracking-tight text-black">{item.title}</h3>
-              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55">Problema inicial</p>
-              <p className="mt-1 text-sm leading-relaxed text-black/70">{item.problem}</p>
-              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55">Solución implementada</p>
-              <p className="mt-1 text-sm leading-relaxed text-black/70">{item.solution}</p>
-              <p className="mt-3 rounded-lg bg-black px-3 py-2 text-xs font-medium text-white/90">{item.result}</p>
-            </article>
-          ))}
+        <div className="grid grid-cols-1 gap-4">
+          {portfolioItems.map((item) => {
+            const slides = getSlides(item);
+            const current = activeSlides[item.title] ?? 0;
+
+            return (
+              <article
+                key={item.title}
+                className="overflow-hidden rounded-2xl bg-black text-white shadow-sm"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr]">
+                  <div className="relative min-h-[280px] overflow-hidden md:min-h-[360px]">
+                    {slides.length > 0 ? (
+                      <>
+                        <div
+                          className="flex h-full w-full transition-transform duration-500 ease-out"
+                          style={{ transform: `translateX(-${current * 100}%)` }}
+                        >
+                          {slides.map((img, idx) => (
+                            <div key={`${item.title}-${idx}`} className="relative h-full min-w-full">
+                              <Image
+                                src={img}
+                                alt={`${item.title} - imagen ${idx + 1}`}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, 55vw"
+                                loading="lazy"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        {slides.length > 1 && (
+                          <>
+                            <button
+                              type="button"
+                              aria-label={`Imagen anterior de ${item.title}`}
+                              onClick={() => goToSlide(item.title, current - 1, slides.length)}
+                              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/30 bg-black/45 px-3 py-2 text-sm text-white backdrop-blur-sm"
+                            >
+                              ←
+                            </button>
+                            <button
+                              type="button"
+                              aria-label={`Imagen siguiente de ${item.title}`}
+                              onClick={() => goToSlide(item.title, current + 1, slides.length)}
+                              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/30 bg-black/45 px-3 py-2 text-sm text-white backdrop-blur-sm"
+                            >
+                              →
+                            </button>
+                            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+                              {slides.map((_, idx) => (
+                                <button
+                                  key={`${item.title}-dot-${idx}`}
+                                  type="button"
+                                  aria-label={`Ir a imagen ${idx + 1} de ${item.title}`}
+                                  onClick={() => goToSlide(item.title, idx, slides.length)}
+                                  className={`h-2.5 w-2.5 rounded-full border border-white/40 ${
+                                    idx === current ? "bg-white" : "bg-white/35"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%),linear-gradient(160deg,#131313,#27272a)] px-4 text-center text-xs text-white/80">
+                        Imagen del próximo caso en preparación
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-4 sm:p-5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/65">{item.type}</p>
+                    <h3 className="mt-1 text-xl font-semibold tracking-tight">{item.title}</h3>
+                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60">Problema inicial</p>
+                    <p className="mt-1 text-sm leading-relaxed text-white/85">{item.problem}</p>
+                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60">Solución implementada</p>
+                    <p className="mt-1 text-sm leading-relaxed text-white/85">{item.solution}</p>
+                    <p className="mt-3 rounded-lg bg-white/12 px-3 py-2 text-xs font-medium text-white backdrop-blur-sm">{item.result}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
