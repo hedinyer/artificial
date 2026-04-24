@@ -1,7 +1,28 @@
 import type { MetadataRoute } from "next";
 
+const citySlugs = [
+  "bucaramanga",
+  "medellin",
+  "bogota",
+  "barranquilla",
+  "cali",
+  "miami",
+  "california",
+  "texas",
+  "new-york",
+  "berlin",
+  "hamburg",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+
+  const cityUrls: MetadataRoute.Sitemap = citySlugs.map((slug) => ({
+    url: `https://artiificial.art/ciudades/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.75,
+  }));
 
   return [
     {
@@ -34,5 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: "https://artiificial.art/ciudades",
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    ...cityUrls,
   ];
 }
