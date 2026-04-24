@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -77,6 +77,8 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.7",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

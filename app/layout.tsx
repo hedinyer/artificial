@@ -10,8 +10,42 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'art_ificial - Experiences made by humans',
-  description: 'Tu negocio merece destacar. No solo funcionar. Impulsa tu productividad, domina tus datos y construye productos que te posicionen como único, no genérico.',
+  metadataBase: new URL('https://artiificial.art'),
+  title: {
+    default: 'Agencia digital en Bucaramanga | Diseño, software e IA | art_ificial',
+    template: '%s | art_ificial',
+  },
+  description:
+    'Agencia digital en Bucaramanga, Colombia. Unimos diseño de marca, desarrollo web y automatización con IA para ayudarte a vender más y operar mejor.',
+  keywords: [
+    'agencia digital Bucaramanga',
+    'diseño de marca Colombia',
+    'desarrollo web Bucaramanga',
+    'automatización con IA Colombia',
+    'artificial art',
+  ],
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_CO',
+    url: 'https://artiificial.art',
+    siteName: 'art_ificial',
+    title: 'Agencia digital en Bucaramanga | Diseño, software e IA',
+    description:
+      'Diseño, desarrollo y automatización en una sola agencia para empresas en Bucaramanga y Colombia.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Agencia digital en Bucaramanga | art_ificial',
+    description:
+      'Diseño, software y automatización con IA para empresas en Colombia.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -22,10 +56,6 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        {/* Preload critical resources */}
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        
         {/* Preload critical GIFs for optimal loading experience */}
         <link rel="preload" href="/1.png" as="image" type="image/png" />
         <link rel="preload" href="/gifs/uiux.gif" as="image" type="image/gif" />
@@ -41,7 +71,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         <a
-          href="https://wa.me/573171053785"
+          href="https://wa.me/573171053785?text=Hola%20art_ificial%2C%20quiero%20un%20diagnostico%20digital%20para%20mi%20empresa."
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-5 right-5 z-[100] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform hover:scale-105 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] active:scale-95 sm:bottom-6 sm:right-6 sm:h-[3.75rem] sm:w-[3.75rem]"

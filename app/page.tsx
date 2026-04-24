@@ -48,6 +48,9 @@ const benefitGifs = [
   "/ventajas/6.jpg",
 ];
 
+const WHATSAPP_URL =
+  "https://wa.me/573171053785?text=Hola%20art_ificial%2C%20quiero%20agendar%20un%20diagnostico%20gratuito%20de%2020%20minutos.";
+
 // Optimized static data with memoization
 const chromaItems = [
   {
@@ -127,6 +130,7 @@ const services = [
 const navItems = [
   { label: "Nosotros", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
+  { label: "Portafolio", href: "#portafolio" },
   { label: "Ventajas", href: "#ventajas" },
   { label: "Hablemos", href: "#historia" },
 ];
@@ -137,10 +141,10 @@ const ventajas = [
     icon: Zap,
     title: "Multiplica tu productividad hasta 3x",
     description: "Automatizamos procesos repetitivos para que tu equipo se enfoque en lo que realmente importa",
-    benefit: "43% de aumento en velocidad operativa",
-    source: "BusinessDasher 2024",
-    metric: "Hasta 3 horas diarias de tareas automatizables por empleado",
-    metricSource: "McKinsey 2025",
+    benefit: "Implementación orientada a cuellos de botella reales",
+    source: "",
+    metric: "",
+    metricSource: "",
     gradient: "from-blue-500 to-cyan-500",
     borderColor: "#3B82F6"
   },
@@ -148,10 +152,10 @@ const ventajas = [
     icon: DollarSign,
     title: "Ahorra hasta 32% en costos operativos",
     description: "Eliminamos gastos innecesarios y optimizamos recursos existentes",
-    benefit: "ROI de hasta 200% en el primer año",
-    source: "Estudios ServiceNow 2024",
-    metric: "Reducción de 20%+ en costos contables",
-    metricSource: "Vintti Research 2024",
+    benefit: "Ahorro medible por proceso automatizado",
+    source: "",
+    metric: "",
+    metricSource: "",
     gradient: "from-green-500 to-emerald-500",
     borderColor: "#10B981"
   },
@@ -181,10 +185,10 @@ const ventajas = [
     icon: Bot,
     title: "Agentes de IA que trabajan 24/7",
     description: "Delegamos tareas administrativas a inteligencia artificial avanzada",
-    benefit: "90% de tareas repetitivas pueden automatizarse",
-    source: "BusinessDasher 2024",
-    metric: "60% de empresas ya implementan soluciones de automatización",
-    metricSource: "Duke University 2024",
+    benefit: "Automatización gradual con foco en retorno",
+    source: "",
+    metric: "",
+    metricSource: "",
     gradient: "from-indigo-500 to-purple-500",
     borderColor: "#6366F1"
   },
@@ -202,14 +206,6 @@ const ventajas = [
 ];
 
 // Credibility data
-const credibilityData = [
-  "Organizaciones con automatización avanzada reportan 32% de ahorro en costos promedio (Deloitte 2024)",
-  "ROI entre 30% y 200% en el primer año por automatización (ServiceNow 2024)",
-  "Potencial de automatizar hasta 3 horas diarias por empleado para 2030 (McKinsey 2025)",
-  "45% de empresas usan automatización e IA para reducir costos (BusinessDasher 2024)",
-  "60% de empresas ya implementaron soluciones de automatización (Duke University 2024)"
-];
-
 // Enhanced services data with conversion-focused content
 const enhancedServices = [
   {
@@ -332,7 +328,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
             </p>
             <div className="mt-1.5 flex flex-wrap items-center gap-1">
               <a
-                href="https://wa.me/573171053785"
+                href={WHATSAPP_URL}
                 className="inline-flex items-center gap-0.5 text-[10px] font-medium text-black bg-emerald-500 rounded px-2 py-0.5 hover:bg-emerald-400 transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -377,7 +373,7 @@ const ServicesSection = memo(({ services1, services2, services3, services4, isSe
                 />
               </div>
               <a
-                href="https://wa.me/573171053785"
+                href={WHATSAPP_URL}
                 className="mt-2.5 inline-flex items-center justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/90 backdrop-blur hover:bg-white/10 hover:text-white transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1228,7 +1224,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
         <div className="mx-auto w-full max-w-3xl text-center">
           <p className="mb-3 sm:mb-4 inline-flex max-w-[95%] items-center justify-center gap-1.5 rounded-full border border-sky-400/60 bg-white/5 px-2.5 py-1 text-[11px] font-medium leading-tight text-black sm:gap-2 sm:px-3 sm:text-xs">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-sky-400 sm:h-4 sm:w-4" />
-            <span className="text-balance">Todo para impulsar tu empresa y crecimiento</span>
+            <span className="text-balance">Empresa colombiana en Bucaramanga · respuesta en menos de 2 horas</span>
           </p>
 
           <h1
@@ -1250,7 +1246,9 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
 
           <div className="mt-9 flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:mx-auto sm:mt-8 sm:max-w-none sm:w-auto sm:flex-row sm:items-center sm:px-0">
             <a
-              href="#servicios"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <button
                 type="button"
@@ -1280,7 +1278,7 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
                   ))}
                 </div>
                 <span className="inner">
-                  Nuestros servicios
+                  Hablar por WhatsApp
                   <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
@@ -1289,16 +1287,14 @@ const HeroSection = memo(({ isInicioActive }: { isInicioActive: boolean }) => {
               </button>
             </a>
             <a
-              href="https://wa.me/573171053785"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#portafolio"
               className="w-full sm:w-auto"
             >
               <button
                 type="button"
                 className="w-full min-h-12 min-w-0 rounded-full border border-gray-200 bg-white px-8 py-3 text-slate-900 font-medium shadow-md shadow-black/20 transition-colors hover:bg-white/95 sm:min-w-[220px]"
               >
-                Contactanos
+                Ver portafolio
               </button>
             </a>
           </div>
@@ -1337,6 +1333,9 @@ const serviciosIntroCards = [
   {
     title: "Diseño",
     image: "/services/diseno.png",
+    audience: "Empresas que necesitan una identidad sólida para vender mejor.",
+    timeline: "2 a 4 semanas",
+    pricing: "Desde COP $3.000.000",
     bullets: [
       { headline: "Marca que no se confunde con la competencia", body: "Sistema visual + voz: mismo nivel en web, redes y piezas comerciales." },
       { headline: "Interfaces que la gente sí termina", body: "Menos fricción en formularios y flujos; más conversiones y menos soporte repetitivo." },
@@ -1348,6 +1347,9 @@ const serviciosIntroCards = [
   {
     title: "Productividad",
     image: "/services/productividad.png",
+    audience: "Equipos que pierden tiempo en tareas repetitivas y seguimiento manual.",
+    timeline: "3 a 6 semanas",
+    pricing: "Desde COP $4.500.000",
     bullets: [
       { headline: "Quitamos el trabajo zombie del día a día", body: "Datos, reportes y tareas repetitivas: automatizados para que el equipo respire." },
       { headline: "IA que atiende mientras tú cierras", body: "Agentes para respuestas, seguimiento y admin: 24/7 sin sumar cabezas a nómina." },
@@ -1359,6 +1361,9 @@ const serviciosIntroCards = [
   {
     title: "Ganancias",
     image: "/services/ganancias.png",
+    audience: "Negocios que quieren escalar operaciones sin crecer nómina.",
+    timeline: "4 a 8 semanas",
+    pricing: "Desde COP $6.000.000",
     bullets: [
       { headline: "Misma capacidad, menos gasto fijo", body: "Automatización y sistemas que sustituyen horas-hombre, no ambición." },
       { headline: "Sabrás qué línea de negocio te paga de verdad", body: "Inteligencia de datos y dashboards: decisiones con números, no solo instinto." },
@@ -1366,6 +1371,36 @@ const serviciosIntroCards = [
       { headline: "Menos fugas de dinero por error humano", body: "Controles y flujos que reducen reprocesos, multas y retrabajo." },
       { headline: "Escalar volumen sin inflar la planilla", body: "Tecnología que absorbe picos: creces sin prometer lo imposible al talento." },
     ],
+  },
+] as const;
+
+const portfolioItems = [
+  {
+    title: "Unisantander",
+    type: "Branding + Web institucional",
+    problem:
+      "Tenían presencia digital fragmentada y su comunicación no reflejaba el nivel institucional que necesitaban proyectar.",
+    solution:
+      "Diseñamos branding completo y construimos su página web institucional con una narrativa clara para audiencias académicas y corporativas.",
+    result: "En 5 semanas pasaron de imagen dispersa a una marca coherente y un sitio listo para generar confianza desde la primera visita.",
+  },
+  {
+    title: "Vierco SAS",
+    type: "Web + Infraestructura agéntica",
+    problem:
+      "La operación dependía de seguimiento manual, mensajes cruzados y tareas repetitivas que frenaban el crecimiento.",
+    solution:
+      "Construimos su página web y una infraestructura agéntica que coordina pedidos, estados y decisiones operativas en flujo continuo.",
+    result: "En 8 semanas lograron coordinación operativa con 0 intervención humana en procesos clave y más tiempo del equipo para ventas.",
+  },
+  {
+    title: "Próximo caso publicado",
+    type: "Implementación en curso",
+    problem:
+      "Muchas pymes saben que deben digitalizarse, pero no tienen una ruta clara de qué atacar primero para ver retorno.",
+    solution:
+      "Abrimos un cupo para implementar branding, web y automatización con foco en quick wins durante los primeros 30 días.",
+    result: "Publicaremos el caso completo con problema, solución, tiempos y resultados medibles para que compares contra tu negocio.",
   },
 ] as const;
 
@@ -1396,6 +1431,11 @@ const ServiciosIntroAccordionPanel = memo(function ServiciosIntroAccordionPanel(
       <p className="mt-1 text-sm font-medium text-black/80 sm:text-base">
         Cinco formas concretas en las que te impactamos
       </p>
+      <div className="mt-3 grid gap-2 rounded-xl border border-black/10 bg-white/70 p-3 text-xs text-black/70 sm:grid-cols-3">
+        <p><span className="font-semibold text-black">Para quién:</span> {card.audience}</p>
+        <p><span className="font-semibold text-black">Tiempo estimado:</span> {card.timeline}</p>
+        <p><span className="font-semibold text-black">Rango base:</span> {card.pricing}</p>
+      </div>
       <div className="mt-4 flex flex-col divide-y divide-black/10 border-t border-black/10">
         {card.bullets.map((row, i) => {
           const expanded = openRow === i;
@@ -1521,6 +1561,35 @@ const ServiciosIntroSection = memo(() => {
 });
 ServiciosIntroSection.displayName = 'ServiciosIntroSection';
 
+const PortfolioSection = memo(() => {
+  return (
+    <section id="portafolio" className="relative z-10 bg-white px-4 pb-14 pt-4 sm:px-6 sm:pb-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-7 text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-black/60 sm:text-sm">Portafolio</p>
+          <h2 className="mt-2 text-balance text-[1.35rem] font-light leading-snug tracking-tight text-black sm:text-[25px] [font-family:'Helvetica Neue']">
+            Trabajo real con resultados concretos
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {portfolioItems.map((item) => (
+            <article key={item.title} className="rounded-2xl border border-black/10 bg-black/[0.02] p-4 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-black/55">{item.type}</p>
+              <h3 className="mt-1 text-xl font-semibold tracking-tight text-black">{item.title}</h3>
+              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55">Problema inicial</p>
+              <p className="mt-1 text-sm leading-relaxed text-black/70">{item.problem}</p>
+              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55">Solución implementada</p>
+              <p className="mt-1 text-sm leading-relaxed text-black/70">{item.solution}</p>
+              <p className="mt-3 rounded-lg bg-black px-3 py-2 text-xs font-medium text-white/90">{item.result}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
+PortfolioSection.displayName = "PortfolioSection";
+
 // Create a memoized ventajas section component
 const VentajasSection = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
@@ -1625,7 +1694,7 @@ const VentajasSection = memo(() => {
                     pointerEvents: 'none',
                     opacity: loadedBackgrounds.has(index) ? 1 : 0.5
                   }}
-                  loading="eager"
+                  loading={index === 0 ? "eager" : "lazy"}
                   decoding="async"
                   onLoad={() => {
                     setLoadedBackgrounds(prev => new Set([...prev, index]));
@@ -1695,7 +1764,7 @@ VentajasSection.displayName = 'VentajasSection';
 const HISTORIA_SOCIAL = [
   {
     name: "WhatsApp",
-    href: "https://wa.me/573171053785",
+    href: WHATSAPP_URL,
     aria: "Escribir por WhatsApp",
     className: "text-[#25D366] hover:border-transparent hover:bg-[#25D366] hover:text-white",
     icon: (
@@ -1779,7 +1848,7 @@ const HistoriaSection = memo(() => {
             </div>
 
             <div className="sm:pl-0 lg:px-8">
-              <p className="text-sm text-slate-500">Agenda</p>
+              <p className="text-sm text-slate-500">Diagnóstico gratuito</p>
               <a
                 href="https://calendly.com/artificial-company-local/30min"
                 target="_blank"
@@ -1804,8 +1873,11 @@ const HistoriaSection = memo(() => {
                   <rect width="18" height="18" x="3" y="4" rx="2"></rect>
                   <path d="M3 10h18"></path>
                 </svg>
-                <span>Book a call</span>
+                <span>Agendar diagnóstico gratis (20 min)</span>
               </a>
+              <p className="mt-3 max-w-sm text-xs leading-relaxed text-slate-500">
+                Después de agendar revisamos tu caso, definimos prioridades y te entregamos un plan de acción inicial sin compromiso.
+              </p>
             </div>
 
             <div className="sm:col-span-2 sm:border-t sm:border-slate-200/90 sm:pt-8 lg:col-span-1 lg:border-t-0 lg:pt-0 lg:pl-8 sm:mt-0">
@@ -1986,9 +2058,64 @@ function LandingPage() {
 
   const splashFadeClass =
     "transition-opacity duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+  const trackEvent = useCallback((eventName: string, payload: Record<string, string>) => {
+    if (typeof window === "undefined") return;
+    const win = window as Window & { dataLayer?: Array<Record<string, unknown>> };
+    win.dataLayer = win.dataLayer || [];
+    win.dataLayer.push({ event: eventName, ...payload });
+  }, []);
+  useEffect(() => {
+    const clickHandler = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const anchor = target?.closest("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href") || "";
+      if (href.includes("wa.me")) {
+        trackEvent("cta_click", { channel: "whatsapp", href });
+      } else if (href.includes("calendly.com")) {
+        trackEvent("cta_click", { channel: "calendly", href });
+      } else if (href === "#portafolio") {
+        trackEvent("cta_click", { channel: "portfolio", href });
+      }
+    };
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
+  }, [trackEvent]);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "art_ificial",
+    url: "https://artiificial.art",
+    image: "https://artiificial.art/placeholder-logo.png",
+    areaServed: "Colombia",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bucaramanga",
+      addressCountry: "CO",
+    },
+    sameAs: [
+      "https://www.instagram.com/artiificial.art",
+      "https://www.linkedin.com/company/artificial",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: "+57 317 105 3785",
+      availableLanguage: "es",
+    },
+    makesOffer: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Diseño de marca" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Desarrollo web y apps" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Automatización con IA" } },
+    ],
+  };
 
   return (
     <div className="bg-black text-white font-sans overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {splashPhase !== "none" && (
         <div
           className={`fixed inset-0 z-[200] flex items-center justify-center bg-white ${splashFadeClass} ${
@@ -2141,6 +2268,7 @@ function LandingPage() {
       </div>
       <HeroSection key="hero-section-persistent" isInicioActive={activeIndex === 0} />
       <ServiciosIntroSection />
+      <PortfolioSection />
       <VentajasSection />
       <HistoriaSection />
       </div>
