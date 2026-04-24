@@ -19,6 +19,16 @@ export const metadata: Metadata = {
     'Agencia digital en Bucaramanga, Colombia. Unimos diseño de marca, desarrollo web y automatización con IA para ayudarte a vender más y operar mejor.',
   keywords: [
     'agencia digital Bucaramanga',
+    'agencia digital Medellín',
+    'agencia digital Bogotá',
+    'agencia digital Barranquilla',
+    'agencia digital Cali',
+    'digital agency Miami',
+    'digital agency California',
+    'digital agency Texas',
+    'digital agency New York',
+    'digitalagentur Berlin',
+    'digitalagentur Hamburg',
     'diseño de marca Colombia',
     'desarrollo web Bucaramanga',
     'automatización con IA Colombia',
@@ -26,6 +36,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: '/',
+    languages: {
+      'es-CO': '/',
+      en: '/?lang=en',
+      de: '/?lang=de',
+    },
   },
   openGraph: {
     type: 'website',
@@ -45,6 +60,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
 }
 

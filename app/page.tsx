@@ -22,6 +22,7 @@ import "./components/AnimatedShadows.css";
 import "./components/OptimizedMedia.css";
 import OptimizedGif from "./components/OptimizedGif";
 import useGifPreloader, { getGifLoadingAttrs } from "./hooks/useGifPreloader";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 // Simple components without optimization
 const MemoizedBeams = memo(Beams);
@@ -2203,7 +2204,20 @@ function LandingPage() {
     name: "art_ificial",
     url: "https://artiificial.art",
     image: "https://artiificial.art/placeholder-logo.png",
-    areaServed: "Colombia",
+    areaServed: [
+      { "@type": "City", name: "Bucaramanga" },
+      { "@type": "City", name: "Medellín" },
+      { "@type": "City", name: "Bogotá" },
+      { "@type": "City", name: "Barranquilla" },
+      { "@type": "City", name: "Cali" },
+      { "@type": "City", name: "Miami" },
+      { "@type": "State", name: "California" },
+      { "@type": "State", name: "Texas" },
+      { "@type": "City", name: "New York" },
+      { "@type": "City", name: "Berlin" },
+      { "@type": "City", name: "Hamburg" },
+      { "@type": "Place", name: "Europa" },
+    ],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Bucaramanga",
@@ -2290,6 +2304,9 @@ function LandingPage() {
                 </button>
               ))}
             </nav>
+            <div className="ml-auto">
+              <LanguageSwitcher />
+            </div>
           </div>
 
           {/* Mobile Navigation */}
@@ -2310,29 +2327,32 @@ function LandingPage() {
             </div>
 
             {/* Mobile Menu Button — barras absolutas para que la X coincida al abrir */}
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-              aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-              aria-expanded={isMobileMenuOpen}
-            >
-              <span
-                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isMobileMenuOpen ? "translate-y-0 rotate-45" : "-translate-y-[7px] rotate-0"
-                }`}
-              />
-              <span
-                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-opacity duration-200 ease-out ${
-                  isMobileMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isMobileMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-[7px] rotate-0"
-                }`}
-              />
-            </button>
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-md outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+                aria-expanded={isMobileMenuOpen}
+              >
+                <span
+                  className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    isMobileMenuOpen ? "translate-y-0 rotate-45" : "-translate-y-[7px] rotate-0"
+                  }`}
+                />
+                <span
+                  className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-opacity duration-200 ease-out ${
+                    isMobileMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`absolute h-[2px] w-[22px] origin-center rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    isMobileMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-[7px] rotate-0"
+                  }`}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </header>

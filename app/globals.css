@@ -871,6 +871,16 @@ body {
   animation: gradient-shift 8s ease infinite;
 }
 
+/* Google Translate widget cleanup */
+.goog-te-banner-frame.skiptranslate,
+iframe.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 /* Animated colorful shadow */
 @keyframes colorful-shadow {
   0% {
