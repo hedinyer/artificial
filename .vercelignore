@@ -1,0 +1,15 @@
+# Acelera `vercel` CLI y evita subir artefactos locales innecesarios
+.vercel
+.env
+.env.*
+!.env.example
+node_modules
+.next
+out
+build
+coverage
+*.log
+.pnpm-debug.log*
+.DS_Store
+.idea
+.vscode
