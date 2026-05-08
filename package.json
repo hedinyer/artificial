@@ -77,11 +77,12 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@google/design.md": "^0.1.1",
+    "@types/node": "^22",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "^19",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.7",
-    "@types/node": "^22",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "patch-package": "^8.0.1",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
